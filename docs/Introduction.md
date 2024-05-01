@@ -34,5 +34,44 @@ _O(log n)_ means that somewhere in your algorithm, the input is being reduced by
 
 
 ## Introduction to Recursion
+Recursion is a problem solving method. While iterative algorithms use for loops and while loops to simulate repetition, recursive algorithms use function calls to simulate the same logic.
+
+An important thing to understand about recursion is the order in which the code runs - the order in which the computer executes instructions. With an iterative program, it's easy - start at the top, and go line by line. With recursion, it can get confusing because calls can cascade on top of each other. Consider the following simple example:
+
+```
+function fn(i):
+1.  if i > 3:
+2.    return
+
+3.  print(i)
+4.  fn(i + 1)
+5.  print(f"End of call where i = {i}")
+6.  return
+
+fn(1)
+```
+
+If you ran this code, you would see the following in the output that illustrates how recursives code _moves back up_ once the recursion has finished.
+
+```
+1
+2
+3
+End of call where i = 3
+End of call where i = 2
+End of call where i = 1
+```
+
+A classic example of recursion can be used to get the _n<sup>th</sup>_ (zero-indexed) Fibonacci number, _F<sub>n</sub> = F<sub>n-1</sub> + F<sub>n-2</sub>_ :
+
+```
+function fibonacci(n):
+    if n <= 1:
+        return n
+
+    oneBack = fibonacci(n - 1)
+    twoBack = fibonacci(n - 2)
+    return oneBack + twoBack
+```
 
 ## Notes before starting
