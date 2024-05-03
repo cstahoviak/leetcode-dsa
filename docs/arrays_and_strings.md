@@ -21,7 +21,38 @@ A quick look at the complexity of array and string operations:
 | Does element exist?      | _O(n)_               | _O(n)_             |
 
 ## Two Pointers
-TODO: left off here.
+Two pointers is an extremely common technique used to solve array and string problems. It involves having two integer variables that both move along an iterable.
+
+```
+def two_pointers(Iterable[arr]):
+  left = 0
+  right = len(arr) - 1
+
+  while left < right:
+    // Some problem-specific logic
+    // Do one of the following:
+      1. left++
+      2. right--
+      3. left++ AND right--
+```
+The strength of this technique is that we will never have more than 
+_O(n)_ iterations for the while loop because the pointers start _n_ away from each other and move at least one step closer in every iteration. Therefore, if we can keep the work inside each iteration at 
+_O(1)_, this technique will result in a linear runtime, which is usually the best possible runtime. A common example of this example is determining if a word is a palindrome, e.g. "racecar".
+
+```
+def two_pointers(Iterable[arr]):
+  left = 0
+  right = len(arr) - 1
+
+  while left < right:
+    if arr[left] != arr[right]:
+      return False
+    left += 1
+    right -= 1
+
+  return True
+```
+
 
 ## Sliding Window
 
