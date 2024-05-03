@@ -13,21 +13,33 @@
 #include <iostream>
 #include <vector>
 
+template <typename T, size_t N>
+void show_result(std::array<T, N> arr, T target) {
+  bool result = check_if_target_sum(arr, target);
+  std::cout << "values=" << arr << ", target=" << target << ": " << 
+    bool_to_string(result) << std::endl;
+}
+
+template <typename T>
+void show_result(std::vector<T> vec, T target) {
+  bool result = check_if_target_sum(vec, target);
+  std::cout << "values=" << vec << ", target=" << target << ": " <<
+    bool_to_string(result) << std::endl;
+}
+
 int main() {
   std::cout << "The Two-Sum algorithm:\n";
 
   // Define the target sum
-  int target = 4;
+  int target = 23;
 
   // Solve the two-sum problem with a static array
   std::array<int, 10> values = { 1, 6, 10, 3, 7, 8, 0, 12, 2, 5 };
   std::sort(values.begin(), values.end());
-  bool result1 = check_if_target_sum(values, target);
-  std::cout << values << ": " << bool_to_string(result1) << std::endl;
+  show_result(values, target);
 
   // Solve the two-sum problem with a vector (dynamic array)
   std::vector<int> vec(values.begin(), values.end());
-  bool result2 = check_if_target_sum(vec, target);
-  std::cout << vec << ": " << bool_to_string(result2) << std::endl;
+  show_result(vec, target);
 
 }

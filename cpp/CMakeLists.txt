@@ -3,9 +3,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 project(LeetcodeDSA)
 
-# If there are np cpp files in src/, this statement is required, otherwise a
-# "Cmake Error: Cannot determine link language for target <library>" is thrown. 
-# set_target_properties(LeetcodeDSA PROPERTIES LINKER_LANGUAGE CXX)
+# Create a macro-defined option with a default value of OFF
+option(DEBUG_INFO "Turn on Debug Info" OFF)
 
 # TODO: Move away from using GLOB
 file(GLOB LIB_SOURCES src/*.cpp)
@@ -27,4 +26,8 @@ foreach( testsourcefile ${APP_SOURCES} )
     add_executable( ${testname} ${testsourcefile} )
     # Make sure YourLib is linked to each app
     target_link_libraries( ${testname} LeetcodeDSALib )
+    # Add debug info for each target
+    if( DEBUG_INFO )
+        target_compile_definitions(${testname} PRIVATE DEBUG_INFO)
+    endif()
 endforeach( testsourcefile ${APP_SOURCES} )

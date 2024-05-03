@@ -12,6 +12,8 @@
  *    target value. False otherwise.
  */
 
+#include "utils.h"
+
 #include <array>
 // Include to get 'size_t'
 #include <cstddef>
@@ -21,7 +23,8 @@
 template <class Iter, class T = typename std::iterator_traits<Iter>::value_type>
 bool _check_if_target_sum(Iter left, Iter right, T target) {
   while (left < right) {
-    std::cout << "left: " << *left << ", right: " << *right << std::endl;
+    // Only LOG if compiled with DEBUG_INFO=ON
+    LOG("left: " << *left << ", right: " << *right);
     T sum = *left + *right;
     if (sum > target)
       right--;
