@@ -15,16 +15,18 @@
 #include <array>
 // Include to get 'size_t'
 #include <cstddef>
+#include <iostream>
 #include <vector>
 
 template <class Iter, class T = typename std::iterator_traits<Iter>::value_type>
-bool _check_if_target_sum(Iter begin, Iter end, T target) {
-  while (begin < end) {
-    T sum = *begin + *end;
+bool _check_if_target_sum(Iter left, Iter right, T target) {
+  while (left < right) {
+    std::cout << "left: " << *left << ", right: " << *right << std::endl;
+    T sum = *left + *right;
     if (sum > target)
-      end--;
+      right--;
     else if (sum < target)
-      begin++;
+      left++;
     else
       return true;
   }
@@ -33,10 +35,10 @@ bool _check_if_target_sum(Iter begin, Iter end, T target) {
 
 template <typename T, size_t N>
 bool check_if_target_sum(std::array<T, N> arr, T target) {
-  return _check_if_target_sum(arr.begin(), arr.end(), target);
+  return _check_if_target_sum(arr.begin(), arr.end() - 1, target);
 }
 
 template <typename T>
 bool check_if_target_sum(std::vector<T> vec, T target) {
-  return _check_if_target_sum(vec.begin(), vec.end(), target);
+  return _check_if_target_sum(vec.begin(), vec.end() - 1, target);
 }
