@@ -69,23 +69,12 @@ std::vector<T> _combine_sorted(Iter begin1, Iter end1, Iter begin2, Iter end2) {
   std::vector<T> combined;
 
   while (begin1 != end1 && begin2 != end2) {
-    T value1 = *begin1;
-    T value2 = *begin2;
-
-    if ( value1 < value2 ) {
-      combined.push_back(value1);
+    if ( *begin1 < *begin2 ) {
+      combined.push_back(*begin1);
       begin1++;
-    }
-    else if (value2 < value1) {
-      combined.push_back(value2);
-      begin2++;
     }
     else {
-      // value1 and value2 are the same
-      combined.push_back(value1);
-      combined.push_back(value2);
-
-      begin1++;
+      combined.push_back(*begin2);
       begin2++;
     }
   }
