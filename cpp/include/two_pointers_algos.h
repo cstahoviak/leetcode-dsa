@@ -9,6 +9,8 @@
 
 #include "utils.h"
 
+#include <algorithm>
+#include <cmath>
 #include <iterator>
 #include <string>
 #include <vector>
@@ -95,7 +97,7 @@ namespace algorithms::_two_pointers {
    * @param t The string to search for 's' in.
    * @return True if the subsequence 's' is in 't', False otherwise.
    */
-  bool _is_subsequence(std::string s, std::string t) {
+  bool _is_subsequence(std::string& s, std::string& t) {
     size_t s_idx = 0;
     size_t t_idx = 0;
 
@@ -113,4 +115,86 @@ namespace algorithms::_two_pointers {
         
     return s_idx == s.size();
   }
+
+  /**
+   * @brief Write a function that reverses a string. The input string is given
+   * as an array of characters s.
+   * 
+   * You must do this by modifying the input array in-place with O(1) extra
+   * memory.
+   * 
+   */
+  void _reverse(std::string& s) {
+    std::string::iterator left = s.begin();
+    std::string::iterator right = s.end() - 1;
+
+    while (left < right) {
+      LOG("swapping '" << *left << "' and '" << *right << "'");
+      auto temp = *left;
+      *left = *right;
+      *right = temp;
+
+      left++;
+      right--;
+    }
+  }
+
+  /**
+   * @brief Given an integer array nums sorted in non-decreasing order, return
+   * an array of the squares of each number sorted in non-decreasing order.
+   * 
+   * TODO: Squaring each element and sorting the new array is very trivial, can
+   * we find an O(n) solution using a different approach?
+   * 
+   * @tparam T 
+   * @param values 
+   * @return std::vector<T> 
+   */
+  template<typename T>
+  std::vector<T> _sorted_squares_slow(std::vector<T>& values) {
+    std::vector<T> squared(values.size());
+
+    // The following loop costs O(n)
+    size_t idx = 0;
+    for (auto& val : values) {
+      squared[idx] = pow(val, 2);
+      idx++;
+    }
+
+    // What is the time complexity of std::sort?
+    std::sort(squared.begin(), squared.end());
+    return squared;
+  }
+
+  /**
+   * @brief Uses a version of the two-pointers algorithm to improve the runtime
+   * speed of the "sorted squares" algortihm to O(n).
+   * 
+   * @tparam T 
+   * @param values 
+   * @return std::vector<T> 
+   */
+  template <typename T>
+  std::vector<T> _sorted_squares(std::vector<T>& values) {
+    typename std::vector<T>::iterator left = values.begin();
+    typename std::vector<T>::iterator right = values.end() - 1;
+
+    std::vector<T> result(values.size());
+    size_t idx = values.size() - 1;
+
+    while (left <= right) {
+      if (std::abs(*right) > std::abs(*left)) {
+        result[idx] = pow(*right, 2);
+        right--;
+      }
+      else {
+        result[idx] = pow(*left, 2);
+        left++;
+      }
+      idx--;
+    }
+
+    return result;
+  }
+
 } // end namespace algorithms::_two_pointers

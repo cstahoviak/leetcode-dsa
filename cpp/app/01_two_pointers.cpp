@@ -74,4 +74,20 @@ int main() {
     std::cout << "'" << s << "' in '" << t << "': " << bool_to_string(result) << std::endl; 
   }
 
+  // Example 1: Reverse a string
+  {
+    std::string a = "Stahoviak";
+    std::cout << a << " reversed: ";
+    algorithms::two_pointers::reverse(a);
+    std::cout << a << std::endl;
+  }
+
+  // Example : Square and sort a non-decreasing vector.
+  {
+    // std::vector<int> values = { -7, -3, 0, 2, 5, 11 };
+    std::vector<int> values = { -7, -3, 2, 3, 11, 12 };
+    std::vector result = algorithms::two_pointers::sorted_squares(values);
+    std::cout << values << "^2 = " << result << std::endl;
+  }
+
 }

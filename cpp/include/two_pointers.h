@@ -57,4 +57,29 @@ namespace algorithms::two_pointers {
     return tp::_is_subsequence(s, t);
   }
 
+  /**
+   * @brief This is simply a pass-through for the 'reverse" algorithm for now.
+   * now.
+   * 
+   * TODO: Add templatization to support both std::string and char*.
+   * 
+   * @param s 
+   */
+  void reverse(std::string& s) {
+    tp::_reverse(s);
+  }
+
+  /**
+   * @brief This is simple a pass-through for the "square" algorithm for now.
+   * 
+   * TODO: Add templatization to support std::vector<T> and std::array<T, N>.
+   * 
+   * @tparam T 
+   * @param values 
+   * @return std::vector<T> 
+   */
+  template<typename T>
+  std::vector<T> sorted_squares(std::vector<T>& values) {
+    return tp::_sorted_squares(values);
+  }
 }
