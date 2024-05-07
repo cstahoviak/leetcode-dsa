@@ -53,6 +53,9 @@ def two_pointers(arr: Iterable):
   return True
 ```
 
+### Closing Notes
+Remember that the methods laid out here are just guidelines. For example, in the first method, we started the pointers at the first and last index, but sometimes you might find a problem that involves starting the pointers at different indices. Two pointers just refers to using two integer variables to move along some iterables. The strategies we looked at in this article are the most common patterns, but always be on the lookout for a different way to approach a problem. There are even problems that make use of "three pointers".
+
 
 ## Sliding Window
 

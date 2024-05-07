@@ -35,11 +35,15 @@ int main() {
     // Solve the two-sum problem with a static array
     std::array<int, 10> values = { 1, 6, 10, 3, 7, 8, 0, 12, 2, 5 };
     std::sort(values.begin(), values.end());
-    show_result(values, target, two_sum(values, target));
+    auto result1 = algorithms::two_pointers::two_sum(values, target);
+    show_result(values, target, result1);
+    // show_result(values, target, two_sum(values, target));
 
     // Solve the two-sum problem with a vector (dynamic array)
     std::vector<int> vec(values.begin(), values.end());
-    show_result(vec, target, two_sum(vec, target));
+    auto result2 = algorithms::two_pointers::two_sum(values, target);
+    show_result(values, target, result2);
+    // show_result(vec, target, two_sum(vec, target));
   }
 
   // Combine two sorted arrays via the two-pointers algorithm
@@ -51,14 +55,23 @@ int main() {
     std::array<int, 6> arr2 = { 3, 5, 7, 9, 8, 0};
     std::sort(arr1.begin(), arr1.end());
     std::sort(arr2.begin(), arr2.end());
-    auto result1 = combine_sorted(arr1, arr2);
+    auto result1 = algorithms::two_pointers::combine_sorted(arr1, arr2);
     std::cout << arr1 << " + " << arr2 << " = " << result1 << std::endl;
 
     std::cout << "Solve using vectors (dynamic arrays):\n";
     std::vector<int> vec1(arr1.begin(), arr1.end());
     std::vector<int> vec2(arr2.begin(), arr2.end());
-    auto result2 = combine_sorted(vec1, vec2);
+    auto result2 = algorithms::two_pointers::combine_sorted(vec1, vec2);
     std::cout << vec1 << " + " << vec2 << " = " << result2 << std::endl;
+  }
+
+  // Find a subsequence in a larger string using two-pointers
+  {
+    std::cout << "\nFind a subsequence in a larger string using two-pointers\n";
+    std::string s = "ace";
+    std::string t = "aabcdfgahcie";
+    bool result = algorithms::two_pointers::is_subsequence(s, t);
+    std::cout << "'" << s << "' in '" << t << "': " << bool_to_string(result) << std::endl; 
   }
 
 }
