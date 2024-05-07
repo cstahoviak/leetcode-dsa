@@ -2,11 +2,14 @@
 /**
  * @file two_pointers.h
  * @author Carl Stahoviak
- * @brief The templated front-end implementation of the two-pointers algortihms.
+ * @brief The templated front-end implementation of the two-pointers algortihms
+ *  that is intended to be the user-facing inteface of the
+ *  algorithms::two_pointers namespace.
  * @date 2024-05-03 
  */
 
 #include "two_pointers_algos.h"
+#include "utils.h"
 
 #include <array>
 // Include to get 'size_t'
@@ -39,7 +42,8 @@ namespace algorithms::two_pointers {
 
   template <typename T>
   std::vector<T> combine_sorted(std::vector<T>& vec1, std::vector<T>& vec2) {
-    return tp::_combine_sorted(vec1.begin(), vec1.end(), vec2.begin(), vec2.end());
+    return tp::_combine_sorted(
+      vec1.begin(), vec1.end(), vec2.begin(), vec2.end());
   }
 
   /**
@@ -69,17 +73,18 @@ namespace algorithms::two_pointers {
     tp::_reverse(s);
   }
 
-  /**
-   * @brief This is simple a pass-through for the "square" algorithm for now.
-   * 
-   * TODO: Add templatization to support std::vector<T> and std::array<T, N>.
-   * 
-   * @tparam T 
-   * @param values 
-   * @return std::vector<T> 
-   */
   template<typename T>
   std::vector<T> sorted_squares(std::vector<T>& values) {
-    return tp::_sorted_squares(values);
+    return tp::_sorted_squares(values.begin(), values.end() - 1, values.size());
+  }
+
+  template<typename T, size_t N>
+  std::array<T, N> sorted_squares(std::array<T, N>& values) {
+    std::vector<T> temp = tp::_sorted_squares(
+      values.begin(), values.end() - 1, values.size());
+    
+    std::array<T, N> result;
+    std::move(temp.begin(), temp.end(), result.begin());
+    return result;
   }
 }

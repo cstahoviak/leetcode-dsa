@@ -3,7 +3,8 @@
  * @file two_pointers_algos.h
  * @author Carl Stahoviak
  * @brief The back-end algorithm implementation of various flavors of the
- *  "two pointers" algorithm
+ *  "two pointers" algorithm. None of these should be called directly, they
+ *  should be called via function in the algorithms::two_pointers namespace.
  * @date 2024-05-06
  */
 
@@ -16,8 +17,10 @@
 #include <vector>
 
 namespace algorithms::_two_pointers {
+
   /**
-   * @brief Solves the two-sum algorithm for a sorted container of unique values.
+   * @brief Solves the two-sum algorithm for a sorted container of unique
+   * values.
    * 
    * @param left An iterator pointing to the first element of the contianer.
    * @param right An iterator pointing to the last element of the container.
@@ -42,8 +45,8 @@ namespace algorithms::_two_pointers {
   }
 
   /**
-   * @brief Given two sorted arrays, return a new array that combines both arrays
-   * and is also sorted.
+   * @brief Given two sorted arrays, return a new array that combines both
+   * arrays and is also sorted.
    * 
    * @tparam Iter 
    * @tparam std::iterator_traits<Iter>::value_type 
@@ -174,13 +177,10 @@ namespace algorithms::_two_pointers {
    * @param values 
    * @return std::vector<T> 
    */
-  template <typename T>
-  std::vector<T> _sorted_squares(std::vector<T>& values) {
-    typename std::vector<T>::iterator left = values.begin();
-    typename std::vector<T>::iterator right = values.end() - 1;
-
-    std::vector<T> result(values.size());
-    size_t idx = values.size() - 1;
+  template <class Iter, class T = typename std::iterator_traits<Iter>::value_type>
+  std::vector<T> _sorted_squares(Iter left, Iter right, size_t size) {
+    std::vector<T> result(size);
+    size_t idx = size - 1;
 
     while (left <= right) {
       if (std::abs(*right) > std::abs(*left)) {

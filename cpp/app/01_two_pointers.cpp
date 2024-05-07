@@ -16,13 +16,13 @@
 template <typename T, size_t N>
 void show_result(std::array<T, N> arr, T target, bool result) {
   std::cout << "values=" << arr << ", target=" << target << ": " << 
-    bool_to_string(result) << std::endl;
+    utils::bool_to_string(result) << std::endl;
 }
 
 template <typename T>
 void show_result(std::vector<T> vec, T target, bool result) {
   std::cout << "values=" << vec << ", target=" << target << ": " <<
-    bool_to_string(result) << std::endl;
+    utils::bool_to_string(result) << std::endl;
 }
 
 int main() {
@@ -71,11 +71,13 @@ int main() {
     std::string s = "ace";
     std::string t = "aabcdfgahcie";
     bool result = algorithms::two_pointers::is_subsequence(s, t);
-    std::cout << "'" << s << "' in '" << t << "': " << bool_to_string(result) << std::endl; 
+    std::cout << "'" << s << "' in '" << t << "': " << 
+      utils::bool_to_string(result) << std::endl; 
   }
 
   // Example 1: Reverse a string
   {
+    std::cout << "\nExample 1: Reverse a string:\n";
     std::string a = "Stahoviak";
     std::cout << a << " reversed: ";
     algorithms::two_pointers::reverse(a);
@@ -84,10 +86,16 @@ int main() {
 
   // Example : Square and sort a non-decreasing vector.
   {
-    // std::vector<int> values = { -7, -3, 0, 2, 5, 11 };
-    std::vector<int> values = { -7, -3, 2, 3, 11, 12 };
-    std::vector result = algorithms::two_pointers::sorted_squares(values);
-    std::cout << values << "^2 = " << result << std::endl;
-  }
+    std::cout << "\nExample 2: Square and sort a non-decreasing vector:\n";
 
+    std::cout << "Solve using static arrays:\n";
+    std::array<int, 6> arr = { -7, -3, 2, 3, 11, 12 };
+    std::array<int, 6> result1 = algorithms::two_pointers::sorted_squares(arr);
+    std::cout << arr << "^2 = " << result1 << std::endl;
+
+    std::cout << "Solve using vectors (dynamic arrays):\n";
+    std::vector<int> vec(arr.begin(), arr.end());
+    std::vector<int> result2 = algorithms::two_pointers::sorted_squares(vec);
+    std::cout << vec << "^2 = " << result2 << std::endl;
+  }
 }

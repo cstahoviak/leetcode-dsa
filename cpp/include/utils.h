@@ -27,15 +27,36 @@
   #define LOG(x)
 #endif
 
-/**
- * @brief Converts a boolean to a string.
- * 
- * @param b The boolean value.
- * @return const char* const 
- */
-const char* const bool_to_string(bool b) {
-  return b ? "true" : "false";
-}
+namespace utils {
+
+  /**
+   * @brief Converts a boolean to a string.
+   * 
+   * @param b The boolean value.
+   * @return const char* const 
+   */
+  const char* const bool_to_string(bool b) {
+    return b ? "true" : "false";
+  }
+
+  /**
+   * @brief Converts a vector to s fixe-size array.
+   * 
+   * TODO: This doesn't compile. Not sure how to get the templating to work
+   * correctly yet.
+   * 
+   * @tparam T 
+   * @tparam N 
+   * @param vec 
+   * @return std::array<T, N> 
+   */
+  template<typename T, size_t N>
+  std::array<T, N> vector_to_array(std::vector<T>& vec) {
+    std::array<T, N> arr;
+    std::move(vec.begin(), vec.end(), arr.begin());
+    return arr;
+  }
+} // end namespace utils
 
 // template <class Iterator>
 // std::ostream& iterable_to_string(std::ostream& stream, Iterator begin, Iterator end);
@@ -77,3 +98,4 @@ template <typename T>
 std::ostream& operator<<(std::ostream& stream, const std::vector<T>& vec) {
   return _iterable_to_string(stream, vec.begin(), vec.end());
 }
+
