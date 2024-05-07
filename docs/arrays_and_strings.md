@@ -40,7 +40,7 @@ _O(n)_ iterations for the while loop because the pointers start _n_ away from ea
 _O(1)_, this technique will result in a linear runtime, which is usually the best possible runtime. A common example of this example is determining if a word is a palindrome, e.g. "racecar".
 
 ```
-def two_pointers(Iterable[arr]):
+def two_pointers(arr: Iterable):
   left = 0
   right = len(arr) - 1
 

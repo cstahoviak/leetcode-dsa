@@ -6,8 +6,8 @@
  * @date 2024-05-03
  * 
  * NOTE: This was another ~reasonably~ painful reminder that definition and
- * declaration of a template function CANNOT be seaprated... I think(?). See the
- * links below for more info:
+ * declaration of a template function CANNOT be seaprated... I think(?!). See
+ * the links below for more info:
  * 
  * https://stackoverflow.com/questions/495021/why-can-templates-only-be-implemented-in-the-header-file
  * https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl

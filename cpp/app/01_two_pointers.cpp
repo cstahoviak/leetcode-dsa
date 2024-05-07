@@ -14,32 +14,51 @@
 #include <vector>
 
 template <typename T, size_t N>
-void show_result(std::array<T, N> arr, T target) {
-  bool result = check_if_target_sum(arr, target);
+void show_result(std::array<T, N> arr, T target, bool result) {
   std::cout << "values=" << arr << ", target=" << target << ": " << 
     bool_to_string(result) << std::endl;
 }
 
 template <typename T>
-void show_result(std::vector<T> vec, T target) {
-  bool result = check_if_target_sum(vec, target);
+void show_result(std::vector<T> vec, T target, bool result) {
   std::cout << "values=" << vec << ", target=" << target << ": " <<
     bool_to_string(result) << std::endl;
 }
 
 int main() {
-  std::cout << "The Two-Sum algorithm:\n";
+  // The two-sum problem
+  {
+    std::cout << "The Two-Sum algorithm:\n";
+    // Define the target sum
+    int target = 23;
 
-  // Define the target sum
-  int target = 23;
+    // Solve the two-sum problem with a static array
+    std::array<int, 10> values = { 1, 6, 10, 3, 7, 8, 0, 12, 2, 5 };
+    std::sort(values.begin(), values.end());
+    show_result(values, target, two_sum(values, target));
 
-  // Solve the two-sum problem with a static array
-  std::array<int, 10> values = { 1, 6, 10, 3, 7, 8, 0, 12, 2, 5 };
-  std::sort(values.begin(), values.end());
-  show_result(values, target);
+    // Solve the two-sum problem with a vector (dynamic array)
+    std::vector<int> vec(values.begin(), values.end());
+    show_result(vec, target, two_sum(vec, target));
+  }
 
-  // Solve the two-sum problem with a vector (dynamic array)
-  std::vector<int> vec(values.begin(), values.end());
-  show_result(vec, target);
+  // Combine two sorted arrays via the two-pointers algorithm
+  {
+    std::cout << "\nCombine two sorted arrays using two-pointers:\n";
+
+    std::cout << "Solve using static arrays:\n";
+    std::array<int, 5> arr1 = { 4, 0, 6, 1, 2 };
+    std::array<int, 6> arr2 = { 3, 5, 7, 9, 8, 0};
+    std::sort(arr1.begin(), arr1.end());
+    std::sort(arr2.begin(), arr2.end());
+    auto result1 = combine_sorted(arr1, arr2);
+    std::cout << arr1 << " + " << arr2 << " = " << result1 << std::endl;
+
+    std::cout << "Solve using vectors (dynamic arrays):\n";
+    std::vector<int> vec1(arr1.begin(), arr1.end());
+    std::vector<int> vec2(arr2.begin(), arr2.end());
+    auto result2 = combine_sorted(vec1, vec2);
+    std::cout << vec1 << " + " << vec2 << " = " << result2 << std::endl;
+  }
 
 }
