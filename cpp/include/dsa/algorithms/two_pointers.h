@@ -8,17 +8,17 @@
  * @date 2024-05-03 
  */
 
-#include "two_pointers_algos.h"
-#include "utils.h"
+#include "dsa/algorithms/two_pointers_algos.h"
+#include "dsa/utils.h"
 
 #include <array>
 // Include to get 'size_t'
 #include <cstddef>
 
-namespace algorithms::two_pointers {
+namespace dsa::algorithms::two_pointers {
 
   // Short-hand for the back-end two-pointers namespace
-  namespace tp = algorithms::_two_pointers;
+  namespace tp = dsa::algorithms::_two_pointers;
 
   template <typename T, size_t N>
   bool two_sum(std::array<T, N> arr, T target) {

@@ -8,7 +8,7 @@
  * @date 2024-05-06
  */
 
-#include "utils.h"
+#include "dsa/utils.h"
 
 #include <algorithm>
 #include <cmath>
@@ -16,7 +16,7 @@
 #include <string>
 #include <vector>
 
-namespace algorithms::_two_pointers {
+namespace dsa::algorithms::_two_pointers {
 
   /**
    * @brief Solves the two-sum algorithm for a sorted container of unique
@@ -197,4 +197,4 @@ namespace algorithms::_two_pointers {
     return result;
   }
 
-} // end namespace algorithms::_two_pointers
+} // end namespace dsa::algorithms::_two_pointers

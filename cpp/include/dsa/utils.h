@@ -27,7 +27,7 @@
   #define LOG(x)
 #endif
 
-namespace utils {
+namespace dsa::utils {
 
   /**
    * @brief Converts a boolean to a string.
