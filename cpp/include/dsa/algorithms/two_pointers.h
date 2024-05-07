@@ -87,4 +87,4 @@ namespace dsa::algorithms::two_pointers {
     std::move(temp.begin(), temp.end(), result.begin());
     return result;
   }
-}
+} // end namespace dsa::algorithms::two_pointers

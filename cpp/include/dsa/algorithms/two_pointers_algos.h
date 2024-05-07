@@ -4,7 +4,7 @@
  * @author Carl Stahoviak
  * @brief The back-end algorithm implementation of various flavors of the
  *  "two pointers" algorithm. None of these should be called directly, they
- *  should be called via function in the algorithms::two_pointers namespace.
+ *  should be called via functions in the algorithms::two_pointers namespace.
  * @date 2024-05-06
  */
 

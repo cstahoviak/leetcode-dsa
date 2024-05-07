@@ -56,7 +56,7 @@ namespace dsa::utils {
     std::move(vec.begin(), vec.end(), arr.begin());
     return arr;
   }
-} // end namespace utils
+} // end namespace dsa::utils
 
 // template <class Iterator>
 // std::ostream& iterable_to_string(std::ostream& stream, Iterator begin, Iterator end);
