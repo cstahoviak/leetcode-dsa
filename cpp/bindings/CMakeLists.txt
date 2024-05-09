@@ -4,6 +4,7 @@ set(TARGET ${PROJECT_NAME}_python)
 
 find_package(pybind11 REQUIRED)
 
+# The SOURCES are the bindings
 set(SOURCES
   "algorithms/two_pointers.cpp"
   "module.cpp"
@@ -11,11 +12,11 @@ set(SOURCES
 
 pybind11_add_module(${TARGET} SHARED ${SOURCES})
 
-# target_include_directories(${TARGET} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${TARGET} PRIVATE 
+  "${PROJECT_SOURCE_DIR}/cpp/include"
+)
 
-# target_link_libraries(${TARGET} PRIVATE
-#   dsa::algorithms
-# )
+target_link_libraries(${TARGET} PRIVATE dsalib)
 
 # Install the bindings to the python directory
 set(OUTPUT_PATH "${PROJECT_SOURCE_DIR}/python/src/bindings")

@@ -14,7 +14,14 @@ using namespace dsa::algorithms;
 
 void initTwoPointers(py::module_& m)
 {
-  m.def("two_sum", &two_pointers::two_sum, py::arg("vec"), py::arg("target"));
+  /*
+   * NOTE: C++ templates cannot be instantiated at runtime, so you cannot bind
+   * the non-instantiated function, &two_sum. You must bind each instantiated
+   * function template separately. You may bind each instantiation with the
+   * same name, which will be treated the same as an overloaded function.
+   */
+  m.def("two_sum", &two_pointers::two_sum<int>, py::arg("vec"), py::arg("target"));
+  m.def("two_sum", &two_pointers::two_sum<float>, py::arg("vec"), py::arg("target"));
 }
 
 

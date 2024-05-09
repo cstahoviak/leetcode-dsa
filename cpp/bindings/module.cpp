@@ -6,7 +6,7 @@ namespace py = pybind11;
 void initTwoPointers(py::module_& m);
 
 PYBIND11_MODULE(dsa_bindings, m) {
-  m.doc() = "Python bindings for the Leetcode DSA library."
+  m.doc() = "Python bindings for the Leetcode DSA library.";
 
   initTwoPointers(m);
 }
