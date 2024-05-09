@@ -10,10 +10,11 @@
 #include <pybind11/pybind11.h>
 
 namespace py = pybind11;
+using namespace dsa::algorithms;
 
 void initTwoPointers(py::module_& m)
 {
-  m.def("two_sum", &dsa::algorithms::two_pointers::two_sum, py::arg("vec"), py::arg("target"));
+  m.def("two_sum", &two_pointers::two_sum, py::arg("vec"), py::arg("target"));
 }
 
 
