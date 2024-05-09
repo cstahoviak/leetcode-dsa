@@ -7,7 +7,7 @@
 
 #include "dsa/algorithms/two_pointers.h"
 
-#include <pybind11/pybind11.h
+#include <pybind11/pybind11.h>
 
 namespace py = pybind11;
 
