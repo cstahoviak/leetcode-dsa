@@ -16,8 +16,8 @@
 #include <string>
 #include <vector>
 
-namespace dsa::algorithms::_two_pointers {
-
+namespace dsa::algorithms::_two_pointers
+{
   /**
    * @brief Solves the two-sum algorithm for a sorted container of unique
    * values.

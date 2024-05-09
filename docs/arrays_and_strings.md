@@ -85,6 +85,13 @@ __Second__, the problem will ask you to find valid subarrays in some way.
 Whenever a problem description talks about subarrays, you should figure out if sliding window is a good option by analyzing the problem description. If you can find the things mentioned above, then it's a good bet.
 
 ### The Sliding Window Algorithm
+In sliding window, we maintain two variables `left` and `right`, which at any given time represent the _current subarray_ under consideration.
+
+Initially, we have `left = right = 0`, which means that the first subarray we look at is just the first element of the array on its own. We want to expand the size of our _window_, and we do that by incrementing `right`. When we increment `right`, this is like "adding" a new element to our window.
+
+But what if after adding a new element, the subarray becomes invalid? We need to "remove" some elements from our window until it becomes valid again. To "remove" elements, we can increment `left`, which shrinks our window.
+
+As we add and remove elements, we are "sliding" our window along the input from left to right. The window's size is constantly changing - it grows as large as it can until it's invalid, and then it shrinks. However, it always slides along to the right, until we reach the end of the input.
 
 ### Implementation
 
