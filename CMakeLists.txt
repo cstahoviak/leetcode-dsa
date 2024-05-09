@@ -1,33 +1,53 @@
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_CXX_STANDARD 17)
+if(NOT CMAKE_CXX_STANDARD)
+    set(CMAKE_CXX_STANDARD 17)
+endif()
+message(STATUS "Compiling with C++ Standard: ${CMAKE_CXX_STANDARD}")
 
-project(LeetcodeDSA)
+project(dsa LANGUAGES CXX)
+message(STATUS "PROJECT NAME: ${PROJECT_NAME}")
+
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 # Create a macro-defined option with a default value of OFF
 option(DEBUG_INFO "Turn on Debug Info" OFF)
 
-# TODO: Move away from using GLOB
-file(GLOB LIB_SOURCES src/*.cpp)
-file(GLOB LIB_HEADERS include/*.h)
+# TODO: Move away from using GLOB (Done)
+file(GLOB LIB_SOURCES
+    "cpp/src/dsa/empty.cpp"
+)
+file(GLOB LIB_HEADERS
+    "cpp/include/dsa/algorithms/two_pointers_algos.h"
+    "cpp/include/dsa/algorithms/two_pointers.h"
+    "cpp/include/dsa/utils.h"
+)
 
 # Create a library
 add_library(LeetcodeDSALib ${LIB_SOURCES} ${LIB_HEADERS})
 
-# TODO: If I don't include this line, then I cannot #include any header
-# files withinin the cpp files of my app directory. Is there a better way
-# to manage this? 
-include_directories("${PROJECT_SOURCE_DIR}/include")
-
 # Build all app executables
-file( GLOB APP_SOURCES app/*.cpp )
+file( GLOB APP_SOURCES cpp/app/*.cpp )
 foreach( testsourcefile ${APP_SOURCES} )
     # Cut off the file extension and directory path
     get_filename_component( testname ${testsourcefile} NAME_WE )
     add_executable( ${testname} ${testsourcefile} )
     # Make sure YourLib is linked to each app
     target_link_libraries( ${testname} LeetcodeDSALib )
+    # TODO: Switch to using target_include_directories()? Success!
+    target_include_directories(${testname} PRIVATE 
+        "${PROJECT_SOURCE_DIR}/cpp/include"
+    )
     # Add debug info for each target
     if( DEBUG_INFO )
         target_compile_definitions(${testname} PRIVATE DEBUG_INFO)
     endif()
 endforeach( testsourcefile ${APP_SOURCES} )
+
+# Build the python bindings
+# TODO: Adding the python bindings results in a build error "fatal error: 
+# dsa/algorithms/two_pointers.h: No such file or directory." Not sure how
+# fix this yet.
+# add_subdirectory(cpp/bindings)
