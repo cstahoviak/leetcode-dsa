@@ -15,8 +15,8 @@
 // Include to get 'size_t'
 #include <cstddef>
 
-namespace dsa::algorithms::two_pointers {
-
+namespace dsa::algorithms::two_pointers
+{
   // Short-hand for the back-end two-pointers namespace
   namespace tp = dsa::algorithms::_two_pointers;
 

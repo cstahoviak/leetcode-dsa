@@ -32,3 +32,10 @@ The final chapter is a bonus chapter where we will look into a few more techniqu
 ## Typos & Corrections
 1. (Introduction, Analyzing time complexity) "This for loop iterates 500,000 times, which means each __inner__ for loop iteration costs..."
 2. 
+
+## TODOs
+A list of TODO items.
+
+1. Create Python bindings (via `pybind11`) to C++ source code (see `feature/add-python-bindings`).
+2. Add unit tests for C++ source code. What C++ unit test framework should I use?
+3. Add unit tests for python bindings and compare to python implementations of the same algorithms.

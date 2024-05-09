@@ -15,18 +15,18 @@ message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 # Create a macro-defined option with a default value of OFF
 option(DEBUG_INFO "Turn on Debug Info" OFF)
 
-# TODO: Move away from using GLOB (Done)
-file(GLOB LIB_SOURCES
+# Set sources and headers
+set(LIB_SOURCES
     "cpp/src/dsa/empty.cpp"
 )
-file(GLOB LIB_HEADERS
+set(LIB_HEADERS
     "cpp/include/dsa/algorithms/two_pointers_algos.h"
     "cpp/include/dsa/algorithms/two_pointers.h"
     "cpp/include/dsa/utils.h"
 )
 
 # Create a library
-add_library(LeetcodeDSALib ${LIB_SOURCES} ${LIB_HEADERS})
+add_library(dsalib ${LIB_SOURCES} ${LIB_HEADERS})
 
 # Build all app executables
 file( GLOB APP_SOURCES cpp/app/*.cpp )
@@ -35,7 +35,7 @@ foreach( testsourcefile ${APP_SOURCES} )
     get_filename_component( testname ${testsourcefile} NAME_WE )
     add_executable( ${testname} ${testsourcefile} )
     # Make sure YourLib is linked to each app
-    target_link_libraries( ${testname} LeetcodeDSALib )
+    target_link_libraries( ${testname} dsalib )
     # TODO: Switch to using target_include_directories()? Success!
     target_include_directories(${testname} PRIVATE 
         "${PROJECT_SOURCE_DIR}/cpp/include"
