@@ -1,4 +1,4 @@
 .vscode/
 build/
-cpp/CmakeCache.txt
-cpp/CmakeFiles/
+cpp/CMakeCache.txt
+cpp/CMakeFiles/
