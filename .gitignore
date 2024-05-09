@@ -1,4 +1,8 @@
+.idea/
 .vscode/
 build/
 cpp/CMakeCache.txt
 cpp/CMakeFiles/
+__pycache__/
+*.pyd
+*.so

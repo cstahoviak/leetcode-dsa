@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(TARGET ${PROJECT_NAME}_python)
+set(TARGET ${PROJECT_NAME}_cpp)
 
 find_package(pybind11 REQUIRED)
 
@@ -19,7 +19,7 @@ target_include_directories(${TARGET} PRIVATE
 target_link_libraries(${TARGET} PRIVATE dsalib)
 
 # Install the bindings to the python directory
-set(OUTPUT_PATH "${PROJECT_SOURCE_DIR}/python/src/bindings")
+set(OUTPUT_PATH "${PROJECT_SOURCE_DIR}/python/src/dsa/bindings")
 set_target_properties(${TARGET} PROPERTIES
   RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_PATH}/$<0:>
   LIBRARY_OUTPUT_DIRECTORY ${OUTPUT_PATH}/$<0:>
