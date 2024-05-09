@@ -35,7 +35,7 @@ foreach( testsourcefile ${APP_SOURCES} )
     get_filename_component( testname ${testsourcefile} NAME_WE )
     add_executable( ${testname} ${testsourcefile} )
     # Make sure YourLib is linked to each app
-    target_link_libraries( ${testname} dsalib )
+    target_link_libraries( ${testname} PRIVATE dsalib )
     # TODO: Switch to using target_include_directories()? Success!
     target_include_directories(${testname} PRIVATE 
         "${PROJECT_SOURCE_DIR}/cpp/include"
@@ -45,3 +45,9 @@ foreach( testsourcefile ${APP_SOURCES} )
         target_compile_definitions(${testname} PRIVATE DEBUG_INFO)
     endif()
 endforeach( testsourcefile ${APP_SOURCES} )
+
+# Build the python bindings
+# TODO: Adding the python bindings results in a build error "fatal error: 
+# dsa/algorithms/two_pointers.h: No such file or directory." Not sure how
+# fix this yet.
+add_subdirectory(cpp/bindings)
