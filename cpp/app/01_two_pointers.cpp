@@ -1,5 +1,5 @@
 /**
- * @file two_pointers.cpp
+ * @file 01_two_pointers.cpp
  * @author Carl Stahoviak
  * @brief Examples that implement some flavor of the "Two Pointers" algorithm.
  * @date 2024-05-02

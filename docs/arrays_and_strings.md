@@ -113,6 +113,32 @@ For any array, how many subarrays are there? If the array has a length of `n`, t
 
 In terms of time complexity, any algorithm that looks at every subarray will be at least _O(n<sup>2</sup>)_, which is usually too slow. A sliding window guarantees a maximum of _2n_ window iterations - the right pointer can move _n_ times and the left pointer can move _n_ times. This means if the logic done for each window is _O(1)_, sliding window algorithms run in _O(n)_, which is __much faster__.
 
+### Number of Subarrays
+If a problem asks for the _number of subarrays_ that fit some constraint, we can still use the sliding window approach, but we need to use a neat math trick to calculate the number of subarrays.
+
+### Fixed Window Size
+In the examples above, our window size was dynamic. We tried to expand it to the right as much as we could while keeping the window within some constraint and removed elements from the left when the constraint was violated. Sometimes, a problem will specify a fixed window size.
+
+```
+function fixed_window_size(arr, k):
+    curr = some data to track the window
+
+    // build the first window
+    for (int i = 0; i < k; i++)
+        Do something with curr or other variables to build first window
+
+    ans = answer variable, probably equal to curr here depending on the problem
+    for (int i = k; i < arr.length; i++)
+        Add arr[i] to window
+        Remove arr[i - k] from window
+        Update ans
+
+    return ans
+```
+
+### Closing Notes
+Sliding window is an extremely common and versatile pattern. We only scratched the surface here because many sliding window problems will also need to use a __hashmap__, which we will talk about in the hashing chapter. After learning about hashmaps, we'll look at some more sliding window problems.
+
 ## Prefix Sum
 
 ## More Common Patterns

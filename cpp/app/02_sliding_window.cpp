@@ -26,5 +26,21 @@ int main() {
       << longest << std::endl;
   }
 
-  
+  // Flip one zero to create the longest subarray of ones
+  {
+    std::string s = "11001011";
+    auto longest = sw::flip_one(s);
+    std::cout << "\nLongest string of 1s in '" << s << 
+      "' created by flipping only one zero is " << longest << 
+      " characters in length." << std::endl;
+  }
+
+  // Find the maximum sum of a fixed-size window
+  {
+    std::vector<int> nums { 3, -1, 4, 12, -8, 5, 6 };
+    int window_size = 4;
+    int max_sum = sw::largest_sum(nums, window_size);
+    std::cout << "\nThe largest sum in " << nums << " for a window_size of '" 
+      << window_size << "' is: " << max_sum << std::endl;
+  }
 }
