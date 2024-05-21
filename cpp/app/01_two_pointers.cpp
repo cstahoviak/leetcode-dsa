@@ -3,6 +3,11 @@
  * @author Carl Stahoviak
  * @brief Examples that implement some flavor of the "Two Pointers" algorithm.
  * @date 2024-05-02
+ * 
+ * TODO: Turn this app into unit tests:
+ *    - Unit tests for the cpp implementations on their own
+ *    - Unit tests validating the cpp code bindings against python
+ *      implementations of the same algortihms.
  */
 
 #include "dsa/algorithms/two_pointers.h"
@@ -84,7 +89,7 @@ int main() {
     std::cout << a << std::endl;
   }
 
-  // Example : Square and sort a non-decreasing vector.
+  // Example 2: Square and sort a non-decreasing vector.
   {
     std::cout << "\nExample 2: Square and sort a non-decreasing vector:\n";
 

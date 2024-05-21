@@ -94,9 +94,24 @@ But what if after adding a new element, the subarray becomes invalid? We need to
 As we add and remove elements, we are "sliding" our window along the input from left to right. The window's size is constantly changing - it grows as large as it can until it's invalid, and then it shrinks. However, it always slides along to the right, until we reach the end of the input.
 
 ### Implementation
+Below is pseudocode for a generalized implementation of the sliding window algorithm
+```
+def sliding_window(arr: Iterable):
+    left = 0
+    for (int right = 0; right < arr.length; right++):
+        Do some logic to "add" element at arr[right] to window
+
+        while WINDOW_IS_INVALID:
+            Do some logic to "remove" element at arr[left] from window
+            left++
+
+        Do some logic to update the answer
+```
 
 ### Why is Sliding Window Efficient?
+For any array, how many subarrays are there? If the array has a length of `n`, there are `n` subarrays of length `1`. Then there are `n - 1` subarrays of length `2` (every index except the last one can be a starting index), `n - 2` subarrays of length `3` and so on until there is only `1` subarray of length `n`.
 
+In terms of time complexity, any algorithm that looks at every subarray will be at least _O(n<sup>2</sup>)_, which is usually too slow. A sliding window guarantees a maximum of _2n_ window iterations - the right pointer can move _n_ times and the left pointer can move _n_ times. This means if the logic done for each window is _O(1)_, sliding window algorithms run in _O(n)_, which is __much faster__.
 
 ## Prefix Sum
 

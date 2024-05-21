@@ -25,5 +25,8 @@ void initTwoPointers(py::module_& m)
   m.def("two_sum", &two_sum<int>, py::arg("vec"), py::arg("target"));
   m.def("two_sum", &two_sum<float>, py::arg("vec"), py::arg("target"));
 
+  m.def("combine_sorted", &combine_sorted<int>, py::arg("vec1"), py::arg("vec2"));
+  m.def("is_subsequence", &is_subsequence, py::arg("s"), py::arg("t"));
+  m.def("reverse", &reverse, py::arg("s"));
   m.def("sorted_squares", &sorted_squares<int>, py::arg("values"));
 }

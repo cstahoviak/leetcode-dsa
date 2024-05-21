@@ -2,10 +2,10 @@
 /**
  * @file utils.h
  * @author Carl Stahoviak 
- * @brief Header file for utility function.
+ * @brief Header file for utility functions.
  * @date 2024-05-03
  * 
- * NOTE: This was another ~reasonably~ painful reminder that definition and
+ * NOTE: This was another ~reasonably~ painful reminder that the definition and
  * declaration of a template function CANNOT be seaprated... I think(?!). See
  * the links below for more info:
  * 
