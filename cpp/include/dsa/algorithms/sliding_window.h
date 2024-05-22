@@ -6,6 +6,8 @@
  * @date 2024-05-08 
  */
 
+#include "dsa/algorithms/sliding_window_algos.h"
+
 #include <algorithm>
 // Include to get 'size_t'
 #include <cstddef>
@@ -13,6 +15,9 @@
 
 namespace dsa::algorithms::sliding_window
 {
+// Short-hand for the back-end two-pointers namespace
+  namespace sw = dsa::algorithms::_sliding_window;
+
   /**
    * @brief Given an array of positive integers and an integer 'sum', find the 
    * length of the longest subarray whose sum is less than or equal to 'sum'.
@@ -53,27 +58,7 @@ namespace dsa::algorithms::sliding_window
    * TODO: tempaltize this to accept either a std::string or binary vector.
    */
   size_t flip_one(std::string& s) {
-    size_t left = 0;
-    size_t num_zeros = 0;
-    size_t max_length = 0;
-
-    for (size_t right = 0; right < s.size(); right++) {
-      if (s[right] == '0') {
-        num_zeros++;
-      }
-      
-      // As long as we have more than one zero in the window, we need to shrink
-      // the window from the left.
-      while (num_zeros > 1) {
-        if ( s[left] == '0') {
-          num_zeros -= 1;
-        } 
-        left++;
-      }
-      // The size of the window will always be (right - left + 1)
-      max_length = std::max(max_length, right - left + 1);
-    }
-    return max_length;
+    return sw::_max_consecutive_ones(s.begin(), s.end(), '0', 1);
   }
 
   /**
@@ -140,4 +125,50 @@ namespace dsa::algorithms::sliding_window
     return max_sum;
   }
 
+  /**
+   * @brief Find a contiguous subarray whose length is equal to 'window_size'
+   * that has the maximum average value and return this value.
+   * 
+   * @tparam T 
+   * @param nums An array of values.
+   * @param window_size The window size.
+   * @return double The average of the largest subarray of size 'window_size' in
+   *  'nums'.
+   */
+  template <typename T>
+  double max_avg_subarray(std::vector<T>& nums, int window_size) {
+    // Get the average of the first window
+    T current_sum = 0;
+    for (size_t idx = 0; idx < window_size; idx++) {
+      current_sum += nums[idx];
+    }
+    T max_sum = current_sum;
+
+    for (size_t right = window_size; right < nums.size(); right++) {
+    // Update the current window sum
+      current_sum += nums[right] - nums[right - window_size];
+
+    // Udpate the max avg
+    max_sum = std::max(max_sum, current_sum);
+    }
+    return (double)max_sum / (double)window_size;
+  }
+
+  /**
+   * @brief Given a binary array 'nums' and integer 'k', return the maximum
+   * number of consecutive 1's in the array if you can flip at most k 0's.
+   * 
+   * In other words, what is the largest subarray that contains at most k zeros?
+   * 
+   * Assumptions:
+   *  - 0 <= k <= nums.size()
+   * 
+   * @param nums The binary array (consists of only ones and zeros).
+   * @param k The number of zeros that can be flipped.
+   * @return size_t The length of the largest subarray of ones when k zeros are
+   *  flipped to ones.
+   */
+  size_t max_consecutive_ones(std::vector<int>& nums, int k) {
+    return sw::_max_consecutive_ones(nums.begin(), nums.end(), 0, k);
+  }
 } // end namespace dsa::algorithms::sliding_window

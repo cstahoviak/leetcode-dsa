@@ -75,6 +75,8 @@ namespace dsa::algorithms::two_pointers
 
   template<typename T>
   std::vector<T> sorted_squares(std::vector<T>& values) {
+    // TODO: Would prefer to pass end() rather than end()-1. Look into modifying
+    // the algo code to deal with this correctly.
     return tp::_sorted_squares(values.begin(), values.end() - 1, values.size());
   }
 

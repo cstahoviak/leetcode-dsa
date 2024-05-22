@@ -43,4 +43,25 @@ int main() {
     std::cout << "\nThe largest sum in " << nums << " for a window_size of '" 
       << window_size << "' is: " << max_sum << std::endl;
   }
+
+  // Example 1: Maximum Average Subarray
+  {
+    // std::vector<int> nums = { 1, 12, -5, -6, 50, 3 };
+    std::vector<int> nums = { 4, 0, 4, 3, 3 };
+    int window_size = 5;
+    auto max_avg = sw::max_avg_subarray(nums, window_size);
+    std::cout << "\nThe maximum average subarray of size '" << window_size <<
+      "' in " << nums << " is: " << max_avg << std::endl;
+  }
+
+  // Example 2: Maximum Consecutive Ones
+  // This problem is actually the same ads the "flip_one" problem above
+  {
+    std::vector<int> nums = { 0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1 };
+    int k = 3;
+    int longest = sw::max_consecutive_ones(nums, k);
+    std::cout << "\nLongest string of 1s in " << nums << 
+      " created by flipping at most '" << k << "' zeros is " << longest << 
+      " characters in length." << std::endl;
+  }
 }
