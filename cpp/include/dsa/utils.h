@@ -17,6 +17,7 @@
 // Include to get 'size_t'
 #include <cstddef>
 #include <iostream>
+#include <tuple>
 #include <vector>
 
 // Define a compiler varaible based macro that will effectively hide all of our
@@ -97,5 +98,12 @@ std::ostream& operator<<(std::ostream& stream, const std::array<T, N>& arr) {
 template <typename T>
 std::ostream& operator<<(std::ostream& stream, const std::vector<T>& vec) {
   return _iterable_to_string(stream, vec.begin(), vec.end());
+}
+
+template <typename T1, typename T2>
+std::ostream& operator<<(std::ostream& stream, const std::tuple<T1, T2>& t) {
+  // Unpack tuple using structured bindings
+  auto& [i, j] = t;
+  return stream << "(" << i << ", " << j << ")";
 }
 

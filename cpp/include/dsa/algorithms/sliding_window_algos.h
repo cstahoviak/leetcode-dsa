@@ -14,7 +14,7 @@
 namespace dsa::algorithms::_sliding_window
 {
   /**
-   * @brief 
+   * @brief Solves the various flavors of the "maximum cosecutive ones" problem.
    * 
    * @tparam Iter 
    * @tparam std::iterator_traits<Iter>::value_type 

@@ -140,5 +140,21 @@ function fixed_window_size(arr, k):
 Sliding window is an extremely common and versatile pattern. We only scratched the surface here because many sliding window problems will also need to use a __hashmap__, which we will talk about in the hashing chapter. After learning about hashmaps, we'll look at some more sliding window problems.
 
 ## Prefix Sum
+__Prefix sum__ is a technique that can be used on arrays (of numbers). The idea is to create an array prefix where `prefix[i]` is the sum of all elements up to the index `i` (inclusive). For example, given `nums = [5, 2, 1, 6, 3, 8]`, we would have `prefix = [5, 7, 8, 14, 17, 25]`. When a subarray starts at index `0`, it is considered a _prefix_ of the array. A prefix sum represents the sum of all prefixes.
+
+Prefix sums allow us to find the sum of any subarray in _O(1)_. If we want the sum of the subarray from `i` to `j` (inclusive), then the answer is `prefix[j] - prefix[i - 1]`, or `prefix[j] - prefix[i] + nums[i]` if you don't want to deal with the out of bounds case when `i = 0`.
+
+Building a prefix sum array is simple:
+
+```
+# Given an array nums
+prefix = [nums[0]]
+for (int i = 1; i < nums.length; i++)
+    prefix.append(nums[i] + prefix[prefix.length - 1])
+```
+
+A prefix sum is a great tool whenever a problem involves sums of a subarray. It only costs _O(n)_ to build but allows all future subarray queries to be _O(1)_, so it can usually improve an algorithm's time complexity by a factor of _O(n)_, where _n_ is the length of the array.
+
+Building a prefix sum is a form of pre-processing. Pre-processing is a useful strategy in a variety of problems where we store pre-computed data in a data structure before running the main logic of our algorithm. While it takes some time to pre-process, it's an investment that will save us a huge amount of time during the main parts of the algorithm.
 
 ## More Common Patterns
