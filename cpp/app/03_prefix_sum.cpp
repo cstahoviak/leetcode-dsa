@@ -43,6 +43,7 @@ int main() {
 
     std::vector<int> nums = { 10, 4, -8, 7 };
     auto valid_idxs = prefix_sum::bisect_n_ways(nums);
+    
     // Use structured bindings to unpack the contents
     std::cout << "There are '" << valid_idxs.size() <<
       "' valid bisections of " << nums << std::endl;

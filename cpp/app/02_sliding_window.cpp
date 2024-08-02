@@ -20,7 +20,7 @@ int main() {
   // Longest subarray
   {
     std::vector<int> v = { 3, 1, 2, 7, 4, 2, 1, 1, 5 };
-    int sum = 8;
+    int sum = 9;
     auto longest = sw::longest_subarray(v, sum);
     std::cout << "Longest subarray in " << v << " less than " << sum << " is: "
       << longest << std::endl;
@@ -55,7 +55,7 @@ int main() {
   }
 
   // Example 2: Maximum Consecutive Ones
-  // This problem is actually the same ads the "flip_one" problem above
+  // This problem is actually the same as the "flip_one" problem above
   {
     std::vector<int> nums = { 0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1 };
     int k = 3;

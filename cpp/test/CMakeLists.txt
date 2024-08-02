@@ -7,6 +7,7 @@ set(TEST_SOURCES
   "dsa/test_utils.cpp"
   "dsa/algorithms/test_two_pointers.cpp"
   "dsa/algorithms/test_sliding_window.cpp"
+  "dsa/algorithms/test_prefix_sum.cpp"
 )
 
 # Create the test executable
