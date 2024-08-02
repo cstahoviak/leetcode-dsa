@@ -28,15 +28,21 @@
   #define LOG(x)
 #endif
 
-namespace dsa::utils {
- 
+namespace dsa::utils
+{
   /**
    * @brief Converts a boolean to a string.
+   * 
+   * NOTE: If the definition of a non-template function exists in a header, that
+   * function must be marked "inline" to prevent "multiple definition" errors.
+   * If the function is not marked "inline", the compiler will generate machine
+   * code for that function in ~each~ translation unit that includes the header
+   * where the function is defined, thus creating "multiple definition" errors.
    * 
    * @param b The boolean value.
    * @return const char* const - a const pointer to a const char instance.
    */
-  const char* const bool_to_string(bool b) {
+  inline const char* const bool_to_string(bool b) {
     return b ? "true" : "false";
   }
 
