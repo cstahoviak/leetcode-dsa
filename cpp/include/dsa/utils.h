@@ -29,12 +29,12 @@
 #endif
 
 namespace dsa::utils {
-
+ 
   /**
    * @brief Converts a boolean to a string.
    * 
    * @param b The boolean value.
-   * @return const char* const 
+   * @return const char* const - a const pointer to a const char instance.
    */
   const char* const bool_to_string(bool b) {
     return b ? "true" : "false";

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10.2)
 if(NOT CMAKE_CXX_STANDARD)
     set(CMAKE_CXX_STANDARD 17)
 endif()
@@ -24,6 +24,21 @@ set(LIB_HEADERS
     "cpp/include/dsa/algorithms/two_pointers.h"
     "cpp/include/dsa/utils.h"
 )
+
+# TODO: Why do I need this for #include statements to work in cpp/test?
+include_directories(cpp/include)
+
+# Add googletest
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+FetchContent_MakeAvailable(googletest)
+
+# Tell CMake that we'll have unit tests 
+enable_testing()
 
 # Create a library
 add_library(dsalib ${LIB_SOURCES} ${LIB_HEADERS})
@@ -51,3 +66,6 @@ endforeach( testsourcefile ${APP_SOURCES} )
 # dsa/algorithms/two_pointers.h: No such file or directory." Not sure how
 # fix this yet.
 add_subdirectory(cpp/bindings)
+
+# Build the C++ tests
+add_subdirectory(cpp/test)

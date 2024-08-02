@@ -103,4 +103,4 @@ namespace dsa::algorithms::prefix_sum
     }
     return valid_idxs;
   }
-} // end namespace dsa::algortihms::prefix_sum
+} // end namespace dsa::algorithms::prefix_sum
