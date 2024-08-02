@@ -80,7 +80,7 @@ std::ostream& _iterable_to_string(std::ostream& stream, Iter begin, Iter end) {
   using T = typename std::iterator_traits<Iter>::value_type;
 
   // Deduce the size of the container. Note that this will only work for
-  // container that store their elements contiguously (std::list does not 
+  // containers that store their elements contiguously (std::list does not 
   // guarantee this).
   size_t sz = (end - begin);
 
