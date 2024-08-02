@@ -46,8 +46,8 @@ int main() {
 
     // Solve the two-sum problem with a vector (dynamic array)
     std::vector<int> vec(values.begin(), values.end());
-    auto result2 = dsa::algorithms::two_pointers::two_sum(values, target);
-    show_result(values, target, result2);
+    auto result2 = dsa::algorithms::two_pointers::two_sum(vec, target);
+    show_result(vec, target, result2);
     // show_result(vec, target, two_sum(vec, target));
   }
 

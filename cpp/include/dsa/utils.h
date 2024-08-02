@@ -28,15 +28,21 @@
   #define LOG(x)
 #endif
 
-namespace dsa::utils {
-
+namespace dsa::utils
+{
   /**
    * @brief Converts a boolean to a string.
    * 
+   * NOTE: If the definition of a non-template function exists in a header, that
+   * function must be marked "inline" to prevent "multiple definition" errors.
+   * If the function is not marked "inline", the compiler will generate machine
+   * code for that function in ~each~ translation unit that includes the header
+   * where the function is defined, thus creating "multiple definition" errors.
+   * 
    * @param b The boolean value.
-   * @return const char* const 
+   * @return const char* const - a const pointer to a const char instance.
    */
-  const char* const bool_to_string(bool b) {
+  inline const char* const bool_to_string(bool b) {
     return b ? "true" : "false";
   }
 
@@ -74,7 +80,7 @@ std::ostream& _iterable_to_string(std::ostream& stream, Iter begin, Iter end) {
   using T = typename std::iterator_traits<Iter>::value_type;
 
   // Deduce the size of the container. Note that this will only work for
-  // container that store their elements contiguously (std::list does not 
+  // containers that store their elements contiguously (std::list does not 
   // guarantee this).
   size_t sz = (end - begin);
 

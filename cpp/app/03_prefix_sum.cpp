@@ -10,6 +10,7 @@
 #include "dsa/utils.h"
 
 using namespace dsa::algorithms;
+namespace utils = dsa::utils;
 
 int main() {
   // Test printing boolean
@@ -32,7 +33,7 @@ int main() {
     // }
     for (size_t idx = 0; idx < queries.size(); idx++) {
       std::cout << queries[idx] << ": " << 
-        dsa::utils::bool_to_string(result[idx]) << std::endl;
+        utils::bool_to_string(result[idx]) << std::endl;
     }
   }
 
@@ -43,10 +44,13 @@ int main() {
 
     std::vector<int> nums = { 10, 4, -8, 7 };
     auto valid_idxs = prefix_sum::bisect_n_ways(nums);
+
+    std::cout << "There are " << valid_idxs.size() <<
+      " valid bisections of " << nums << " such that the left bisection " <<
+      "has a sum greater than or equal to the right bisection." << std::endl;
+
     // Use structured bindings to unpack the contents
-    std::cout << "There are '" << valid_idxs.size() <<
-      "' valid bisections of " << nums << std::endl;
-    for (auto& [lsplice, rsplice] : valid_idxs) {
+    for (auto& [lsplice, rsplice] : valid_idxs ) {
       std::cout << lsplice << ", " << rsplice << std::endl;
     }
   }
