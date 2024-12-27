@@ -1,7 +1,7 @@
 #pragma once
 /**
  * @file sliding_window_algos.h
- * @author your name (you@domain.com)
+ * @author Carl stahoviak
  * @brief The back-end algorithm implementation of various flavors of the
  *  "sliding window" algorithm. None of these should be called directly, they
  *  should be called via functions in the algorithms::slidind_window namespace.

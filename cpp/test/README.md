@@ -1,4 +1,4 @@
-# elevator-system Tests
+# leetcode-dsa Tests
 
 ## Notes from the GoogleTest Primer
 The following are notes from the [GoogleTest Primer](https://google.github.io/googletest/primer.html).

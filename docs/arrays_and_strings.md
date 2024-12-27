@@ -54,7 +54,7 @@ def two_pointers(arr: Iterable):
 ```
 
 ### Closing Notes
-Remember that the methods laid out here are just guidelines. For example, in the first method, we started the pointers at the first and last index, but sometimes you might find a problem that involves starting the pointers at different indices. Two pointers just refers to using two integer variables to move along some iterables. The strategies we looked at in this article are the most common patterns, but always be on the lookout for a different way to approach a problem. There are even problems that make use of "three pointers".
+Remember that the methods laid out here are just guidelines. For example, in the first method, we started the pointers at the first and last index, but sometimes you might find a problem that involves starting the pointers at different indices. __Two pointers just refers to using two integer variables to move along some iterables__. The strategies we looked at in this article are the most common patterns, but always be on the lookout for a different way to approach a problem. There are even problems that make use of __three pointers__.
 
 ## Sliding Window
 Sliding window is another common approach to solving problems related to arrays. A sliding window is actually implemented using two pointers! Before we start, we need to talk about the concept of a __subarray__.
@@ -111,7 +111,7 @@ def sliding_window(arr: Iterable):
 ### Why is Sliding Window Efficient?
 For any array, how many subarrays are there? If the array has a length of `n`, there are `n` subarrays of length `1`. Then there are `n - 1` subarrays of length `2` (every index except the last one can be a starting index), `n - 2` subarrays of length `3` and so on until there is only `1` subarray of length `n`.
 
-In terms of time complexity, any algorithm that looks at every subarray will be at least _O(n<sup>2</sup>)_, which is usually too slow. A sliding window guarantees a maximum of _2n_ window iterations - the right pointer can move _n_ times and the left pointer can move _n_ times. This means if the logic done for each window is _O(1)_, sliding window algorithms run in _O(n)_, which is __much faster__.
+In terms of time complexity, any algorithm that looks at every subarray will be at least $O(n^2)$, which is usually too slow. A sliding window guarantees a maximum of _2n_ window iterations - the right pointer can move _n_ times and the left pointer can move _n_ times. This means if the logic done for each window is $O(1)$, sliding window algorithms run in $O(n)$, which is __much faster__.
 
 ### Number of Subarrays
 If a problem asks for the _number of subarrays_ that fit some constraint, we can still use the sliding window approach, but we need to use a neat math trick to calculate the number of subarrays.

@@ -19,4 +19,3 @@ TEST(TestUtils, TestBoolToString) {
   EXPECT_EQ(dsa::utils::bool_to_string(false), "false");
   EXPECT_EQ(dsa::utils::bool_to_string(true), "true");
 }
-

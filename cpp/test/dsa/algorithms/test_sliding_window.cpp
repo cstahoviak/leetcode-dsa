@@ -8,12 +8,11 @@
  * @copyright Copyright (c) 2024
  * 
  */
-
 #include "dsa/algorithms/sliding_window.h"
 
 #include <gtest/gtest.h>
 
-namespace sw = dsa::algorithms::sliding_window;
+using namespace dsa::algorithms;
 
 
 /**
@@ -23,7 +22,7 @@ namespace sw = dsa::algorithms::sliding_window;
 TEST(TestSlidingWindow, TestLongestSubarray) {
   std::vector<int> v = { 3, 1, 2, 7, 4, 2, 1, 1, 5 };
   int sum = 9;
-  EXPECT_EQ(sw::longest_subarray(v, sum), 4);
+  EXPECT_EQ(sliding_window::longest_subarray(v, sum), 4);
 }
 
 /**
@@ -32,7 +31,7 @@ TEST(TestSlidingWindow, TestLongestSubarray) {
  */
 TEST(TestSlidingWindow, TestFlipOne) {
   std::string s = "11001011";
-  EXPECT_EQ(sw::flip_one(s), 4);
+  EXPECT_EQ(sliding_window::flip_one(s), 4);
 }
 
 /**
@@ -42,7 +41,7 @@ TEST(TestSlidingWindow, TestFlipOne) {
 TEST(TestSlidingWindow, TestLargestSum) {
   std::vector<int> nums { 3, -1, 4, 12, -8, 5, 6 };
   int window_size = 4;
-  EXPECT_EQ(sw::largest_sum(nums, window_size), 18);
+  EXPECT_EQ(sliding_window::largest_sum(nums, window_size), 18);
 }
 
 /**
@@ -52,7 +51,7 @@ TEST(TestSlidingWindow, TestLargestSum) {
 TEST(TestSlidingWindow, TestMaxAverageSubarray) {
   std::vector<int> nums = { 4, 0, 4, 3, 3 };
   int window_size = 5;
-  EXPECT_EQ(sw::max_avg_subarray(nums, window_size), 2.8);
+  EXPECT_EQ(sliding_window::max_avg_subarray(nums, window_size), 2.8);
 }
 
 /**
@@ -64,5 +63,5 @@ TEST(TestSlidingWindow, TestMaxAverageSubarray) {
 TEST(TestSlidingWindow, TestMaxConsecutiveOnes) {
   std::vector<int> nums = { 0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1 };
   int k = 3;
-  EXPECT_EQ(sw::max_consecutive_ones(nums, k), 10);
+  EXPECT_EQ(sliding_window::max_consecutive_ones(nums, k), 10);
 }

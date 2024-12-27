@@ -13,12 +13,6 @@ using namespace dsa::algorithms;
 namespace utils = dsa::utils;
 
 int main() {
-  // Test printing boolean
-  // std::vector<bool> bools = { true, false, true, false };
-  // for (auto b : bools) {
-  //   std::cout << b << std::endl;
-  // }
-
   // Example 1: Simple prefix sum problem.
   {
     std::cout << "Example 1: Simple prefix sum problem:" << std::endl;

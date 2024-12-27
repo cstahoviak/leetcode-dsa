@@ -13,7 +13,7 @@
 #include <tuple>
 #include <vector>
 
-using idx_tuple = std::tuple<int, int>;
+using idx_tuple = std::tuple<size_t, size_t>;
 
 namespace dsa::algorithms::prefix_sum
 {
@@ -85,7 +85,9 @@ namespace dsa::algorithms::prefix_sum
    * @return std::vector<std::tuple<int>> 
    */
   template <typename T>
-  std::vector<std::tuple<idx_tuple, idx_tuple>> bisect_n_ways(const std::vector<T>& nums) {
+  std::vector<std::tuple<idx_tuple, idx_tuple>> bisect_n_ways(
+    const std::vector<T>& nums)
+  {
     // Create the prefix sum array
     std::vector<T> prefix_sum = get_prefix_sum(nums);
 

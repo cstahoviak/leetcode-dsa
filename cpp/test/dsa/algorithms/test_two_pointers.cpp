@@ -1,14 +1,13 @@
 /**
  * @file test_two_pointers.cpp
- * @author your name (you@domain.com)
- * @brief 
+ * @author Carl Stahoviak
+ * @brief Unit tests for the Two Pointers algorithms.
  * @version 0.1
  * @date 2024-08-02
  * 
  * @copyright Copyright (c) 2024
  * 
  */
-
 #include "dsa/algorithms/two_pointers.h"
 
 #include <gtest/gtest.h>
@@ -19,7 +18,6 @@ using namespace dsa::algorithms;
 /**
  * @brief The Two Sum algorithm is true if there is at least one pair of values
  * that sums to the the target sum; false otherwise.
- * 
  */
 TEST(TestTwoPointers, TestTwoSum) {
   // Define the array of values
@@ -78,7 +76,7 @@ TEST(TestTwoPointers, TestIsSubsequence) {
 
 TEST(TestTwoPointers, TestReverse) {
   std::string str = "Stahoviak";
-  // reverse() operates on the string in-place
+  // Note: two_pointers::reverse() operates on the string in-place.
   two_pointers::reverse(str);
   EXPECT_EQ(str, std::string{"kaivohatS"});
 }
