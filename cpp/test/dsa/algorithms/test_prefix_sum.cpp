@@ -20,8 +20,8 @@ using namespace dsa::algorithms;
  */
 TEST(TestPrefixSum, TestPrefixSumAlgorithm) {
   // Example test #1
-  std::vector<int> nums = { 1, 2, 3, 4 };
-  std::vector<int> expected = { 1, 3, 6, 10 };
+  const std::vector<int> nums = { 1, 2, 3, 4 };
+  const std::vector<int> expected = { 1, 3, 6, 10 };
   auto result = prefix_sum::get_prefix_sum(nums);
 
   ASSERT_EQ(result.size(), nums.size());
@@ -30,8 +30,8 @@ TEST(TestPrefixSum, TestPrefixSumAlgorithm) {
   }
 
     // Example test #2
-  std::vector<int> nums2 = { 1, 1, 1, 1, 1 };
-  std::vector<int> expected2 = { 1, 2, 3, 4, 5 };
+  const std::vector<int> nums2 = { 1, 1, 1, 1, 1 };
+  const std::vector<int> expected2 = { 1, 2, 3, 4, 5 };
   auto result2 = prefix_sum::get_prefix_sum(nums2);
   
   ASSERT_EQ(result2.size(), nums2.size());
@@ -47,11 +47,11 @@ TEST(TestPrefixSum, TestPrefixSumAlgorithm) {
  * subarray from x to y is less than limit, or false otherwise.
  */
 TEST(TestPrefixSum, TestQuerySum) {
-  std::vector<int> nums = { 1, 6, 3, 2, 7, 2 };
-  std::vector<std::vector<int>> queries = { {0, 3}, {2, 5}, {2, 4} };
-  int limit = 13;
-  std::vector<bool> result = prefix_sum::query_sum(nums, queries, limit);
-  std::vector<bool> expected = {true, false, true};
+  const std::vector<int> nums = { 1, 6, 3, 2, 7, 2 };
+  const std::vector<std::vector<int>> queries = { {0, 3}, {2, 5}, {2, 4} };
+  const int limit = 13;
+  const std::vector<bool> result = prefix_sum::query_sum(nums, queries, limit);
+  const std::vector<bool> expected = {true, false, true};
   EXPECT_EQ(result, expected);
 }
 
@@ -62,10 +62,10 @@ TEST(TestPrefixSum, TestQuerySum) {
  * least one number.
  */
 TEST(TestPrefixSum, TestBisectNWays) {
-  std::vector<int> nums = { 10, 4, -8, 7 };
-  auto valid_idxs = prefix_sum::bisect_n_ways(nums);
+  const std::vector<int> nums = { 10, 4, -8, 7 };
+  const auto valid_idxs = prefix_sum::bisect_n_ways(nums);
 
-  std::vector<std::tuple<idx_tuple, idx_tuple>> expected_idxs = {
+  const std::vector<std::tuple<idx_tuple, idx_tuple>> expected_idxs = {
     {{0, 0}, {1, 3}},
     {{0, 1}, {2, 3}},
   };
@@ -80,32 +80,50 @@ TEST(TestPrefixSum, TestBisectNWays) {
 
 TEST(TestPrefixSum, MinimumPositveStartValue) {
   // Example 1:
-  std::vector<int> nums { -3, 2, -3, 4, 2 };
-  int expected{5};
+  const std::vector<int> nums { -3, 2, -3, 4, 2 };
+  EXPECT_EQ(prefix_sum::min_pos_value(nums), 5);
 
-  // Example 2: The minimum start value should be 
-  std::vector<int> nums2 { 1, 2 };
-  int expected2{1};
+  // Example 2: The minimum start value should be positive.
+  const std::vector<int> nums2 { 1, 2 };
+  EXPECT_EQ(prefix_sum::min_pos_value(nums2), 1);
 
-  GTEST_SKIP();
+  // Example 3:
+  const std::vector<int> nums3 { 1, -2, -3 };
+  EXPECT_EQ(prefix_sum::min_pos_value(nums3), 5);
 }
 
+/**
+ * @brief
+ * 
+ * TODO: Getting a compilation error that I haven't been able resolve yet
+ * related to trying to use std::enable_if_t<> to ensure that the prefix sum
+ * and the resulting averages are a 64-bit type (int64_t).
+ */
 TEST(TestPrefixSum, KRadiusSubarrayAverages) {
-  // Example 1:
-  std::vector<int> nums { 7,4,3,9,1,8,5,2,6 };
-  int k{3};
-  std::vector<int> expected = { -1,-1,-1,5,4,4,-1,-1,-1 };
-
-  // Example 2: The sum of the subarray centered at 0 with radius 0 is: 100000.
-  nums.clear(); nums.push_back(100000);
-  k = 0;
-  expected.clear(); expected.push_back(100000);
-
-  // Example 3: avg[0] is -1 because there are less than k elements before and
-  // after index 0.
-  nums.clear(); nums.push_back(8);
-  k = 100000;
-  expected.clear(); expected.push_back(-1);
-
   GTEST_SKIP();
+
+  // // Example 1:
+  // const std::vector<int> nums { 7,4,3,9,1,8,5,2,6 };
+  // const std::vector<int> expected = { -1,-1,-1,5,4,4,-1,-1,-1 };
+  // const std::vector<int64_t> result = prefix_sum::k_radius_avg(nums, 3);
+  // EXPECT_EQ(result, expected);
+
+  // // Example 2: The sum of the subarray centered at 0 with radius 0 is: 100000.
+  // const std::vector<int> nums2 { 100000 };
+  // const std::vector<int> expected2 = { 100000 };
+  // auto result2 = prefix_sum::k_radius_avg(nums2, 0);
+  // EXPECT_EQ(result2, expected2);
+
+  // // Example 3: avg[0] is -1 because there are less than k elements before and
+  // // after index 0.
+  // const std::vector<int> nums3 { 8 };
+  // const std::vector<int> expected3 = { -1 };
+  // auto result3 = prefix_sum::k_radius_avg(nums3, 100000);
+  // EXPECT_EQ(result3, expected3);
+
+  // // Example 3: Current algorithm fails for this example.
+  // const std::vector<int> nums4 { 2, 2, 1 };
+  // const std::vector<int> expected4 { -1, 1, -1 };
+  // auto result4 = prefix_sum::k_radius_avg(nums4, 1);
+  // // EXPECT_EQ(result4, expected4);
 }
