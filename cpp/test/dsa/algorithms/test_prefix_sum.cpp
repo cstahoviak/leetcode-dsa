@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2024
  * 
  */
+#include <random>
+
 #include "dsa/algorithms/prefix_sum.h"
 
 #include <gtest/gtest.h>
@@ -19,25 +21,36 @@ using namespace dsa::algorithms;
  * material, this appears as "Running Sum of 1D Array" example.
  */
 TEST(TestPrefixSum, TestPrefixSumAlgorithm) {
-  // Example test #1
-  const std::vector<int> nums = { 1, 2, 3, 4 };
-  const std::vector<int> expected = { 1, 3, 6, 10 };
-  auto result = prefix_sum::get_prefix_sum(nums);
+  // Obtain a random seed from hardware.
+  std::random_device rd;
 
-  ASSERT_EQ(result.size(), nums.size());
-  for ( size_t idx = 0; idx < nums.size(); idx++ ) {
-    ASSERT_EQ(result.at(idx), expected.at(idx));
-  }
+  // Standard mersenne_twister_engine seeded with rd().
+  std::mt19937 mersenne_engine(rd());
 
-    // Example test #2
-  const std::vector<int> nums2 = { 1, 1, 1, 1, 1 };
-  const std::vector<int> expected2 = { 1, 2, 3, 4, 5 };
-  auto result2 = prefix_sum::get_prefix_sum(nums2);
-  
-  ASSERT_EQ(result2.size(), nums2.size());
-  for ( size_t idx = 0; idx < nums2.size(); idx++ ) {
-    ASSERT_EQ(result2.at(idx), expected2.at(idx));
-  }
+  // Define the range of integer values [-1000, 1000]
+  std::uniform_int_distribution<> dist(-1000, 1000);
+
+  // Create a generator.
+  auto gen = [&](){ return dist(mersenne_engine); };
+
+  // Create a vector of 1000 random values
+  std::vector<int> nums(1000);
+  std::generate(nums.begin(), nums.end(), gen);
+
+  // Our prefix sum algorithm should match std::partial_sum and
+  // std::inclusive_scan (the parallel version of std::partial_sum where
+  // BinaryOp is assumed to be associative, i.e. (2 + 3) + 4 = 2 + (3 + 4))
+  std::vector<int> partial_sum(nums.size());
+  std::vector<int> inclusive_scan(nums.size());
+  std::partial_sum(nums.begin(), nums.end(), partial_sum.begin());
+  std::inclusive_scan(nums.begin(), nums.end(), inclusive_scan.begin());
+
+  // Get the result using our custom "prefix sum" algorithm
+  const std::vector<int> result = prefix_sum::get_prefix_sum(nums);
+
+  // Validate the result.
+  EXPECT_EQ(result, partial_sum);
+  EXPECT_EQ(result, inclusive_scan);
 }
 
 /**

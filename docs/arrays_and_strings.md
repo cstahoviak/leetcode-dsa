@@ -158,3 +158,10 @@ A prefix sum is a great tool whenever a problem involves sums of a subarray. It 
 Building a prefix sum is a form of pre-processing. Pre-processing is a useful strategy in a variety of problems where we store pre-computed data in a data structure before running the main logic of our algorithm. While it takes some time to pre-process, it's an investment that will save us a huge amount of time during the main parts of the algorithm.
 
 ## More Common Patterns
+
+### $O(n)$ String Building
+We mentioned earlier that in most languages, strings are immutable. This means concatenating a single character to a string is an $O(n)$ operation. If you have a string that is 1 million characters long, and you want to add one more character, all 1 million characters need to be copied over to another string.
+
+Many problems will ask you to return a string, and usually, this string will be built during the algorithm. Let's say the final string is of length `n` and we build it one character at a time with concatenation. What would the time complexity be? The operations needed at each step would be `1 + 2 + 3 + ... + n`. This is the partial sum of this series, which leads to $O(n^2)$ operations.
+
+Simple concatenation will result in an $O(n^2)$ time complexity if you are using a language where strings are immutable. There are better ways to build strings in just $O(n)$ time. 
