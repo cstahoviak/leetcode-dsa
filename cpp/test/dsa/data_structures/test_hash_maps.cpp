@@ -1,7 +1,7 @@
 /**
  * @file test_hashing.cpp
  * @author Carl Stahoviak
- * @brief Unit tests for the Hashing module.
+ * @brief Unit tests for the hash_maps module.
  * @version 0.1
  * @date 2025-01-09
  * 

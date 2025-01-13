@@ -4,11 +4,12 @@ set(TEST_NAME ${PROJECT_NAME}_tests)
 
 # Get the test source files
 set(TEST_SOURCES
-  "dsa/test_utils.cpp"
-  "dsa/data_structures/test_hashing.cpp"
   "dsa/algorithms/test_two_pointers.cpp"
   "dsa/algorithms/test_sliding_window.cpp"
   "dsa/algorithms/test_prefix_sum.cpp"
+  "dsa/data_structures/test_hash_maps.cpp"
+  "dsa/data_structures/test_linked_lists.cpp"
+  "dsa/test_utils.cpp"
 )
 
 # Create the test executable

@@ -17,6 +17,7 @@ option(DEBUG_INFO "Turn on Debug Info" OFF)
 
 # Set sources and headers
 set(LIB_SOURCES
+    "cpp/src/dsa/data_structures/linked_lists.cpp"
     "cpp/src/dsa/empty.cpp"
 )
 set(LIB_HEADERS
@@ -26,6 +27,7 @@ set(LIB_HEADERS
     "cpp/include/dsa/algorithms/two_pointers_algos.h"
     "cpp/include/dsa/algorithms/two_pointers.h"
     "cpp/include/dsa/data_structures/hash_maps.h"
+    "cpp/include/dsa/data_structures/linked_lists.h"
     "cpp/include/dsa/utils.h"
 )
 
