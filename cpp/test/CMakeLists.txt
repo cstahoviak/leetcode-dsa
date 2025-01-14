@@ -9,6 +9,7 @@ set(TEST_SOURCES
   "dsa/algorithms/test_prefix_sum.cpp"
   "dsa/data_structures/test_hash_maps.cpp"
   "dsa/data_structures/test_linked_lists.cpp"
+  "dsa/data_structures/test_stacks_and_queues.cpp"
   "dsa/test_utils.cpp"
 )
 
