@@ -8,9 +8,8 @@
  * @copyright Copyright (c) 2025
  * 
  */
-#include <iostream>
-
 #include "dsa/data_structures/linked_lists.h"
+#include "dsa/utils.h"
 
 namespace dsa::data_structures::linked_lists
 {
@@ -20,12 +19,16 @@ namespace dsa::data_structures::linked_lists
       std::vector<int> values(size);
       std::iota(values.begin(), values.end(), start_val);
 
+      // TODO: I can't seem to acheive the behavior (doing some work in one
+      // ctor before passing some info onto another ctor) I'm after via
+      // "delegating ctors", so how acceptable is this solution?
+      // *this = SinglyLinkedList(values);
+
       // Create the singly linked list
       for ( const int& val : values ) {
         // Create a new node with the current value
         ListNode* new_node = new ListNode(val);
-        std::cout << "Creating node " << val << " (" << new_node << ")"
-          << std::endl;
+        LOG("Creating node " << val << " (" << new_node << ")");
 
         if ( head_ == nullptr ) {
           // O the first iteration, set the head and tail node's to be the same.
@@ -38,11 +41,6 @@ namespace dsa::data_structures::linked_lists
           tail_ = tail_->next;
         }
       }
-
-      // TODO: I can't seem to achieve the behavior (doing some work in one
-      // ctor before passing some info onto another ctor) I'm after via
-      // "delegating ctors", so how acceptable is this solution?
-      // *this = SinglyLinkedList(values);
     }
   }
 
@@ -52,11 +50,10 @@ namespace dsa::data_structures::linked_lists
       for ( const int& val : nums ) {
         // Create a new node with the current value
         ListNode* new_node = new ListNode(val);
-        std::cout << "Creating node " << val << " (" << new_node << ")"
-          << std::endl;
+        LOG("Creating node " << val << " (" << new_node << ")");
 
         if ( head_ == nullptr ) {
-          // O the first iteration, set the head and tail node's to be the same.
+          // On the first iteration, set the head and tail node's to be the same.
           head_ = new_node;
           tail_ = new_node;
         }
@@ -81,10 +78,20 @@ namespace dsa::data_structures::linked_lists
       current_node = current_node->next;
 
       // Delete the current node via the temp pointer.
-      std::cout << "Deleting node " << temp->val << " (" << temp <<
-        "), next node: " << current_node << std::endl; 
+      LOG("Deleting node " << temp->val << " (" << temp << "), next node: " << 
+        current_node);
       delete temp;
     }
+  }
+
+  std::vector<int> SinglyLinkedList::values() const {
+    std::vector<int> values;
+    ListNode* current = head_;
+    while ( current != nullptr ) {
+      values.push_back(current->val);
+      current = current->next;
+    }
+    return values;
   }
 
   /**
@@ -97,23 +104,59 @@ namespace dsa::data_structures::linked_lists
    * @param head 
    * @return ListNode* 
    */
-  ListNode* middle_node(ListNode* head) {
-    std::cout << "Finding middle node starting from " << head << std::endl;
-    ListNode* slow = head;
-    ListNode* fast = head;
+  ListNode* SinglyLinkedList::middle_node() const {
+    const ListNode* slow = head_;
+    const ListNode* fast = head_;
 
-    size_t steps{0};
     while ( fast != nullptr && fast->next != nullptr ) {
-      std::cout << "slow: " << slow->val << ", fast: " << fast->val << std::endl;
       slow = slow->next;
       fast = fast->next->next;
-      steps++;
     }
 
-    return slow;
+    return const_cast<ListNode*>(slow);
+  }
 
-    // std::cout << "steps: " << steps << std::endl;
-    // std::cout << "slow: " << slow->val << std::endl;
-    // return ( steps % 2 ) ? slow->next : slow;
+  /**
+   * @brief Given the head of a sorted linked list, delete all duplicates such
+   * that each element appears only once. The resulting list must remain sorted.
+   * 
+   * @param head 
+   */
+  void SinglyLinkedList::remove_duplicates() {
+    ListNode* current = head_;
+
+    while ( current != nullptr && current->next != nullptr ) {
+      // Get the next value in the list
+      ListNode* next = current->next;
+
+      // While the current value and the next value are the same, continue
+      // moving the "next" pointer.
+      while ( next != nullptr && next->val == current->val ) {
+        // Move the "next" pointer and delete the node via the temp pointer.
+        ListNode* temp = next;
+        next = next->next;
+        delete temp;
+      }
+
+      if ( next != current->next ) {
+        // Update the current node's next pointer
+        LOG("Moving current's (" << current << ") next ptr from " <<
+          current->next << " to " << next); 
+        current->next = next;
+      }
+
+      // Update the current node
+      current = current->next;
+    }
+  }
+
+  /**
+   * @brief Given the head of a singly linked list and two integers 'left' and
+   * 'right' where 'left' <= 'right', reverse the nodes of the list from
+   * position 'left' to position 'right', and return the reversed list.
+   * 
+   */
+  void SinglyLinkedList::reverse_sublist(int left, int right) {
+
   }
 }

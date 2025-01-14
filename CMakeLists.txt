@@ -14,6 +14,10 @@ message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 
 # Create a macro-defined option with a default value of OFF
 option(DEBUG_INFO "Turn on Debug Info" OFF)
+IF(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES Debug)
+  set(DEBUG_INFO ON)
+  message(STATUS "DEBUG_INFO: ${DEBUG_INFO}")
+ENDIF(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES Debug)
 
 # Set sources and headers
 set(LIB_SOURCES
@@ -36,7 +40,11 @@ include_directories(cpp/include)
 
 # Create a library
 add_library(dsalib ${LIB_SOURCES} ${LIB_HEADERS})
-# add_library(dsalib${LIB_HEADERS})
+
+# Add debug info for the library
+if( DEBUG_INFO )
+    target_compile_definitions(dsalib PRIVATE DEBUG_INFO)
+endif()
 
 # Add third party libraries
 add_subdirectory(cpp/thirdparty)

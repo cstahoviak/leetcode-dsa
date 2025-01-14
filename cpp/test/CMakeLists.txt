@@ -22,6 +22,12 @@ target_link_libraries(${TEST_NAME} PUBLIC
   dsalib
 )
 
+# Add debug info for each target
+if( DEBUG_INFO )
+  message(STATUS "Test DEBUG_INFO: ${DEBUG_INFO}")
+  target_compile_definitions(${TEST_NAME} PRIVATE DEBUG_INFO)
+endif()
+
 # Add the tests
 add_test(
   NAME ${TEST_NAME}

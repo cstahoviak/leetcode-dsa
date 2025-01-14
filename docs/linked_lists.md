@@ -26,3 +26,8 @@ Sentinel nodes sit at the start and end of linked lists and are used to make ope
 Recall that addition and removal is only $O(1)$  if we have a reference to the node at the position we are performing the operation on. With the sentinel tail node, we can perform operations at the end of the list in $O(1)$.
 
 ## Fast and Slow Pointers
+See `cpp/test/dsa/data_structures/test_linked_lists.cpp` for an example of the _Fast and Slow_ pointers algorithm for finding the middle node of a linked list.
+
+## Reversing a Linked List
+__TODO__: Return to the problem __Reverse Linked List II__
+

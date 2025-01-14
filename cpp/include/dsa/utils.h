@@ -23,7 +23,7 @@
 // Define a compiler varaible based macro that will effectively hide all of our
 // logging code if that variable is not set.
 #ifdef DEBUG_INFO
-  # define LOG(x) std::cout << x << std::endl;
+  # define LOG(x) std::cout << "[LOG] " <<  x << std::endl;
 #else
   #define LOG(x)
 #endif

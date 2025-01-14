@@ -25,6 +25,12 @@ namespace dsa::data_structures::linked_lists
     ListNode(int x, ListNode* next) : val(x), next(next) {}
   };
 
+  /**
+   * @brief Implements a singly linked list data structure.
+   * 
+   * TODO: Templatize this class to support both integer and floating point
+   * types.
+   */
   class SinglyLinkedList
   {
     public:
@@ -32,13 +38,17 @@ namespace dsa::data_structures::linked_lists
       SinglyLinkedList(const std::vector<int>&);
       ~SinglyLinkedList();
 
-      ListNode* head() { return head_; }
+      ListNode* head() const { return head_; }
+      std::vector<int> values() const;
+
+      // UTility functions
+      ListNode* middle_node() const;
+      void remove_duplicates();
+      void reverse_sublist(int, int);
     
     private:
       // The head and tail nodes.
       ListNode* head_{nullptr};
       ListNode* tail_{nullptr};
   };
-
-  ListNode* middle_node(ListNode* head);
 }
