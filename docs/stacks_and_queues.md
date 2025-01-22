@@ -11,24 +11,32 @@ The characteristic that makes something a "stack" is that you can only add and r
 
 __Stacks and recursion are very similar__. This is because recursion is actually done using a stack. Function calls are pushed on a stack. The call at the top of the stack at any given moment is the "active" call. On a return statement or the end of the function being reached, the current call is popped off the stack.
 
-## String Problems
+### String Problems
 
 ## Queues
 While a stack followed a __LIFO__ pattern, a queue follows __FIFO (first in first out)__. In a stack, elements are added and removed from the same side. __In a queue, elements are added and removed from opposite sides__. Like with a stack, there are multiple ways to implement a queue, but the important thing that defines it is the abstract interface of adding and removing from opposite sides.
 
 Queues are trickier to implement than stacks if you want to maintain good performance. Like a stack, you could just use a dynamic array, but operations on the front of the array (adding or removal) are $O(n)$, where $n$ is the size of the array. Adding to a queue is called __enqueue__ and deletions are called __dequeue__. If you want these operations to be $O(1)$, you'll need a more sophisticated implementation.
 
-One way to implement an efficient queue is by using a doubly linked list__. Recall that with a doubly linked list, if you have the pointer to a node, y__ou can add or delete at that location in $O(1)$__. A doubly linked list that maintains pointers to the head and tail (both ends, usually with sentinel nodes) can implement an efficient queue.
+One way to implement an efficient queue is by using a __doubly linked list__. Recall that with a doubly linked list, if you have the pointer to a node, you can add or delete at that location in $O(1)$. A doubly linked list that maintains pointers to the head and tail (both ends, usually with sentinel nodes) can implement an efficient queue.
 
 There is also a data structure called a __deque__, short for __double-ended queue__, and pronounced "deck". In a deque, you can add or delete elements from both ends. A normal queue designates adding to one end and deleting to another end.
 
 For algorithm problems, queues are less common than stacks, and the problems are generally more difficult. __The most common use of a queue is to implement an algorithm called breadth-first search (BFS)__, which we will learn about in a future chapter. Outside of BFS, unlike stack, there aren't many problems whose main focus is a queue - we'll still look at a few examples, but __keep in mind that a queue is mostly used to implement BFS__.
 
-## Monotonic
+The core operations that define the __interface__ of __stacks__ and __queues__ are as follows:
 
-_Note: if you're a beginner and struggle to grasp this article, don't be discouraged! This is one of the most difficult concepts taught in this course. Good news is, the concept is not super common in interviews, but still a good one to know. If you find yourself stuck, don't worry about moving on and coming back later._
+| Data Structure | Operations             |
+|:---------------|:-----------------------|
+| stack          | `push`, `pop`, `front` |
+| queue          | `enqueue`, `dequeue`   |
+ 
+### Monotonic Queues
 
 __Monotonic__: (of a function or quantity) varying in such a way that it either never decreases or never increases.
 
 A monotonic stack or queue is one whose elements are always sorted. It can be sorted either ascending or descending, depending on the algorithm. Monotonic stacks and queues maintain their sorted property by removing elements that would violate the property before adding new elements.
 
+Monotonic stacks and queues are useful in problems that, for each element, involves finding the "next" element based on some criteria, e.g. the next greater element. They're also good when you have a dynamic window of elements and you want to maintain knowledge of the maximum or minimum element as the window changes.
+
+While monotonic stacks and queues are not super popular, it's important to understand the logic behind them as it would be very difficult to derive it yourself in an interview.

@@ -59,6 +59,7 @@ namespace dsa::data_structures::stacks_and_queues {
         // Add the new value onto the back of the queue
         queue_.push(val);
         sum_ += val;
+        
         if ( queue_.size() > size_ ) {
           // If the queue has exceeded the size limit, remove a value from the front.
           sum_ -= queue_.front();
