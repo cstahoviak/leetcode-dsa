@@ -26,10 +26,20 @@ For algorithm problems, queues are less common than stacks, and the problems are
 
 The core operations that define the __interface__ of __stacks__ and __queues__ are as follows:
 
-| Data Structure | Operations             |
-|:---------------|:-----------------------|
-| stack          | `push`, `pop`, `front` |
-| queue          | `enqueue`, `dequeue`   |
+| Data Structure | Description                | Operations                     |
+|:---------------|:---------------------------|:-------------------------------|
+| stack          | First In, Last Out (FILO)  | `push`, `pop`, `front`         |
+| queue          | First In, First Out (FIFO) | `push`, `pop`, `front`, `back` |
+| deque          | Constant time $O(1)$ insertion and removal at both ends | `push_front`, `pop_front`, `push_back`, `pop_back`, `front`, `back` |
+
+It's worth noting that __stacks and queues are higher level containers__ than `std::deque`, `std::vector` or `std::list`, i.e. __both a stack and queue can be constructed from the lower level containers__.
+
+```
+std::stack<int, std::deque<int> > s;
+std::queue<double, std::list<double> > q;
+```
+
+In other words, __stack and queue are simply restrictions on a deque__.
  
 ### Monotonic Queues
 
