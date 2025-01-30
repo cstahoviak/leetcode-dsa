@@ -286,6 +286,19 @@ void printAllNodes(TreeNode* root) {
 At the start of each iteration inside the while loop (where the comment `"do some logic here for the current level"` is), the queue contains exactly all the nodes for the current level. In the beginning, that's just the root.
 
 ### Binary Search Trees
+A __binary search tree (BST)__ is a type of binary tree that has the following properties:
+
+- For each node:
+  - All values in its left subtree are less than the value at that node, and
+  - All values in its right subtree are greater than the value at that node.
+- Because of the two properties above, __all subtress__ of a BST are themselves BSTs.
+- All values in a binary search tree are __unique__.
+
+![Binary Search Tree (BST)](figs/binary_search_tree.png)
+
+With a binary search tree, operations like __searching, adding, and removing can be done in $O(\log n)$ time on average__, where $n$ is the number of nodes in the tree, using something called __binary search__.
+
+Trivia to know: __an in-order DFS traversal prioritizing left before right on a BST will handle the nodes in sorted order__.
 
 ## Graphs
 
@@ -295,14 +308,3 @@ At the start of each iteration inside the while loop (where the comment `"do som
 
 ## Implicit Graphs
 
-Meta Roles:
-- Hiring for "General" software engineering team:
-- 3 different pillars
-  - Product: building/maintaining products (backend, frontend)
-  - Infrastructure (scalable, stable infrastructure, backend)
-  - ML: develop and deploy generative models at scale
-    - this is the role she's hiring for
-
-  - Interview:
-    - coding interview (45 mins)
-    - 
