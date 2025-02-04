@@ -1,7 +1,7 @@
 /**
- * @file dfs.h
+ * @file binary_trees.h
  * @author Carl Stahoviak
- * @brief Depth First Search algorithms.
+ * @brief Types and algorithms related to the binary tree data structure.
  * @version 0.1
  * @date 2025-01-22
  * 
@@ -10,7 +10,7 @@
  */
 #include "dsa/utils.h"
 
-namespace dsa::algorithms::dfs
+namespace dsa::data_structures::binary_trees
 {
   template<typename T>
   struct TreeNode {
@@ -37,4 +37,4 @@ namespace dsa::algorithms::dfs
     
     return std::min(left, right) + 1;
   }
-} // end namespace dsa::algorithms::dfs
+} // end namespace dsa::data_structures::binary_trees

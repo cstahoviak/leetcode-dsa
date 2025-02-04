@@ -301,6 +301,87 @@ With a binary search tree, operations like __searching, adding, and removing can
 Trivia to know: __an in-order DFS traversal prioritizing left before right on a BST will handle the nodes in sorted order__.
 
 ## Graphs
+Now that we are familiar with binary trees, let's talk about the bigger picture: __graphs__. A graph is any collection of nodes and connections between those nodes. Noes are referred to as __vertices__ and the connections between nodes are __edges__.
+
+A binary tree is type of graph that resricts each node to having a single parent and at most two children.
+
+### Graph Terminology
+Before we dive in, you will first need to become familiar with some graph terminology.
+
+- Edges of a node can either be __directed__ or __undirected__.
+  - __Directed edges__ allow for traversal in only one direction.
+  - __Undirected edges__ allow for bidirectional traversal of the nodes on either end of the edge.
+  - __Binary trees are directed graphs__. You can't access a node's parent, only its children. Once you move to a child, you can't move back.
+- __Connected Component__: a group of nodes that are connected by edges.
+  - In binary trees, there is only a single connected component, i.e. all nodes are reachable from the root.
+- Node's themseelves have the following properties related to the edges connected to them.
+  - __In-degree__: the number of edges that can be used to reach a given node.
+  - __Out-degree__: the number of edges that can be used to leave a given node.
+  - In binary trees, __all nodes except the root had an in-degree of 1__, and all nodes have an outdegree of 0, 1, or 2. __An outdegree of 0 means that it is a leaf__.
+- A graph can be either __cyclic__ or __acyclic__. A cyclic graph contains at least one cycle, and an acyclic graph has none.
+  - By definition, __binary trees have no cycles__.
+
+### How Do Graphs Show Up in Algorithm Problems?
+In linked list problems, the `head` of the linked list is given. In binary tree problems, the `root` of the tree is given. In graph problems, only information about a graph is given.
+
+#### Input Format 1: Array of Edges
+
+- In this input format, the input will be a 2D array. Each element of the array will be in the form `[x, y]`, which indicates that there is an edge between `x` and `y`.
+- Before starting the traversal, we can pre-process the input so that we can easily find all neighbors of any given `node`. To do this, we want a data structure that maps a given node to a list of its neighbors, e.g. a __hash map__.
+
+![a simple directed graph](figs/simple_graph.png)
+
+For example, the graph above could be represented by the following array of directed edges:
+
+```
+edges = [[0, 1], [1, 2], [2, 0], [2, 3]]
+```
+
+We can build a graph, i.e. a hash map of nodes and their neighbors from an input vector of `edges` as follows:
+
+```
+std::unordered_map<int, std::vector<int>> buildGraph(std::vector<std::vector<int>>& edges) {
+    std::unordered_map<int, std::vector<int>> graph;
+    for (vector<int>& edge: edges) {
+        int x = edge[0], y = edge[1];
+        graph[x].push_back(y);
+        // graph[y].push_back(x);
+        // uncomment the above line if the graph is undirected
+    }
+    
+    return graph;
+}
+```
+
+#### Input Format 2: Adjacency List
+n an adjacency list, the nodes will be numbered from 0 to n - 1. The input will be a 2D integer array, let's call it graph. graph[i] will be a list of all the outgoing edges from the $i^{th}$ node. The same graph above can be represented by the following adjacency list:
+
+```
+graph = [[1], [2], [0, 3], []]
+```
+
+Notice that with this input, we can already access all the neighbors of any given node. We don't need to do any pre-processing! This makes an adjacency list the most convenient format.
+
+#### Input Format 3: Adjacency Matrix
+The next format is an adjacency matrix. Once again, the nodes will be numbered from `0` to `n - 1`. You will be given a 2D matrix of size `n x n`, let's call it `graph`. If `graph[i][j] == 1`, that means there is an outgoing edge from node `i to node `j`.
+
+When given this format, you have two options. During the traversal, at any given node you can iterate over g`raph[node]`, and if `graph[node][i] == 1`, then you know that node `i` is a neighbor. Alternatively, you can pre-process the graph as we did with an array of edges. Both of these approaches will have a time complexity of $O(n^2)$.
+
+#### Input Format 4: Matrix
+The last format we'll talk about is more subtle but very common. The input will be a 2D matrix and the problem will describe a story. Each square will represent something, and the squares will be connected in some way. For example, _"Each square of the matrix is a village. Villages trade with their neighboring villages, which are the villages directly above, to the left, to the right, or below them."_
+
+In this case, each square `(row, col)` of the matrix is a node, and the neighbors are `(row - 1, col)`, `(row, col - 1)`, `(row + 1, col)`, `(row, col + 1)` (if in bounds).
+
+### Code Differences Between Trees and Graphs
+There are a few big differences between solving graph problems and solving binary tree problems.
+|                | Trees | Graphs |
+|:---------------|:------|:-------|
+| Starting Point | Traversal always begins at the `root` node. | A graph does not always have an obvious _start_ point. | 
+| Traversal | When traversing a tree, we refer to `node.left` and `node.right` at each `node`. | When traversing a graph, we will need to use a for loop to iterate over the `neighbors` of the current `node`.
+| 
+
+
+
 
 ### Graphs - Depth First Search (DFS)
 

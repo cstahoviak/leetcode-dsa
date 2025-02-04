@@ -4,13 +4,16 @@ set(TEST_NAME ${PROJECT_NAME}_tests)
 
 # Get the test source files
 set(TEST_SOURCES
-  "dsa/algorithms/test_two_pointers.cpp"
-  "dsa/algorithms/test_sliding_window.cpp"
   "dsa/algorithms/test_prefix_sum.cpp"
+  "dsa/algorithms/test_sliding_window.cpp"
+  "dsa/algorithms/test_two_pointers.cpp"
+
+  "dsa/data_structures/test_binary_trees.cpp"
+  "dsa/data_structures/test_graphs.cpp"
   "dsa/data_structures/test_hash_maps.cpp"
   "dsa/data_structures/test_linked_lists.cpp"
   "dsa/data_structures/test_stacks_and_queues.cpp"
-  "dsa/algorithms/test_dfs.cpp"
+
   "dsa/test_utils.cpp"
 )
 

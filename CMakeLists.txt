@@ -25,15 +25,18 @@ set(LIB_SOURCES
     "cpp/src/dsa/empty.cpp"
 )
 set(LIB_HEADERS
-    "cpp/include/dsa/algorithms/dfs.h"
     "cpp/include/dsa/algorithms/prefix_sum.h"
     "cpp/include/dsa/algorithms/sliding_window_algos.h"
     "cpp/include/dsa/algorithms/sliding_window.h"
     "cpp/include/dsa/algorithms/two_pointers_algos.h"
     "cpp/include/dsa/algorithms/two_pointers.h"
+
+    "cpp/include/dsa/data_structures/binary_trees.h"
+    "cpp/include/dsa/data_structures/graphs.h"
     "cpp/include/dsa/data_structures/hash_maps.h"
     "cpp/include/dsa/data_structures/linked_lists.h"
     "cpp/include/dsa/data_structures/stacks_and_queues.h"
+    
     "cpp/include/dsa/utils.h"
 )
 
