@@ -12,6 +12,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <queue>
 #include <unordered_map>
 #include <vector>
 
@@ -133,12 +134,17 @@ namespace dsa::data_structures::graphs
    * connections between cells exist vertically and horizantally, but not
    * diagonally.
    * 
+   * TODO: Maybe this should return the area of the connected component.
+   * 
    * @tparam T 
-   * @param row 
-   * @param col 
-   * @param grid 
-   * @param visited
-   * @param area
+   * @param row The index of the current row.
+   * @param col The index of the current column.
+   * @param grid The grid, a binary 2D array, where 1s represent valid cells
+   * (with landmass) and 0s represent empty cells (ocean).
+   * @param visited A 2D boolean indicator vector where a true value indicated
+   * that the cell has already been visited.
+   * @param area The area of the connected component to which grid[row][col]
+   * belongs.
    */
   template<typename T>
   void dfs_binary_grid(
@@ -265,7 +271,7 @@ namespace dsa::data_structures::graphs
       return 0;
     }
 
-    // Unpack the grid dimensions
+    // Unpack the grid dimensions, m x n.
     size_t m = grid.size();
     size_t n = grid.at(0).size();
 
@@ -290,4 +296,85 @@ namespace dsa::data_structures::graphs
 
     return ( area.size() ) ? *std::max_element(area.begin(), area.end()) : 0;
   }
+
+  /**
+   * @brief 
+   * 
+   * @param maze 
+   * @param entrance 
+   * @return int 
+   */
+  int nearest_exit(
+    const std::vector<std::vector<char>>& maze,
+    const std::vector<int>& entrance)
+  {
+    static const std::vector<std::vector<int>> directions = {
+      {0, 1}, {1, 0}, {0, -1}, {-1, 0}
+    };
+
+    // Unpack the maze dimensions, (m x n)
+    const size_t m = maze.size();
+    const size_t n = maze[0].size();
+
+    // Use a queue to store the nodes at the current "level", i.e. the unvisited
+    // neighbors of the current node.
+    std::queue<std::vector<int>> q;
+
+    // Create a 2D array indicating whether cell (i,j) has been visisted.
+    std::vector<std::vector<bool>> visited(m, std::vector<bool>(n, false));
+
+    // Mark the entrance cell as visited and place it onto the queue
+    visited[entrance[0]][entrance[1]] = true;
+    q.push({entrance[0], entrance[1], 0});   // row, col, steps
+
+    // Define the valid cell function as a lambda.
+    auto valid = [m, n, &maze](int row, int col) {
+      return 0 <= row && row < m && 0 <= col && col < n && maze[row][col] == '.'; 
+    };
+
+    // Define a lambda function to determine if a cell is on the maze boundary.
+    auto on_boundary = [m, n](int row, int col) {
+      return row == 0 || col == 0 || row == m - 1 || col == n - 1;
+    };
+
+    // Returns true if the cell at (row, col) is the entrance cell.
+    // auto is_entrance = [&entrance](int row, int col) {
+    //   return row == entrance[0] && col == entrance[1];
+    // };
+
+    while ( !q.empty() ) {
+      // Pop the current element from the top of the queue.
+      const std::vector<int> current = q.front();
+      q.pop();
+
+      int row = current[0], col = current[1], steps = current[2];
+      LOG("Taking cell (" << row << ", " << col << ", " << steps << 
+        ") off the queue.");
+      // if ( on_boundary(row, col) && !is_entrance(row,  col) ) {
+      if ( on_boundary(row, col) && steps > 0 ) {
+        // If we've reached a boundary cell (that's not the entrance), we can
+        // exit and return the number of steps required to reach that cell.
+        LOG("Found exit at (" << row << ", " << col << ") within " << steps
+          << " step(s) of the entrance.");
+        return steps;
+      }
+
+      // Iterate over the current cell's neighbors and place them onto the
+      // queue if they are valid and have not been visisted.
+      for ( const std::vector<int>& direction : directions ) {
+        const int next_row = row + direction[0];
+        const int next_col = col + direction[1];
+
+        if ( valid(next_row, next_col) && !visited[next_row][next_col] ) {
+          // Mark the "next" cell as visisted and place it onto the queue.
+          visited[next_row][next_col] = true;
+          q.push({next_row, next_col, steps + 1});
+        }
+      }
+    }
+
+    // No exit was found. The entrance does not count as a valid exit.
+    return -1;
+  }
+
 } // end namespace dsa::data_structures::graphs

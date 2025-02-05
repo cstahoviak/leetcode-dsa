@@ -377,15 +377,21 @@ There are a few big differences between solving graph problems and solving binar
 |                | Trees | Graphs |
 |:---------------|:------|:-------|
 | Starting Point | Traversal always begins at the `root` node. | A graph does not always have an obvious _start_ point. | 
-| Traversal | When traversing a tree, we refer to `node.left` and `node.right` at each `node`. | When traversing a graph, we will need to use a for loop to iterate over the `neighbors` of the current `node`.
-| 
-
-
-
+| Traversal | When traversing a tree, we refer to `node.left` and `node.right` at each `node`. | When traversing a graph, we will need to use a for loop to iterate over the `neighbors` of the current `node`. Typically, we will explore the entirety of a single __connected component__ via DFS before moving onto exploring the next node from an unvisited component. | 
 
 ### Graphs - Depth First Search (DFS)
+[no content here]
 
 ### Graphs - Breadth First Search (BFS)
+Like with trees, in many graph problems, it doesn't really matter if you use DFS or BFS, and there are rarely scenarios where DFS performs better than BFS - __people just choose DFS because it's faster/cleaner to implement, especially recursively__.
+
+But, there are some problems where using BFS is clearly better than using DFS. In trees, this was the case __for problems concerned concerned with tree levels__. In graphs, it is mostly the case when you are asked to find the __shortest path__.
+
+Recall that in binary trees, BFS would visit all nodes at a depth `d` before visiting any node at a depth `d + 1`. BFS visited the nodes __according to their distance from the root__.
+
+__BFS on a graph always visits nodes according to their distance from the starting point__. This is the key idea behind BFS on graphs - __every time you visit a node, you must have reached it in the minimum steps possible from wherever you started your BFS__.
+
+Recall that we __implemented DFS primarily with recursion__, which uses a __stack__ under the hood. __To implement BFS, we will use a queue__ (iteratively) instead.
 
 ## Implicit Graphs
 

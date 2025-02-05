@@ -38,7 +38,7 @@ TEST(TestGraphs, TestNumConnectedComponents) {
 }
 
 TEST(TestGraphs, TestMaxIslandArea) {
-  // Define the inputs
+  // Define the input
   std::vector<std::vector<int>> grid = {
     {0,0,1,0,0,0,0,1,0,0,0,0,0},
     {0,0,0,0,0,0,0,1,1,1,0,0,0},
@@ -56,4 +56,26 @@ TEST(TestGraphs, TestMaxIslandArea) {
 
   // Validate the algorithm
   EXPECT_EQ(graphs::max_island_area(grid), 6);
+}
+
+TEST(TestGraphs, TestNearestExit) {
+  // Define the inputs
+  std::vector<std::vector<char>> maze1 = {
+    {'+','+','.','+'},
+    {'.','.','.','+'},
+    {'+','+','+','.'},
+  };
+
+  std::vector<std::vector<char>> maze2 = {
+    {'+','+','+'},
+    {'.','.','.'},
+    {'+','+','+'},
+  };
+
+  std::vector<std::vector<char>> maze3 = { {0, 1} };
+  
+  // Validate the algorithm
+  EXPECT_EQ(graphs::nearest_exit(maze1, {1,2}), 1);
+  EXPECT_EQ(graphs::nearest_exit(maze2, {1,0}), 2);
+  EXPECT_EQ(graphs::nearest_exit(maze3, {0,0}), -1);
 }
