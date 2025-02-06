@@ -317,6 +317,7 @@ Before we dive in, you will first need to become familiar with some graph termin
 - Node's themseelves have the following properties related to the edges connected to them.
   - __In-degree__: the number of edges that can be used to reach a given node.
   - __Out-degree__: the number of edges that can be used to leave a given node.
+    - In an __undirected graph__, a node's outdegree is equal to the number of neighbors it has.
   - In binary trees, __all nodes except the root had an in-degree of 1__, and all nodes have an outdegree of 0, 1, or 2. __An outdegree of 0 means that it is a leaf__.
 - A graph can be either __cyclic__ or __acyclic__. A cyclic graph contains at least one cycle, and an acyclic graph has none.
   - By definition, __binary trees have no cycles__.
@@ -394,4 +395,6 @@ __BFS on a graph always visits nodes according to their distance from the starti
 Recall that we __implemented DFS primarily with recursion__, which uses a __stack__ under the hood. __To implement BFS, we will use a queue__ (iteratively) instead.
 
 ## Implicit Graphs
+When we first started looking at graphs, we talked about some common input formats for graphs (__adjacency list, adjacency matrix, array of edges, matrix__). Sometimes, a graph is more subtle. The input may look nothing like one of the formats we have talked about. Remember that __a graph is any abstract collection of elements (nodes) connected by some abstract relationship (edges)__. If a problem involves transitioning between states, then try to think about if the states can be nodes and the transition criteria can be edges. 
 
+Additionally, if the problem wants the __shortest path__ or __fewest operations etc__., it is a great candidate for __BFS__.

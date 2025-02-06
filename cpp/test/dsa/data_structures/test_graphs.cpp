@@ -79,3 +79,17 @@ TEST(TestGraphs, TestNearestExit) {
   EXPECT_EQ(graphs::nearest_exit(maze2, {1,0}), 2);
   EXPECT_EQ(graphs::nearest_exit(maze3, {0,0}), -1);
 }
+
+TEST(TestGraphs, TestMinMutations) {
+  // Define the inputs
+  const std::string start1 = "AACCGGTT";
+  const std::string end1 = "AACCGGTA";
+  const std::vector<std::string> bank1 = { "AACCGGTA" };
+
+  const std::string start2 = "AACCGGTT";
+  const std::string end2 = "AAACGGTA";
+  const std::vector<std::string> bank2 = { "AACCGGTA","AACCGCTA","AAACGGTA" };
+
+  EXPECT_EQ(graphs::min_mutation(start1, end1, bank1), 1);
+  EXPECT_EQ(graphs::min_mutation(start2, end2, bank2), 2);
+}
