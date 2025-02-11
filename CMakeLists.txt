@@ -21,6 +21,7 @@ ENDIF(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES Debug)
 
 # Set sources and headers
 set(LIB_SOURCES
+    "cpp/src/dsa/data_structures/heaps.cpp"
     "cpp/src/dsa/data_structures/linked_lists.cpp"
     "cpp/src/dsa/empty.cpp"
 )
@@ -34,6 +35,7 @@ set(LIB_HEADERS
     "cpp/include/dsa/data_structures/binary_trees.h"
     "cpp/include/dsa/data_structures/graphs.h"
     "cpp/include/dsa/data_structures/hash_maps.h"
+    "cpp/include/dsa/data_structures/heaps.h"
     "cpp/include/dsa/data_structures/linked_lists.h"
     "cpp/include/dsa/data_structures/stacks_and_queues.h"
     

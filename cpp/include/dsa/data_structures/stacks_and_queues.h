@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file stacks_and_queus.h
  * @author Carl Stahoviak

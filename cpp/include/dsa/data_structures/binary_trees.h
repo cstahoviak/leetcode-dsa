@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file binary_trees.h
  * @author Carl Stahoviak

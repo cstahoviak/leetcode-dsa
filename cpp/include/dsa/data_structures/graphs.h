@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file graphs.h
  * @author Carl Stahoviak

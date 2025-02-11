@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file linked_lists.h
  * @author Carl Stahoviak

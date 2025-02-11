@@ -11,6 +11,7 @@ set(TEST_SOURCES
   "dsa/data_structures/test_binary_trees.cpp"
   "dsa/data_structures/test_graphs.cpp"
   "dsa/data_structures/test_hash_maps.cpp"
+  "dsa/data_structures/test_heaps.cpp"
   "dsa/data_structures/test_linked_lists.cpp"
   "dsa/data_structures/test_stacks_and_queues.cpp"
 

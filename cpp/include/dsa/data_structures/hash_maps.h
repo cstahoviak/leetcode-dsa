@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file hashing.h
  * @author Carl Stahoviak
