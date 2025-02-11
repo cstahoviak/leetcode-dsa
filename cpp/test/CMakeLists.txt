@@ -4,6 +4,7 @@ set(TEST_NAME ${PROJECT_NAME}_tests)
 
 # Get the test source files
 set(TEST_SOURCES
+  "dsa/algorithms/test_greedy.cpp"
   "dsa/algorithms/test_prefix_sum.cpp"
   "dsa/algorithms/test_sliding_window.cpp"
   "dsa/algorithms/test_two_pointers.cpp"
