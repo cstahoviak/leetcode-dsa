@@ -20,10 +20,11 @@
 namespace dsa::algorithms::greedy
 {
   /**
-   * @brief You are given a positive integer num consisting only of digits 6 and 9.
+   * @brief You are given a positive integer 'num' consisting only of digits 6
+   * and 9.
    * 
-   * Return the maximum number you can get by changing at most one digit
-   * (6 becomes 9, and 9 becomes 6).
+   * Return the maximum number you can get by changing at most one digit (6 
+   * becomes 9, and 9 becomes 6).
    * 
    * @param num The input number.
    * @return int The output value with at most one changed digit.
@@ -31,6 +32,7 @@ namespace dsa::algorithms::greedy
   int maximum_69_number(int num) {
     // A simple lambda function to return the input num as a vector of its digits
     auto to_vec = [](int num, std::vector<int>& digits) {
+      // This will populate the vector 'digits' in reverse order.
       while ( num ) {
         digits.push_back(num % 10);
         num /= 10;
@@ -53,7 +55,7 @@ namespace dsa::algorithms::greedy
     }
 
     // Convert the vector of digits back to a number.
-    auto func = [](int acc, int val){return 10 * acc + val; };
+    auto func = [](int acc, int val){ return 10 * acc + val; };
     return std::accumulate(digits.begin(), digits.end(), 0, func);
   }
 
@@ -87,7 +89,7 @@ namespace dsa::algorithms::greedy
     // Create an alias that's more easily understood.
     int& boxes_remaining = truck_size;
 
-    // Determine the number of units that will fit on the truck
+    // Determine the number of units that will fit on the truck.
     size_t total_units{0};
     while( boxes_remaining > 0 && !max_heap.empty() ) {
       // Unpack the current box info
@@ -109,13 +111,133 @@ namespace dsa::algorithms::greedy
     return total_units;
   }
 
+  /**
+   * @brief 1196. How Many Apples Can You Put in the Basket
+   * 
+   * You have some apples and a basket that can carry up to 5000 units of
+   * weight.
+   * 
+   * Given an integer array weight where weight[i] is the weight of the ith
+   * apple, return the maximum number of apples you can put in the basket.
+   * 
+   * @tparam T 
+   * @param weight The input vector of apple weights.
+   * @return size_t The maximum number of apples that we can put in the basket.
+   */
   template<typename T>
   size_t max_apples(const std::vector<T>& weight) {
-    return 0;
+    // Create a min heap to store the apple weights
+    std::priority_queue<T, std::vector<T>, std::greater<T>> min_heap(
+      weight.cbegin(), weight.cend());
+
+    T weight_remaining{5000};
+    T total_apples{0};
+    while ( weight_remaining > 0 && !min_heap.empty() ) {
+      weight_remaining -= min_heap.top();
+      total_apples++;
+      min_heap.pop();
+    }
+
+    // If the last apple added exceeded the weight limit, reduce the apple
+    // count by one.
+    if ( weight_remaining < 0 ) {
+      total_apples--;
+    }
+
+    return total_apples;
   }
 
+  /**
+   * @brief 1338. Reduce Array Size to The Half
+   * 
+   * You are given an integer array nums. You can choose a set of integers and
+   * remove all the occurrences of these integers in the array.
+   * 
+   * Return the minimum size of the set such that at least half of the integers of
+   * the array are removed.
+   * 
+   * @tparam T 
+   * @param nums Theh input vector of integer values.
+   * @return size_t The minimum size of the set.
+   */
   template<typename T>
-  size_t min_set_size(const std::vector<T>& vec) {
-    return 0;
+  size_t min_set_size(const std::vector<T>& nums) {
+    // Create a hash table to store a histogram of each value in nums
+    std::unordered_map<T, uint32_t> hist;
+    for (const T& num : nums ) {
+      hist[num]++;
+    }
+
+    // Next create a max-heap sorted by the occurence of each value.
+    // TODO: Don't actually need to store both the number and its frequency,
+    // just storing the frequency is sufficient to solve the problem
+    using Pair = std::pair<uint32_t, T>;
+    std::priority_queue<Pair, std::vector<Pair>> max_heap;
+    for ( const auto& [num, freq] : hist ) {
+      max_heap.push(std::make_pair(freq, num));
+    }
+
+    uint32_t removed_set_size{0};
+    size_t reduced_size = nums.size();
+    while ( reduced_size > nums.size() / 2 ) {
+      const auto& [freq, num] = max_heap.top();
+      LOG("Removing " << freq << " instances of " << num);
+      reduced_size -= freq;
+      removed_set_size++;
+      max_heap.pop();
+    }
+
+    return removed_set_size;
+  }
+
+  /**
+   * @brief 1338. Reduce Array Size to The Half
+   * 
+   * This was an attempt to solve the problem above using an ordered associative
+   * container (std::map). This approach will NOT work because std::map cannot
+   * have two items that share the same key. And in this problem, the key is the
+   * frequency of occurence of a particular value in nums, and so it's
+   * expected that multiple numbers will have the same frequency.
+   * 
+   * The solution above is correct because std::priority_queue allows for
+   * elements to compare "equal" to one another, and so we can store multiple
+   * occurences of the same frequency.
+   * 
+   * @tparam T 
+   * @param nums Theh input vector of integer values.
+   * @return size_t The minimum size of the set.
+   */
+  template<typename T>
+  size_t min_set_size_2(const std::vector<T>& nums) {
+    // Create a hash table to store a histogram of each value in nums.
+    std::unordered_map<T, uint32_t> hist;
+    for (const T& num : nums ) {
+      hist[num]++;
+    }
+
+    // Flip the map to be sorted by values (doesn't work with std::greater).
+    // std::multimap<uint32_t, T> flipped_hist = dsa::utils::flip_map(hist);
+
+    // Manually flip the keys and values.
+    // NOTE: This WON'T work because an (ordered) map cannot have multiple items
+    // that share the same key.
+    std::map<uint32_t, T, std::greater<uint32_t>> flipped_hist;
+    for ( const auto& [num, freq] : hist ) {
+      flipped_hist[freq] = num;
+    }
+
+    LOG("min_set_size_2");
+    uint32_t removed_set_size{0};
+    size_t reduced_size = nums.size();
+    for ( const auto& [freq, num] : flipped_hist ) {
+      LOG("Removing " << freq << " instances of " << num);
+      reduced_size -= freq;
+      removed_set_size++;
+      if ( reduced_size <= nums.size() / 2) {
+        break;
+      }
+    }
+
+    return removed_set_size;
   }
 }

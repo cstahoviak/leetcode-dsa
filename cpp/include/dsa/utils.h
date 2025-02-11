@@ -13,17 +13,19 @@
  * https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl
  */
 
+#include <algorithm>
 #include <array>
 // Include to get 'size_t'
 #include <cstddef>
 #include <iostream>
+#include <map>
 #include <tuple>
 #include <vector>
 
 // Define a compiler varaible based macro that will effectively hide all of our
 // logging code if that variable is not set.
 #ifdef DEBUG_INFO
-  # define LOG(x) std::cout << "[LOG] " <<  x << std::endl;
+  # define LOG(x) std::cout << "[LOG] " <<  x << std::endl
 #else
   #define LOG(x)
 #endif
@@ -93,6 +95,42 @@ namespace dsa::utils
 
   //   return tokens;
   // }
+
+
+  template<typename A, typename B>
+  std::pair<B,A> flip_pair(const std::pair<A, B>& p)
+  {
+    return std::pair<B, A>(p.second, p.first);
+  }
+
+  /**
+   * @brief Template function for swapping the keys and values of a std::map.
+   * 
+   * Source: https://stackoverflow.com/questions/5056645/sorting-stdmap-using-value
+   * 
+   * TODO: This seems to work with the default comparator, std::less<A>, but
+   * I don't know how to get it to work with std::greater<A> or a custom
+   * comparator.
+   * 
+   * I wanted to use this to experiment with the implementation of
+   * dsa::algorithms::greedy::min_set_size_2, but it's not working yet.
+   * 
+   * @tparam A 
+   * @tparam B 
+   * @param src 
+   * @return std::multimap<B, A> 
+   */
+  template<typename A, typename B>
+  std::multimap<B, A> flip_map(const std::map<A, B>& src)
+  {
+    // TODO: How do I "inherit" the comparator function from 'src'?
+    std::multimap<B, A> dst;
+    std::transform(
+      src.begin(), src.end(),
+      std::inserter(dst, dst.begin()),
+      flip_pair<A, B>);
+    return dst;
+  }
 } // end namespace dsa::utils
 
 // template <class Iterator>

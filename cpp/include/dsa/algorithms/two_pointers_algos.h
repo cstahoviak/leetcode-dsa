@@ -109,7 +109,8 @@ namespace dsa::algorithms::_two_pointers
     }
 
     while (s_idx < s.size() && t_idx < t.size()) {
-      LOG("t[" << t_idx << "]: " << t[t_idx] << ", s[" << s_idx << "]: " << s[s_idx])
+      LOG("t[" << t_idx << "]: " << t[t_idx] << ", s[" << s_idx << "]: " 
+        << s[s_idx]);
       if (s[s_idx] == t[t_idx]) {
         s_idx++;
       }

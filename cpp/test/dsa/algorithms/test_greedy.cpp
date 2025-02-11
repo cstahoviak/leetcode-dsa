@@ -47,9 +47,16 @@ TEST(TestGreedyAlgorithms, TestMaximumApples) {
 
 TEST(TestGreedyAlgorithms, TestMinSetSize) {
   // Define the test inputs
-  const std::vector<int> vec1 = { 3, 3, 3, 3, 5, 5, 5, 2, 2, 7 };
-  const std::vector<int> vec2 = { 7, 7, 7, 7, 7, 7 };
+  const std::vector<int> nums1 = { 3, 3, 3, 3, 5, 5, 5, 2, 2, 7 };
+  const std::vector<int> nums2 = { 7, 7, 7, 7, 7, 7 };
+  const std::vector<int> nums3 = { 
+    9, 77, 63, 22, 92, 9, 14, 54, 8, 38, 18, 19, 38 ,68, 58, 19 };
 
-  EXPECT_EQ(greedy::min_set_size(vec1), 2);
-  EXPECT_EQ(greedy::min_set_size(vec2), 1);  
+
+  EXPECT_EQ(greedy::min_set_size(nums1), 2);
+  EXPECT_EQ(greedy::min_set_size(nums2), 1);
+  EXPECT_EQ(greedy::min_set_size(nums3), 5);
+
+  // This test will fail. See the implementation for details.
+  // EXPECT_EQ(greedy::min_set_size_2(nums3), 5);
 }
