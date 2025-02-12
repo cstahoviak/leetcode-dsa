@@ -18,7 +18,7 @@ Because the search space is halved at every iteration, binary search's worst-cas
 The C++ implementation of binary search looks like:
 
 ```
-int binary_search(const vector<int>& arr, int target) {
+int binary_search(const std::vector<int>& arr, int target) {
   // left and right represent the inclusive bounds of the current search space.
   int left = 0;
   int right = int(arr.size()) - 1;
@@ -51,5 +51,42 @@ If your input has __duplicate elements__, you can modify the binary search templ
 __You should think about binary search anytime the problem provides anything sorted. $O(\log n)$ is extremely fast and binary search is usually a HUGE optimization__.
 
 ## On Arrays
+__Binary search is a common optimization to a linear scan when searching for an element's index or insertion point if it doesn't exist__. In these problems, left and right represent the bounds of the subarray we are currently considering. mid represents the index of the middle of the current search space. Sometimes, you will directly be binary searching for the answer. Other times, binary search will just be a tool that speeds up your algorithm.
+
+We can adapt the binary search algorithm above for a 1D array to work for a 2D array of size $m \times n$. If we known that the first value of each row is greater than the last value of the preceding row, we can treat the 2D array (matrix) as a single 1D array of length $m \times n$.
+
+```
+bool search_matrix(const std::vector<std::vector<int>>& matrix, int target) {
+  int m = int(matrix.size());
+  int n = int(matrix[0].size());
+  int left = 0;
+  int right = m * n - 1;
+  
+  while (left <= right) {
+    int mid = left + (right - left) / 2;
+    int row = mid / n;    // for integer types, this is referred as "floor" division
+    int col = mid % n;    // modulo restricts col to be in [0, n-1]
+    int num = matrix[row][col];
+    
+    if (num == target) {
+      return true;
+    }
+    
+    if (num < target) {
+      left = mid + 1;
+    }
+    else {
+      right = mid - 1;
+    }
+  }
+  
+  return false;
+}
+```
+
+Because there are $m \cdot n$ elements, the initial search space has a size of $m \cdot n$, which means this algorithm has a time complexity of $O(\log(m \cdot n))$.
+
+Binary searching on an array is a simple tool to improve an algorithm's time complexity by a huge amount. __Anytime you have a sorted array (or are able to sort an array without consequence), consider using binary search to quickly find the insertion index of a desired element__.
+
 
 ## On Solution Spaces
