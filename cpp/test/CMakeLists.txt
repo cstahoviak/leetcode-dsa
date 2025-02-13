@@ -25,9 +25,11 @@ add_executable(${TEST_NAME} ${TEST_SOURCES})
 
 # Linking
 target_link_libraries(${TEST_NAME} PUBLIC
-# link our tests against both the googletest library and our library
+  # link tests against gtest, dsalib, and tbb (Intel Threading Building Blocks)
   gtest_main
   dsalib
+  tbb
+  # ${TBB_LIBRARY}
 )
 
 # Add debug info for each target

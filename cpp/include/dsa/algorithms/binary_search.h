@@ -11,7 +11,9 @@
 #include "dsa/utils.h"
 
 #include <algorithm>  // std::sort
+#include <cmath>      // std::ceil
 #include <cstddef>    // size_t
+#include <execution>  // std::execution (for std::transform_reduce)
 #include <numeric>    // std::inclusive_scan
 #include <vector>
 
@@ -117,14 +119,83 @@ namespace dsa::algorithms::binary_search
    * @brief 1283. Find the Smallest Divisor Given a Threshold (Medium)
    * https://leetcode.com/problems/find-the-smallest-divisor-given-a-threshold/
    * 
+   * Given an array of integers 'nums' and an integer 'threshold', choose a
+   * positive integer divisor, divide all the array by it, and sum the 
+   * division's result. Find the smallest divisor such that the result mentioned
+   * above is less than or equal to threshold.
+   * 
+   * Each result of the division is rounded to the nearest integer greater than
+   * or equal to that element, eg 7/3 = 3 and 10/2 = 5.
+   * 
    * @tparam T 
    * @param nums 
    * @param threshold 
    * @return T 
    */
   template<typename T>
-  T smallest_divisor(const std::vector<T>& nums, T threshold) {
-    return 0;
+  uint32_t smallest_divisor(const std::vector<T>& nums, T threshold) {
+    // 1. How can we choose the bounds of our binary search?
+    // 1a. If divisor is a positive integer, divisor=1 will yeild the maximum
+    //  possible value of sum(nums / divisor)
+    // 1b. Given that the threshold will always be greater than or equal to the
+    //  length of nums, we do not need to search for a divisor greater than
+    //  max(nums).
+    uint32_t left = 1;
+    uint32_t right = *std::max_element(nums.cbegin(), nums.cend());
+
+    // Define our custom division function to meet the problem requirements.
+    auto divide = [](T& num, uint32_t& divisor) -> int { 
+      // return std::ceil((1.0 * num) / scalar);
+      return (num + divisor - 1) / divisor;
+    };
+
+    // Precompute the sum of nums (std::reduce is parallelizable unlike std::accumulate)
+    // T sum = std::reduce(nums.cbegin(), nums.cend(), 0);
+
+    while ( left <= right ) {
+      // Calculate the middle of the current search space
+      uint32_t mid = left + (right - left) / 2;
+
+      // Divide the sum of nums by mid - this WON'T work because integer
+      // division must be performed on EACH element. I think this means that
+      // this particular type of division is non associative?
+      // uint32_t sum_of_divisions = sum / mid;
+
+      // Compute the "sum of divisions" if divisor = mid
+      LOG("left: " << left << ",\tright: " << right << ",\tmid: " << mid);
+      uint32_t sum_of_divisions = std::transform_reduce(
+        std::execution::par,          // execution policy: parallel
+        nums.cbegin(), nums.cend(),   // input range
+        0,                            // initial value of sum
+        std::plus<int>(),             // reduction operation: addition
+        // transformation func: division by scalar
+        [&divide, &mid](T val) { return divide(val, mid); } 
+      );
+
+      // TODO: Not sure why this isn't matching the result of transform_reduce
+      uint32_t sum_of_divisions2 = std::reduce(
+        nums.cbegin(), nums.cend(),
+        0,
+        [&divide, &mid](uint32_t acc, T num) { return acc + divide(num, mid); }
+      );
+
+      LOG("\tsum1: " << sum_of_divisions << ",\tsum2: " << sum_of_divisions2);
+
+      if ( sum_of_divisions <= threshold ) {
+        // The the sum is less than or equal to the threshold value, then this
+        // divisor may be our answer, but we also need to try smaller divisors.
+        right = mid - 1;
+      }
+      else {
+        // Otherwise, the sum exceeds the threshold, and we need a larger
+        // divisor, so eliminate the left half of the remain search space.
+        left = mid + 1;
+      }
+    }
+
+    // We never matched the threshold value exactly, but our search space size
+    // cannot be reduced any further.
+    return left;
   }
 
   /**

@@ -38,4 +38,18 @@ TEST(TestLinkedListsAlgorithms, TestRemoveDuplicates) {
 
 TEST(TestLinkedListsAlgorithms, TestReverseSublist) {
   GTEST_SKIP();
+
+  // Test Case 1:
+  const std::vector<int> nums {1, 2, 3, 4, 5};
+  const std::vector<int> expected {1, 4, 3, 2, 5};
+  SinglyLinkedList list(nums);
+  list.reverse_sublist(2, 4);
+  EXPECT_EQ(list.values(), expected);
+
+  // Test Case 2:
+  const std::vector<int> nums2 { 5 };
+  const std::vector<int> expected2 { 5 };
+  SinglyLinkedList list2(nums2);
+  list2.reverse_sublist(1, 1);
+  EXPECT_EQ(list2.values(), expected2);
 }

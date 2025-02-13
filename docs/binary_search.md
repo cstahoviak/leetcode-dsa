@@ -88,5 +88,19 @@ Because there are $m \cdot n$ elements, the initial search space has a size of $
 
 Binary searching on an array is a simple tool to improve an algorithm's time complexity by a huge amount. __Anytime you have a sorted array (or are able to sort an array without consequence), consider using binary search to quickly find the insertion index of a desired element__.
 
-
 ## On Solution Spaces
+There is a more creative way to use binary search - on a solution space/answer. __A very common type of problem is "what is the max/min that something can be done"__. Binary search can be used if the following criteria are met:
+
+1. You can quickly (in $O(n)$ or better) verify if the task is possible for a given number `x`.
+2. If the task is possible for a number `x`, and you are looking for:
+    - A maximum, then it is also possible for all numbers less than `x`.
+    - A minimum, then it is also possible for all numbers greater than `x`.
+3. If the task is not possible for a number `x`, and you are looking for:
+    - A maximum, then it is also impossible for all numbers greater than `x`.
+    - A minimum, then it is also impossible for all numbers less than `x`.
+
+The 2nd and 3rd requirements imply that there are two __zones__. One where it is possible and one where it is impossible. The zones have no breaks, no overlap, and are separated by a __threshold__.
+
+![binary searhc space](figs/binary_search_space.png)
+
+When a problem wants you to find the min/max, it wants you to find the __threshold__ where the task transitions from impossible to possible.

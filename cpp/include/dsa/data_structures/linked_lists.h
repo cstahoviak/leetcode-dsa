@@ -42,7 +42,7 @@ namespace dsa::data_structures::linked_lists
       ListNode* head() const { return head_; }
       std::vector<int> values() const;
 
-      // UTility functions
+      // Utility functions
       ListNode* middle_node() const;
       void remove_duplicates();
       void reverse_sublist(int, int);

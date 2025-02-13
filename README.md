@@ -29,6 +29,30 @@ The 12th chapter contains several useful tools that can be used moving forward. 
 
 The final chapter is a bonus chapter where we will look into a few more techniques that aren't common/broad enough to warrant their own chapter.
 
+## Building
+To enable parallel execution of `std::transform_reduce` in `dsa::algorithms::binary_search::smallest_divisor`, we need to make sure that [Intel Threading Building Blocks (TBB)](https://github.com/uxlfoundation/oneTBB/tree/master) is installed. We can install `tbb` via `apt`.
+
+```
+sudo apt install libtbb-dev
+```
+
+Build the __apps__, __unit tests__ and __python bindings__ via the standard CMake build process.
+
+```
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release ..
+make -j8
+```
+
+### Running the Unit Tests
+Once the tests have been built, they can be run by doing:
+
+```
+cd build
+./cpp/test/dsa_tests
+```
+
 ## Typos & Corrections
 1. (Introduction, Analyzing time complexity) "This for loop iterates 500,000 times, which means each __inner__ for loop iteration costs..."
 2. 

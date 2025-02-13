@@ -151,10 +151,15 @@ namespace dsa::data_structures::linked_lists
   }
 
   /**
-   * @brief Given the head of a singly linked list and two integers 'left' and
+   * @brief 92. Reverse Linked List II (Medium)
+   * https://leetcode.com/problems/reverse-linked-list-ii/
+   * 
+   * Given the head of a singly linked list and two integers 'left' and
    * 'right' where 'left' <= 'right', reverse the nodes of the list from
    * position 'left' to position 'right', and return the reversed list.
    * 
+   * @param left The index of the left-most node is the reversed sub-list.
+   * @param right The index of the right-most node is the reversed sub-list.
    */
   void SinglyLinkedList::reverse_sublist(int left, int right) {
 
