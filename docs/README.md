@@ -15,3 +15,4 @@ Algorithms overview.
 | Algorithm | Assoc. Data Structures | C++ Implementation    | Use Cases |
 |:----------|:-----------------------|:----------------------|:----------|
 | Greedy    | Heaps                  | `std::priority_queue` | Chose a __greedy__ algorithm when the problem calls for _greedily_ choosing the max/min element at each step.|
+| Binary Search | N/A | `std::binary_search`<br> `std::upper_bound`<br> `std::lower_bound` | - Consider using binary search when the problem provides a __sorted input__ and asks about the __insertion point__ of a new element.<br> - Anytime a problem asks us to find a __threshold__ where a task transitions from feasible to infeasible.<br> &ensp; - We can use binary search to efficiently halve the feasible or infeasible space at each step|
