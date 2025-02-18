@@ -26,6 +26,7 @@ set(LIB_SOURCES
     "cpp/src/dsa/empty.cpp"
 )
 set(LIB_HEADERS
+    "cpp/include/dsa/algorithms/backtracking.h"
     "cpp/include/dsa/algorithms/binary_search.h"
     "cpp/include/dsa/algorithms/greedy.h"
     "cpp/include/dsa/algorithms/prefix_sum.h"
