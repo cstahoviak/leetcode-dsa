@@ -159,3 +159,5 @@ void backtrack(vector<int>& curr, int i, vector<vector<int>>& ans) {
 ```
 
 As you can see, the idea and code behind each of these problems is very similar. __Remember to model the problem as a tree, and then figure out what children each node should have__.
+
+## More Constrained Backtracking

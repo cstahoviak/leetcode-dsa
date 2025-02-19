@@ -14,7 +14,7 @@
 
 using namespace dsa::algorithms;
 
-TEST(TestBacktracking, TestAllPlathsFromSourceToTarget) {
+TEST(TestBacktracking, TestAllPathsFromSourceToTarget) {
   // Define the test data
   const std::vector<std::vector<int>> graph1 = { {1,2}, {3}, {3}, {} };
   const std::vector<std::vector<int>> graph2 = { {4,3,1},{3,2,4},{3},{4},{} };
@@ -42,7 +42,7 @@ TEST(TestBacktracking, TestAllPlathsFromSourceToTarget) {
   }
 }
 
-TEST(TestBacktracking, TestLEtterCombinations) {
+TEST(TestBacktracking, TestLetterCombinations) {
   // Define the test data
   const std::vector<std::string> digits = { "23", "", "2" };
   const std::vector<std::vector<std::string>> expected {
