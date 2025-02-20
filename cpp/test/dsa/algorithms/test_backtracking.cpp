@@ -64,3 +64,66 @@ TEST(TestBacktracking, TestLetterCombinations) {
     idx++;
   }
 }
+
+TEST(TestBacktracking, TestGenerateParenthesis) {
+  // Define the expected values
+  const std::vector<int> n_parenthesis = {3, 1};
+  const std::vector<std::vector<std::string>> expected = {
+    {"((()))", "(()())", "(())()", "()(())", "()()()"},
+    {"()"}
+  };
+
+  for ( size_t idx = 0; idx < expected.size(); idx++ ) {
+    const auto result = backtracking::generate_parenthesis(n_parenthesis[idx]);
+    EXPECT_EQ(result.size(), expected[idx].size());
+    for (const std::string& str : result ) {
+      // Verify that each string in the result vec exists in the expected vec.
+      EXPECT_NE(std::find(expected[idx].cbegin(), expected[idx].cend(), str),
+        expected[idx].cend());
+    }
+  }
+}
+
+TEST(TestBacktracking, TestNumbersWithSameConsecutiveDifference) {
+  GTEST_SKIP();
+
+  // Define the expected values
+  const std::vector<int> n_vec = {3, 2};
+  const std::vector<int> k_vec = {7, 1};
+  const std::vector<std::vector<int>> expected = {
+    { 181, 292, 707, 818, 929 },
+    { 10, 12, 21, 23, 32, 34, 43, 45, 54, 56, 65, 67, 76, 78, 87, 89, 98 }
+  };
+
+  for ( size_t idx = 0; idx < expected.size(); idx++ ) {
+    const auto result = backtracking::consecutive_diff(n_vec[idx], k_vec[idx]);
+    EXPECT_EQ(result.size(), expected[idx].size());
+    for (const int& val : result ) {
+      // Verify that each value in the result vec exists in the expected vec.
+      EXPECT_NE(std::find(expected[idx].cbegin(), expected[idx].cend(), val),
+        expected[idx].cend());
+    }
+  }
+}
+
+TEST(TestBacktracking, TestCombinationSum3) {
+  // Define the expected values
+  const std::vector<int> k_vec = {3, 3, 4, 2};
+  const std::vector<int> n_vec = {7, 9, 1, 6};
+  const std::vector<std::vector<std::vector<int>>> expected = {
+    {{1, 2, 4}},
+    {{1, 2, 6}, {1, 3, 5}, {2, 3, 4}},
+    {},
+    {{1, 5}, {2, 4}}
+  };
+
+  for ( size_t idx = 0; idx < expected.size(); idx++ ) {
+    const auto result = backtracking::combination_sum_3(k_vec[idx], n_vec[idx]);
+    EXPECT_EQ(result.size(), expected[idx].size());
+    for (const std::vector<int>& val : result ) {
+      // Verify that each value in the result vec exists in the expected vec.
+      EXPECT_NE(std::find(expected[idx].cbegin(), expected[idx].cend(), val),
+        expected[idx].cend());
+    }
+  }
+}

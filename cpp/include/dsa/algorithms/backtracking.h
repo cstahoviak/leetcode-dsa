@@ -10,8 +10,9 @@
  */
 #include "dsa/utils.h"
 
+#include <cstdint>        // uint8_t
 #include <functional>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 
@@ -80,12 +81,12 @@
    * letter combinations that the number could represent. Return the answer in
    * any order. Digits 1 and 0 do not map to any letters.
    * 
-   * @param digits The input string of digits, [2,9].
+   * @param digits The input string of digits, digits[i] in [2,9].
    * @return std::vector<std::string> All possible letter combinations.
    */
   std::vector<std::string> letter_combinations(const std::string& digits) {
     // Define the mapping of digits to characters.
-    static const std::map<char, std::vector<char>> map = {
+    static const std::unordered_map<char, std::vector<char>> map = {
       {'2', {'a', 'b', 'c'}}, {'3', {'d', 'e', 'f'}},
       {'4', {'g', 'h', 'i'}}, {'5', {'j', 'k', 'l'}},
       {'6', {'m', 'n', 'o'}}, {'7', {'p', 'q', 'r', 's'}},
@@ -95,8 +96,10 @@
     // Create the result vector storing all possible string combinations.
     std::vector<std::string> combinations;
 
-    // Define the backtracking function -
+    // Define the backtracking function (idx is the index of the current
+    // position in the digits string).
     std::function<void(std::string&, size_t)> backtrack = 
+      // NOTE: local static variables can be accessed without explicit capture.
       [&digits, &combinations, &backtrack]
       (std::string& combination, size_t idx)
     {
@@ -132,6 +135,139 @@
       // Continue building the string with the next digit
       backtrack(combination, 1);
       // Remove this start character and move onto the next one
+      combination.pop_back();
+    }
+
+    return combinations;
+  }
+
+  /**
+   * @brief 22. Generate Parenthesis (Medium)
+   * https://leetcode.com/problems/generate-parentheses/
+   * 
+   * Given n pairs of parentheses, write a function to generate all combinations
+   * of "well-formed" parentheses.
+   * 
+   * @param n 
+   * @return std::vector<std::string> 
+   */
+  std::vector<std::string> generate_parenthesis(int n) {
+    // Define the list of valid parenthesis strings
+    std::vector<std::string> combinations;
+
+    // Define the backtracking function
+    std::function<void(uint8_t, uint8_t, std::string&)> backtrack = 
+      [&n, &combinations, &backtrack]
+      (uint8_t n_open, uint8_t n_closed, std::string& combination)
+    {
+      LOG("current string: '" << combination << "',\tn_open: " << n_open <<
+        ", n_closed: " << n_closed);
+
+      // Base base: the string has reached its maximum size
+      if ( combination.length() == 2 * n ) {
+        LOG("Adding '" << combination << "' to the list of combinations.");
+        combinations.push_back(combination);
+        return;
+      }
+
+      if ( n_open < n ) {
+        // We can continue adding open parenthesis.
+        combination.push_back('(');
+        backtrack(n_open + 1, n_closed, combination);
+        combination.pop_back();
+      }
+
+      if ( n_closed < n_open ) {
+        // We need to close one or more of the parentheses that we've opened.
+        combination.push_back(')');
+        backtrack(n_open, n_closed + 1, combination);
+        combination.pop_back();
+      }
+    };
+
+    // Always begin with the an open parenthesis
+    std::string combination{"("};
+    backtrack(1, 0, combination);
+    return combinations;
+  }
+
+  /**
+   * @brief 967. Numbers with Same Consecutive Differences (Medium)
+   * https://leetcode.com/problems/numbers-with-same-consecutive-differences/
+   * 
+   * Given two integers n and k, return an array of all the integers of length
+   * n, where the difference between every two consecutive digits is k. You may
+   * return the answer in any order.
+   * 
+   * Note that the integers should not have leading zeros. Integers as '02' and
+   * '043' are not allowed.
+   * 
+   * @param n 
+   * @param k 
+   * @return std::vector<int> 
+   */
+  std::vector<int> consecutive_diff(int n, int k) {
+    return {};
+  }
+
+  /**
+   * @brief Combination Sum III (Medium)
+   * https://leetcode.com/problems/combination-sum-iii/
+   * 
+   * Find all valid combinations of k numbers that sum up to n such that the
+   * following conditions are true:
+   *  - Only numbers 1 through 9 are used.
+   *  - Each number is used at most once.
+   * 
+   * Return a list of all possible valid combinations in any order.
+   * 
+   * @param k Each valid combination consists of k numbers.
+   * @param n Each valid combination must have a sum of n.
+   * @return std::vector<std::vector<int>> 
+   */
+  std::vector<std::vector<int>> combination_sum_3(int k, int n) {
+    // Create the result vector
+    std::vector<std::vector<int>> combinations;
+
+    // The maximum possible value in a given combination is k less than n, e.g.
+    // if the sum is n=9, and there are k=3 numbers per combination, n-k=6 is
+    // the largest possible value in the solution [1,2,6].
+    int max_val = std::min(9, n - k + 1); 
+
+    // Define the backtracking function
+    std::function<void(std::vector<int>&, int)> backtrack = 
+      [&k, &n, &max_val, &combinations, &backtrack]
+      (std::vector<int>& combination, int sum)
+    {
+      LOG("current combination: " << combination);
+
+      if ( combination.size() == k ) {
+        if ( sum == n ) {
+          LOG("Adding " << combination << " to the result vector.");
+          combinations.push_back(combination);
+          return;
+        }
+        else {
+          LOG("Invalid combination " << combination << " discarded.");
+          return;
+        }
+      }
+
+      // Iterate over all possible successive numbers
+      for ( int idx = combination.back() + 1; idx <= max_val; idx++ ) {
+        if ( sum + idx <= n ) {
+          combination.push_back(idx);
+          backtrack(combination, sum + idx);
+          combination.pop_back();
+        }
+      }
+    };
+
+    // Iterate over all possible starting values.
+    std::vector<int> combination;
+    for ( int idx = 1; idx <= max_val; idx++ ) {
+      combination.push_back(idx);
+      backtrack(combination, idx);
       combination.pop_back();
     }
 

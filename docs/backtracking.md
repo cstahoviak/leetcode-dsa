@@ -1,7 +1,7 @@
 # Backtracking
 The most brute force way to solve a problem is through __exhaustive search__. Generate all possibilities and then check each of them for a solution.
 
-__Backtracking is a way to efficiently run through all possibilities in a problem__. It typically uses an optimization that involves abandoning a __path__ once it is determined that the path cannot lead to a solution. __The idea is similar to binary search trees__ - if you're looking for a value `x`, and the root node has a value greater than `x`, then you know you can ignore the entire right subtree.
+__Backtracking is an optimization on exhaustive search__ that efficiently run through all _valid_ possibilities in a problem. It typically uses an optimization that involves abandoning a __path__ once it is determined that the path cannot lead to a solution. __The idea is similar to binary search trees__ - if you're looking for a value `x`, and the root node has a value greater than `x`, then you know you can ignore the entire right subtree.
 
 Abandoning a path is also sometimes called __pruning__.
 
@@ -161,3 +161,11 @@ void backtrack(vector<int>& curr, int i, vector<vector<int>>& ans) {
 As you can see, the idea and code behind each of these problems is very similar. __Remember to model the problem as a tree, and then figure out what children each node should have__.
 
 ## More Constrained Backtracking
+Generation problems are relatively straightforward and usually follow the same format, but let's take a look at some more involved backtracking problems.
+
+See the following function for examples of more "advanced" backtracking techniques:
+
+- [`dsa::algorithms::backtracking::generate_parenthesis`](../cpp/include/dsa/algorithms/backtracking.h)
+- [`dsa::algorithms::backtracking::consecutive_diff`](../cpp/include/dsa/algorithms/backtracking.h) (not implemented)
+- [`dsa::algorithms::backtracking::combination_sum_3`](../cpp/include/dsa/algorithms/backtracking.h)
+
