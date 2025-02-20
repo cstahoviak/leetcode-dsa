@@ -1,3 +1,4 @@
+#pragma once
 /**
  * @file backtracking.h
  * @author Carl Stahoviak

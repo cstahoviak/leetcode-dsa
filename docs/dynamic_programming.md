@@ -32,7 +32,9 @@ This algorithm has a time complexity of $O(2^n)$. This is because every call to 
 
 As you can see, there is a lot of repeated computation - for example, `f(4)` is calculated twice, `f(3)` is calculated 3 times, and `f(2)` is calculated 5 times. At this size, it doesn't seem like a big deal. However, as `n` grows, the repeated computation grows exponentially. If we wanted to calculate `f(7)`, then this __entire__ tree would be just one side of the root.
 
-To avoid repeating computation, we can __memoize__ the results from our function calls. Let's use a hash map to store the results and check the hash map before making any recursive calls.
+In fact, __the most common cause of stack overflow is excessively deep or infinite recursion__, in which a function calls itself so many times that the space needed to store the variables and information associated with each call is more than can fit on the stack.
+
+To avoid repeating computation (and avoid stack overflow), we can __memoize__ the results from our function calls. Let's use a hash map to store the results and check the hash map before making any recursive calls.
 
 ```
 int fibonacci(int n) {
@@ -77,8 +79,9 @@ Top-down and bottom-up refer only to how you decide to implement your algorithm.
 There are pros and cons to both, but the main arguments for each are:
 
 - __Usually, a bottom-up implementation is faster__. This is because __iteration has less overhead than recursion__, although this is less impactful if your language implements __tail recursion__.
-  - In C++, if __tail recursion optimization (TCO)__ is enabled, a tail-recursive function an be optimized to __reuse the current stack frame__ instead of allocating a new one for each call.
-  - This prevents stack overflow errors and improves performance.
+  - Tail recursion is when there is only a __single recursive call__ in the function, __AND__ that call is the __last statement in the function__ (aside from `return`).
+  - In C++, if __tail recursion optimization (TCO)__ is enabled (e.g., -O2 or -O3 for GCC and Clang), a tail-recursive function can be optimized to __reuse the current stack frame__ (by removing the recursion, and transforming it into a loop) instead of allocating a new one for each call. This prevents stack overflow errors and improves performance.
+    - In other words, __optimized top-down DP is really just bottom-up DP__.
   - CPython, the standard Python interpreter, __does not implement tail recursion optimization__.
 - However, __a top-down approach is usually easier to write__. __With recursion, the order that we visit states does not matter__. With iteration, if we have a multidimensional problem, it can sometimes be difficult figuring out the correct configuration of your for loops.
 
@@ -97,7 +100,7 @@ Problems that should be solved with DP usually have two main characteristics:
 The second characteristic is usually what differentiates __greedy__ and __DP__. __The idea behind greedy is that local decisions do not affect other decisions__. Let's say we had `nums = [2,7,9,3,1]`, and we wanted to be greedy. Iterating along the array, the first decision is to take the `2` or the `7`, since we can't have both. If we were greedy, we would take the `7`. However, now we can no longer take the `9`. In fact, the optimal answer involves taking `2, 9, 1`. As you can see, __being greedy in our decisions affected future decisions which lead us to the wrong answer__.
 
 ### State
-S__tate refers to a set of variables that can fully describe a scenario__. When we looked at tree problems, every recursive call to `dfs` took `node`, and maybe some other variables as arguments. These arguments represent the state. We'll see in the next article that __the first step to creating DP algorithms is deciding on what state variables are necessary__.
+__State refers to a set of variables that can fully describe a scenario__. When we looked at tree problems, every recursive call to `dfs` took `node`, and maybe some other variables as arguments. These arguments represent the state. We'll see in the next article that __the first step to creating DP algorithms is deciding on what state variables are necessary__.
 
 When we talked about trees, we said that each function call to `dfs` would return the answer to the original problem as if the state passed to the call was the input. With DP, it's the same. __A call to `dp(state)` should return the answer to the original problem as if `state` were the input__.
 
@@ -113,13 +116,94 @@ __The number of state variables used IS the dimensionality of an algorithm__. Fo
 ### Time and Space Complexity of DP Algorithms
 Complexity analysis for DP algorithms is very easy. Like with trees/graphs, we calculate each state only once. Therefore, __if there are $N$ possible states, and the work done at each state is $F$, then your time complexity will be $O(N \cdot F)$.__ Notice that this is the exact same argument we used in the tree and graph problems.
 
-__The space complexity will be $O(N)$ -__ if we are doing top-down, our hash map will store all the states at the end. If we are doing bottom-up, the array we use for tabulation will be the same size as the number of states.
+__The space complexity will be $O(N)$.__ If we are doing top-down, our hash map will store all the states at the end. If we are doing bottom-up, the array we use for tabulation will be the same size as the number of states.
 
 In many problems, __the space complexity can be improved when implementing bottom-up, but not top-down__.
 
 The number of states $N$ is equal to the __cardinality__ of the state variables. To calculate $N$, look at each of your state variables, calculate the range of values they can take, and then multiply them together.
 
 ## Framework for DP
+Consider the following problem: [Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/description/)
+
+- __Given__: An integer array `cost` where `cost[i]` is the cost of the $i^{th}$ step on a staircase. Once you pay the cost, you can either climb one or two steps. You can either start from the step with index `0`, or the step with index `1`.
+- __Return__: The minimum cost to reach the top of the floor (outside the array, not the last index of `cost`).
+
+### The Framework
+To create any DP algorithm, there are 3 main components.
+
+1. A __function__ or __data structure__ that will compute/contain the answer to the problem for any given __state__. Writing this function effectively means cosidering two things:\
+  1a. What should the function __return__?\
+  1b. What __state__ should the function operate on, i.e. what arguments should the function take?
+2. A __recurrence relation__, i.e. the __state transition function__.
+3. One or more __base case(s)__ prevent infinite revcursion and allow our function to return useful values. 
+
+Let's look at each of these three elements in the context of the stair climbing problem.
+
+1. Let's write a function `int dp(i)` that does the following:\
+  1a. It returns the minimum cost to climb the stairs up to the $i^{th}$ step.\
+  1b. It takes a single argument, the stair index `i`, as its __state__.
+2. Recall that at each step, we are allowed to take one or two steps forward. The cost to arrive at the $n^{th}$ step is the minumum of the cost to arrive at the $(n-1)^{th}$ step plus the cost cost of the $(n-1)^{th}$ step, and the cost to arrive at the $(n-2)^{th}$ step plus the cost cost of the $(n-2)^{th}$ step.\
+  2a. We can epxress the recursive relationship as: `dp(i) = min(dp(i-1) + cost[i-1], dp(i-2) + cost[i-2])`.
+3. In this case, the problem state that we can begin at either step `0` or step `1`, therefore the base case in this example will be: `dp(0) = dp(1) = 0`.
+
+### Implementation
+Solving this problem requires combining all 3 components above into an algorithm. Don't forget to __memoize__ the function to improve the time complexity from $O(2^n)$ to $O(n)$, where $n$ is the length of the input array.
+
+```
+int minCostClimbingStairs(const std::vector<int>& cost) {
+  // Memoize (cache) the results in a local static variable.
+  static memo = std::vector(cost.size() + 1, -1);
+
+  // Define the recurrence relation as a function.
+  std::function<int(int)> dp = [&dp](int idx) {
+    if (i <= 1) {
+      return 0;
+    }
+
+    if (memo[i] != -1) {
+      return memo[i];
+    }
+
+    memo[i] = std::min(dp(i - 1) + cost[i - 1], dp(i - 2) + cost[i - 2]);
+    return memo[i];
+  }
+
+  // Find the minimum cost to climb the stairs.  
+  return dp(cost.size());
+}
+```
+
+### Converting a Top-down Solution to a Bottom-up Solution
+We can convert a top-down DP algorithm to a bottom-up DP algorithm by taking the following steps:
+
+1. Begin by implementing the top-down approach.
+2. itialize an array `dp` that is sized according to the state variables. For example, let's say the input to the problem was an array `nums` and an integer `k` that represents the maximum number of actions allowed. Your array `dp` would be 2D with one dimension of length `nums.size()`
+nums.length and the other of length `k`. Since we want these two approaches to be equivalent, the return value of `dp(4, 6)` can now be found at `dp[4][6]`.
+3. Set your base cases, same as the ones you are using in your top-down function.
+4. Write a for-loop(s) that iterate over your state variables. If you have multiple state variables, you will need nested for-loops. These loops should s__tart iterating from the base cases and end at the answer state__.
+5. Each iteration of the inner-most loop represents a given state, and is equivalent to a function call operating on the same state in the top-down algorithm. Therefore, we can simply copy-paste the logic from our `dp()` function, but simply change the recusrive fucntion call to `dp(...)` to accessing/modifying or array `dp[...]`.
+6. We're done! `dp[...]`is now an array populated with the answer to the original problem for all possible states.
+
+Below is the bottom-up solution to the same problem
+
+```
+int minCostClimbingStairs(const std::vector<int>& cost) {
+  int n = cost.size();
+  // Step 2
+  std::vector<int> dp(n + 1);
+
+  // Step 3: Base cases are implicitly defined as they are 0
+
+  // Step 4
+  for (int i = 2; i <= n; i++) {
+    // Step 5
+    dp[i] = std::min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+  }
+  
+  // Step 6
+  return dp[n];
+}
+```
 
 ## 1D Problems
 

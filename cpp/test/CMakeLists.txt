@@ -6,6 +6,7 @@ set(TEST_NAME ${PROJECT_NAME}_tests)
 set(TEST_SOURCES
   "dsa/algorithms/test_backtracking.cpp"
   "dsa/algorithms/test_binary_search.cpp"
+  "dsa/algorithms/test_dynamic_programming.cpp"
   "dsa/algorithms/test_greedy.cpp"
   "dsa/algorithms/test_prefix_sum.cpp"
   "dsa/algorithms/test_sliding_window.cpp"

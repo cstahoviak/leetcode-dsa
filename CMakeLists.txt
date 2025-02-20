@@ -28,6 +28,7 @@ set(LIB_SOURCES
 set(LIB_HEADERS
     "cpp/include/dsa/algorithms/backtracking.h"
     "cpp/include/dsa/algorithms/binary_search.h"
+    "cpp/include/dsa/algorithms/dynamic_programming.h"
     "cpp/include/dsa/algorithms/greedy.h"
     "cpp/include/dsa/algorithms/prefix_sum.h"
     "cpp/include/dsa/algorithms/sliding_window_algos.h"
