@@ -18,7 +18,8 @@
 namespace dsa::data_structures::heaps
 {
   /**
-   * @brief 1962. Remove Stones to Minimize Total
+   * @brief 1962. Remove Stones to Minimize Total (Medium)
+   * https://leetcode.com/problems/remove-stones-to-minimize-the-total/
    * 
    * You are given a 0-indexed integer array piles, where piles[i] represents
    * the number of stones in the ith pile, and an integer k. You should apply
@@ -68,11 +69,20 @@ namespace dsa::data_structures::heaps
   }
 
   /**
-   * @brief 1167. Minimum Cost to Connect Sticks
+   * @brief 1167. Minimum Cost to Connect Sticks (Medium)
+   * https://leetcode.com/problems/minimum-cost-to-connect-sticks/
+   * 
+   * You have some number of sticks with positive integer lengths. These lengths
+   * are given as an array 'sticks', where sticks[i] is the length of the ith
+   * stick.
+   * 
+   * You can connect any two sticks of lengths x and y into one stick by paying
+   * a cost of x + y. You must connect all the sticks until there is only one
+   * stick remaining.
    * 
    * @tparam T 
    * @param sticks 
-   * @return int 
+   * @return int The minimum cost of connecting all sticks into one stick.
    */
   template<typename T>
   int connect_sticks(const std::vector<T>& sticks) {
@@ -99,7 +109,8 @@ namespace dsa::data_structures::heaps
   }
 
   /**
-   * @brief 215. Kth Largest Element in an Array
+   * @brief 215. Kth Largest Element in an Array (Medium)
+   * https://leetcode.com/problems/kth-largest-element-in-an-array/
    * 
    * Given an integer array nums and an integer k, return the kth largest
    * element in the array. Solve without sorting.
@@ -130,7 +141,8 @@ namespace dsa::data_structures::heaps
   }
 
   /**
-   * @brief 973. K Closest Points
+   * @brief 973. K Closest Points (Medium)
+   * https://leetcode.com/problems/k-closest-points-to-origin/
    * 
    * Given an array of points where points[i] = [xi, yi] represents a point on
    * the X-Y plane and an integer k, return the k closest points to the origin
@@ -153,7 +165,7 @@ namespace dsa::data_structures::heaps
     }
 
     // Create the euclidean distance function. We can use the squared euclidean
-    // distance instead of taking a sqrt to save come computation time.
+    // distance instead of taking a sqrt to save some computation time.
     auto distance = [](const std::vector<T>& point) {
       // return std::sqrt(std::pow(point[0], 2) + std::pow(point[1], 2));
       return std::pow(point[0], 2) + std::pow(point[1], 2);
@@ -185,7 +197,7 @@ namespace dsa::data_structures::heaps
     std::vector<std::vector<T>> result(k);
     size_t idx{0};
     while ( !max_heap.empty() ) {
-      std::vector<T> top = max_heap.top();
+      const std::vector<T>& top = max_heap.top();
       LOG("Adding (" << top[0] << ", " << top[1] << "), dist = " << distance(top));
       result[idx] = max_heap.top();
       max_heap.pop();
@@ -196,7 +208,10 @@ namespace dsa::data_structures::heaps
   }
 
   /**
-   * @brief An attempt to speed-up the k_closest algorithm by reducing the
+   * @brief 973. K Closest Points (Medium)
+   * https://leetcode.com/problems/k-closest-points-to-origin/
+   * 
+   * An attempt to speed-up the k_closest algorithm by reducing the
    * number of copies of individual elements of 'points' and the number of
    * evaluations of the 'distance' function.
    * 
@@ -261,12 +276,36 @@ namespace dsa::data_structures::heaps
     return result;
   }
 
+  /**
+   * @brief 703. Kth Largest Element in a Stream (Easy)
+   * https://leetcode.com/problems/kth-largest-element-in-a-stream/
+   * 
+   * Implement a class which, for a given integer k, maintains a stream of test
+   * scores and continuously returns the kth highest test score after a new
+   * score has been submitted. More specifically, we are looking for the kth
+   * highest score in the sorted list of all scores.
+   * 
+   * @tparam T 
+   */
   template<typename T>
   class KthLargest
   {
-    public: 
-      KthLargest(int, const std::vector<T>&);
-      T add(T);
+    public:
+      /**
+       * @brief Initializes the object with the integer 'k' and the stream of
+       * test scores 'nums'.
+       */
+      KthLargest(int k, const std::vector<T>& nums);
+
+      /**
+       * @brief Adds a new test score 'val' to the stream and returns the
+       * element representing the kth largest element in the pool of test scores
+       * so far.
+       * 
+       * @param val 
+       * @return T 
+       */
+      T add(T val);
     
     private:
       // Use a min-heap to store the scores.
