@@ -20,7 +20,10 @@
 namespace dsa::algorithms::greedy
 {
   /**
-   * @brief You are given a positive integer 'num' consisting only of digits 6
+   * @brief 1323. Maximum 69 Number (Easy)
+   * https://leetcode.com/problems/maximum-69-number/
+   * 
+   * You are given a positive integer 'num' consisting only of digits 6
    * and 9.
    * 
    * Return the maximum number you can get by changing at most one digit (6 
@@ -30,7 +33,7 @@ namespace dsa::algorithms::greedy
    * @return int The output value with at most one changed digit.
    */
   int maximum_69_number(int num) {
-    // A simple lambda function to return the input num as a vector of its digits
+    // A lambda function to return the input num as a vector of its digits
     auto to_vec = [](int num, std::vector<int>& digits) {
       // This will populate the vector 'digits' in reverse order.
       while ( num ) {
@@ -56,11 +59,14 @@ namespace dsa::algorithms::greedy
 
     // Convert the vector of digits back to a number.
     auto func = [](int acc, int val){ return 10 * acc + val; };
+    // Use std::accumulate (instead of std::reduce) to guarantee that each digit
+    // in digits in operated on sequentially.
     return std::accumulate(digits.begin(), digits.end(), 0, func);
   }
 
   /**
-   * @brief 1710. Maximum Units on a Truck
+   * @brief 1710. Maximum Units on a Truck (Easy)
+   * https://leetcode.com/problems/maximum-units-on-a-truck/
    * 
    * Determine the maximum number of units that can fit onto a truck of size
    * 'truck_size'. Each element of box_types is a 2D vector that contains:
@@ -112,7 +118,8 @@ namespace dsa::algorithms::greedy
   }
 
   /**
-   * @brief 1196. How Many Apples Can You Put in the Basket
+   * @brief 1196. How Many Apples Can You Put in the Basket (Easy)
+   * https://leetcode.com/problems/how-many-apples-can-you-put-into-the-basket/
    * 
    * You have some apples and a basket that can carry up to 5000 units of
    * weight.
@@ -148,7 +155,8 @@ namespace dsa::algorithms::greedy
   }
 
   /**
-   * @brief 1338. Reduce Array Size to The Half
+   * @brief 1338. Reduce Array Size to The Half (Medium)
+   * https://leetcode.com/problems/reduce-array-size-to-the-half/
    * 
    * You are given an integer array nums. You can choose a set of integers and
    * remove all the occurrences of these integers in the array.
@@ -162,7 +170,7 @@ namespace dsa::algorithms::greedy
    */
   template<typename T>
   size_t min_set_size(const std::vector<T>& nums) {
-    // Create a hash table to store a histogram of each value in nums
+    // Create a hash table to store the frequency of each value in nums.
     std::unordered_map<T, uint32_t> hist;
     for (const T& num : nums ) {
       hist[num]++;
@@ -191,7 +199,8 @@ namespace dsa::algorithms::greedy
   }
 
   /**
-   * @brief 1338. Reduce Array Size to The Half
+   * @brief 1338. Reduce Array Size to The Half (Medium)
+   * https://leetcode.com/problems/reduce-array-size-to-the-half/
    * 
    * This was an attempt to solve the problem above using an ordered associative
    * container (std::map). This approach will NOT work because std::map cannot
