@@ -170,7 +170,7 @@ namespace dsa::algorithms::greedy
 
     // Next create a max-heap sorted by the occurence of each value.
     // TODO: Don't actually need to store both the number and its frequency,
-    // just storing the frequency is sufficient to solve the problem
+    // just storing the frequency is sufficient to solve the problem.
     using Pair = std::pair<uint32_t, T>;
     std::priority_queue<Pair, std::vector<Pair>> max_heap;
     for ( const auto& [num, freq] : hist ) {

@@ -14,7 +14,7 @@
 #include <cmath>      // std::ceil
 #include <cstddef>    // size_t
 #include <execution>  // std::execution (for std::transform_reduce)
-#include <numeric>    // std::inclusive_scan
+#include <numeric>    // std::inclusive_scan, std::transform_reduce
 #include <vector>
 
 namespace dsa::algorithms::binary_search

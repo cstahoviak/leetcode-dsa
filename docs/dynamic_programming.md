@@ -133,7 +133,7 @@ To create any DP algorithm, there are 3 main components.
 
 1. A __function__ or __data structure__ that will compute/contain the answer to the problem for any given __state__. Writing this function effectively means cosidering two things:\
   1a. What should the function __return__?\
-  1b. What __state__ should the function operate on, i.e. what arguments should the function take?
+  1b. What __state__ should the function operate on, i.e. what arguments should the function take? The state should not consist of any constant values.
 2. A __recurrence relation__, i.e. the __state transition function__.
 3. One or more __base case(s)__ prevent infinite revcursion and allow our function to return useful values. 
 
@@ -152,26 +152,29 @@ Solving this problem requires combining all 3 components above into an algorithm
 ```
 int minCostClimbingStairs(const std::vector<int>& cost) {
   // Memoize (cache) the results in a local static variable.
-  static memo = std::vector(cost.size() + 1, -1);
+  static std::vector<int> memo(cost.size() + 1, -1);
 
   // Define the recurrence relation as a function.
-  std::function<int(int)> dp = [&dp](int idx) {
-    if (i <= 1) {
+  std::function<int(int)> dp = [&cost, &dp](int idx) {
+    if (idx <= 1) {
       return 0;
     }
 
-    if (memo[i] != -1) {
-      return memo[i];
+    if ( memo[idx] != -1) {
+      return memo[idx];
     }
 
-    memo[i] = std::min(dp(i - 1) + cost[i - 1], dp(i - 2) + cost[i - 2]);
-    return memo[i];
-  }
+    memo[idx] = 
+      std::min(dp(idx - 1) + cost[idx - 1], dp(idx - 2) + cost[idx - 2]);
+    return memo[idx];
+  };
 
   // Find the minimum cost to climb the stairs.  
-  return dp(cost.size());
+  return dp(cost.size()); 
 }
 ```
+
+__NOTE: The solution given here is WRONG and fails to solve problem [(746) Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)__.
 
 ### Converting a Top-down Solution to a Bottom-up Solution
 We can convert a top-down DP algorithm to a bottom-up DP algorithm by taking the following steps:
