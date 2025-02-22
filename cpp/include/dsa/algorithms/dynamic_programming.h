@@ -237,7 +237,7 @@
     T count{0};
     while ( !max_heap.empty() && amount > 0 ) {
       // Compute the number of coins of this value that we can use.
-      // Note integer division in C++ truncates
+      // NOTE: integer division in C++ truncates
       T n_coins = amount / max_heap.top();
       LOG("value: " << max_heap.top() << ", n_coins: " << n_coins);
       if ( n_coins ) {
