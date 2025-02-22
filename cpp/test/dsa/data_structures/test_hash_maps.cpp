@@ -48,3 +48,24 @@ TEST(TestHashingAlgorithms, TestLargestUniqueNumber) {
   std::vector<int> input2 = { 9,9,8,8 };
   EXPECT_EQ(hash_maps::largest_unique_number(input2), -1);
 }
+
+TEST(TestHashingAlgorithms, TestRansomNote) {
+  // Define the test data
+  const std::pair<std::string, std::string> data1 = { "a", "b"};
+  const std::pair<std::string, std::string> data2 = { "aa", "ab"};
+  const std::pair<std::string, std::string> data3 = { "aa", "aab"};
+
+  EXPECT_FALSE(hash_maps::ransom_note(data1.first, data1.second));
+  EXPECT_FALSE(hash_maps::ransom_note(data2.first, data2.second));
+  EXPECT_TRUE(hash_maps::ransom_note(data3.first, data3.second));
+}
+
+TEST(TestHashingAlgorithms, TestNumJewels) {
+  // Define the test data
+  const std::pair<std::string, std::string> data1 = { "aA", "aAAbbbb"};
+  const std::pair<std::string, std::string> data2 = { "z", "ZZ"};
+
+  EXPECT_EQ(hash_maps::num_jewels(data1.first, data1.second), 3);
+  EXPECT_EQ(hash_maps::num_jewels(data2.first, data2.second), 0);
+}
+

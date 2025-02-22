@@ -2,7 +2,7 @@
 /**
  * @file hashing.h
  * @author Carl Stahoviak
- * @brief Hashing algorithms.
+ * @brief Problems associated with the hash map data structure.
  * @version 0.1
  * @date 2025-01-09
  * 
@@ -13,6 +13,7 @@
 #include <map>
 #include <numeric>
 #include <set>
+#include <string>         // std::string::npos
 #include <string_view>
 #include <unordered_map>
 #include <unordered_set>
@@ -21,10 +22,13 @@
 namespace dsa::data_structures::hash_maps
 {
   /**
-   * @brief A pangram is a sentence where every letter of the English alphabet
+   * @brief 1832. Check if the Sentence is a Pangram (Easy)
+   * https://leetcode.com/problems/check-if-the-sentence-is-pangram/
+   * 
+   * A pangram is a sentence where every letter of the English alphabet
    * appears at least once.
    * 
-   * @param sentence 
+   * @param sentence A sentence containing only lowercase English letters.
    * @return true if the sentence is a pangram.
    * @return false if the sentence is not a pangram.
    */
@@ -37,7 +41,10 @@ namespace dsa::data_structures::hash_maps
   }
 
   /**
-   * @brief Given an array nums containing 'n' distinct numbers in the range 
+   * @brief 268. Missing Number (Easy)
+   * https://leetcode.com/problems/missing-number/
+   * 
+   * Given an array nums containing 'n' distinct numbers in the range 
    * [0, n], return the only number in the range that is missing from the array.
    * 
    * @param nums The input integer array. All numbers in 'nums' are guaranteed
@@ -46,7 +53,7 @@ namespace dsa::data_structures::hash_maps
    */
   int missing_number(const std::vector<int>& nums) {
     // Create an unordered set from the input vector 
-    std::unordered_set<int> set(nums.begin(), nums.end());
+    std::unordered_set<int> set(nums.cbegin(), nums.cend());
 
     // Find the missing number
     for ( int idx = 0; idx < nums.size(); idx++ ) {
@@ -58,11 +65,14 @@ namespace dsa::data_structures::hash_maps
   }
 
   /**
-   * @brief Given an array nums containing 'n' distinct numbers in the range 
+   * @brief 268. Missing Number (Easy)
+   * https://leetcode.com/problems/missing-number/
+   * 
+   * Given an array nums containing 'n' distinct numbers in the range 
    * [0, n], return the only number in the range that is missing from the array.
    * 
-   * This solution uses an improved method that takes advantage of the summation
-   * 1 + 2 + 3 + ... + n
+   * This solution uses an improved method that takes advantage of knowing the
+   * value of the summation: 1 + 2 + 3 + ... + n
    * 
    * @param nums The input integer array. All numbers in 'nums' are guaranteed
    * to be unique. 
@@ -72,7 +82,7 @@ namespace dsa::data_structures::hash_maps
     // The missing value will be the sum of the series from 0 to n minus the
     // sum of the input vector.
     return (nums.size() * (nums.size() + 1)) / 2 -
-      std::accumulate(nums.begin(), nums.end(), 0);;
+      std::reduce(nums.cbegin(), nums.cend(), 0);;
   }
 
   /**
@@ -92,7 +102,19 @@ namespace dsa::data_structures::hash_maps
   }
 
   /**
-   * @brief 
+   * @brief 2225. Find Players with Zero or One Losses (Medium)
+   * https://leetcode.com/problems/find-players-with-zero-or-one-losses/
+   * 
+   * You are given an integer array matches where matches[i] = 
+   * [winner_i, loser_i] indicates that the player winner_i defeated player
+   * loser_i in a match. 
+   * 
+   * Return a list answer of size 2 where:
+   * - answer[0] is a list of all players that have not lost any matches.
+   * - answer[1] is a list of all players that have lost exactly one match.
+   * 
+   * The values in the two lists should be returned in increasing order, and
+   * you should only consider players that have played at least one match.
    * 
    * @param matches 
    * @return std::vector<std::vector<int>> 
@@ -139,7 +161,10 @@ namespace dsa::data_structures::hash_maps
   }
 
   /**
-   * @brief Given an integer array nums, return the largest integer that only
+   * @brief 1133. Largest Unique Number (Easy)
+   * https://leetcode.com/problems/largest-unique-number/
+   * 
+   * Given an integer array nums, return the largest integer that only
    * occurs once. If no integer occurs once, return -1.
    * 
    * @tparam T 
@@ -163,5 +188,88 @@ namespace dsa::data_structures::hash_maps
     }
     
     return -1;
+  }
+
+  /**
+   * @brief 383. Ransom Note (Easy)
+   * https://leetcode.com/problems/ransom-note/
+   * Given two strings 'ransom_note' and 'magazine', return true if 
+   * 'ransom_note' can be constructed by using the letters from magazine and
+   * false otherwise.
+   * 
+   * Each letter in magazine can only be used once in ransomNote.
+   * 
+   * @param ransom_note 
+   * @param magazine 
+   * @return true 
+   * @return false 
+   */
+  inline bool ransom_note(
+    std::string_view ransom_note,
+    std::string_view magazine)
+  {
+    // Create a map to store character counts for the magazine.
+    std::unordered_map<char, int> character_counts;
+    for ( const char& character : magazine ) {
+      character_counts[character]++;
+    }
+    
+    // Iterate over the ransom note until we have exhausted a particular character.
+    for ( const char& character : ransom_note ) {
+      // if ( !character_counts.contains(character) ) {
+      //     // The required ransom note character is not available in the magazine.
+      //     return false;
+      // }
+      
+      // Decrement the character count by one. Note that if a character in the
+      // ransom note doesn't exist in the character_counts map, the line below will
+      // create it with a default value of zero and then decrement it to -1, thus
+      // removing the need for the conditional above.
+      character_counts[character]--;
+      if ( character_counts[character] < 0 ) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
+
+  /**
+   * @brief 771. Jewels and Stones (Easy)
+   * https://leetcode.com/problems/jewels-and-stones/
+   * 
+   * You're given strings 'jewels' representing the types of stones that are
+   * jewels, and ` representing the stones you have. Each character in 'stones'
+   * is a type of stone you have. You want to know how many of the stones you
+   * have are also jewels.
+   * 
+   * Letters are case sensitive, so "a" is considered a different type of stone
+   * from "A".
+   * 
+   * @param jewels 
+   * @param stones 
+   * @return int 
+   */
+  int num_jewels(std::string_view jewels, std::string_view stones) {
+    // Count the number of each type of stone.
+    std::unordered_map<char, size_t> stone_counts;
+    for ( const char& type : stones ) {
+      stone_counts[type]++;
+    }
+    
+    int result{0};
+    for (const auto& [type, count] : stone_counts ) {
+      // C++23: use contains()
+      // if ( jewels.contains(type) ) {
+      //   result += stone_counts[type];
+      // }
+
+      // C++17: use find()
+      if ( jewels.find(type) != std::string::npos ) {
+        result += stone_counts[type];
+      }
+    }
+    
+    return result;
   }
 }
