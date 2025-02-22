@@ -64,7 +64,6 @@ namespace dsa::data_structures::linked_lists
         }
       }
     }
-
   }
 
   SinglyLinkedList::~SinglyLinkedList() {
@@ -95,7 +94,10 @@ namespace dsa::data_structures::linked_lists
   }
 
   /**
-   * @brief Given the head of a singly linked list, return the middle node of
+   * @brief 876. Middle of the Linked List (Easy)
+   * https://leetcode.com/problems/middle-of-the-linked-list/
+   * 
+   * Given the head of a singly linked list, return the middle node of
    * the linked list. If there are two middle nodes, return the second middle
    * node.
    * 
@@ -117,7 +119,10 @@ namespace dsa::data_structures::linked_lists
   }
 
   /**
-   * @brief Given the head of a sorted linked list, delete all duplicates such
+   * @brief 83. Remove Duplicates from Sorted List (Easy)
+   * https://leetcode.com/problems/remove-duplicates-from-sorted-list/
+   * 
+   * Given the head of a sorted linked list, delete all duplicates such
    * that each element appears only once. The resulting list must remain sorted.
    * 
    * @param head 
