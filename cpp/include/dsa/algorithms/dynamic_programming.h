@@ -9,6 +9,7 @@
  * @copyright Copyright (c) 2025
  * 
  */
+#include "dsa/math.h"
 #include "dsa/utils.h"
 
 #include <execution>
@@ -151,9 +152,9 @@
   int climb_stairs_dp2(int n) {
     int k{0}, ways{0};
     while ( k <= n ) {
-      int c = dsa::utils::combinations(n, k);
+      int c = dsa::math::combinations(n, k);
       LOG("adding C(" << n << ", " << k << ") = " << c);
-      ways += dsa::utils::combinations(n, k);
+      ways += dsa::math::combinations(n, k);
       k++;
       n--;
     }

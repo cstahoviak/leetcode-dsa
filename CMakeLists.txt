@@ -43,6 +43,7 @@ set(LIB_HEADERS
     "cpp/include/dsa/data_structures/linked_lists.h"
     "cpp/include/dsa/data_structures/stacks_and_queues.h"
     
+    "cpp/include/dsa/math.h"
     "cpp/include/dsa/utils.h"
 )
 

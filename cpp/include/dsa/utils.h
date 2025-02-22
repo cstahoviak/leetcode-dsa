@@ -133,37 +133,6 @@ namespace dsa::utils
   }
 
   /**
-   * @brief Computes the factorial of n, n!.
-   * 
-   * @param n 
-   * @return uint32_t 
-   */
-  inline int factorial(int n) {
-    if ( n == 0 ) {
-      return 1;
-    }
-    int result = 1;
-    for ( int idx = 1; idx <= n; ++idx ) {
-      result *= idx;
-    }
-    return result;
-  }
-
-  /**
-   * @brief Computes the number of combinations, n choose k.
-   * 
-   * @param n 
-   * @param k 
-   * @return uint32_t 
-   */
-  inline int combinations(int n, int k) {
-    if ( k < 0 || k > n ) {
-      return 0; // Invalid input
-    }
-    return factorial(n) / (factorial(k) * factorial(n - k));
-  }
-
-  /**
    * @brief Custom hash function for std::pair
    * 
    * To use std::pair as elements in std::unordered_set, a custom hash function
@@ -213,18 +182,17 @@ std::ostream& _iterable_to_string(std::ostream& stream, Iter begin, Iter end) {
     if (idx < sz)
       stream << ", ";
   }
-  stream << "]";
-  return stream;
+  return stream << "]";
 }
 
 template <typename T, size_t N>
 std::ostream& operator<<(std::ostream& stream, const std::array<T, N>& arr) {
-  return _iterable_to_string(stream, arr.begin(), arr.end());
+  return _iterable_to_string(stream, arr.cbegin(), arr.cend());
 }
 
 template <typename T>
 std::ostream& operator<<(std::ostream& stream, const std::vector<T>& vec) {
-  return _iterable_to_string(stream, vec.begin(), vec.end());
+  return _iterable_to_string(stream, vec.cbegin(), vec.cend());
 }
 
 template <typename T1, typename T2>
