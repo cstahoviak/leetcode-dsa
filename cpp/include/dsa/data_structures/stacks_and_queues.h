@@ -18,7 +18,10 @@
 namespace dsa::data_structures::stacks_and_queues {
 
   /**
-   * @brief You are given an "absolute path" for a Unix-style file system, which
+   * @brief 71. Simplify Path (Medium)
+   * https://leetcode.com/problems/simplify-path/
+   * 
+   * You are given an "absolute path" for a Unix-style file system, which
    * always begins with a slash '/'. Your task is to transform this absolute
    * path into its "simplified canonical path".
    * 
@@ -51,11 +54,26 @@ namespace dsa::data_structures::stacks_and_queues {
     return {};
   }
 
+  /**
+   * @brief 346. Moving Average from Data Stream (Easy)
+   * https://leetcode.com/problems/moving-average-from-data-stream/
+   * 
+   * Given a stream of integers and a window size, calculate the moving average
+   * of all integers in the sliding window.
+   * 
+   */
   class MovingAverage
   {
     public:
       MovingAverage(size_t size) : size_(size) {}
 
+      /**
+       * @brief Returns the moving average of the last 'size' values of the
+       * stream.
+       * 
+       * @param val The next value in the data stream.
+       * @return double 
+       */
       double next(int val) {
         // Add the new value onto the back of the queue
         queue_.push(val);
