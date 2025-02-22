@@ -126,7 +126,10 @@ namespace dsa::algorithms::sliding_window
   }
 
   /**
-   * @brief Find a contiguous subarray whose length is equal to 'window_size'
+   * @brief Max Average Subarray I (Easy)
+   * https://leetcode.com/problems/maximum-average-subarray-i/
+   * 
+   * Find a contiguous subarray whose length is equal to 'window_size'
    * that has the maximum average value and return this value.
    * 
    * @tparam T 
@@ -155,7 +158,10 @@ namespace dsa::algorithms::sliding_window
   }
 
   /**
-   * @brief Given a binary array 'nums' and integer 'k', return the maximum
+   * @brief Max Consecutive Ones III (Medium)
+   * https://leetcode.com/problems/max-consecutive-ones-iii/
+   * 
+   * Given a binary array 'nums' and integer 'k', return the maximum
    * number of consecutive 1's in the array if you can flip at most k 0's.
    * 
    * In other words, what is the largest subarray that contains at most k zeros?

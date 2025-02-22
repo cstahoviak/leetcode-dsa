@@ -19,7 +19,10 @@ using idx_tuple = std::tuple<size_t, size_t>;
 namespace dsa::algorithms::prefix_sum
 {
   /**
-   * @brief Returns the "prefix sum" of the input array. The prefix sum at the
+   * @brief Running Sum of 1D Array (Easy)
+   * https://leetcode.com/problems/running-sum-of-1d-array/
+   * 
+   * Returns the "prefix sum" of the input array. The prefix sum at the
    * ith element is defined as sum(nums[0] + ... + nums[i-1] + nums[i]).
    * 
    * Note: It is possible that the sum of all the elements does not fit in a
@@ -123,7 +126,10 @@ namespace dsa::algorithms::prefix_sum
   }
 
   /**
-   * @brief Given an array of integers 'nums', return the minimum positive
+   * @brief 1413. Minimum Value to Get Positive Step by Step Sum (Easy)
+   * https://leetcode.com/problems/minimum-value-to-get-positive-step-by-step-sum/
+   * 
+   * Given an array of integers 'nums', return the minimum positive
    * value such that the step-by-step sum of 'value + nums' is never less than
    * 1.
    * 
@@ -144,7 +150,10 @@ namespace dsa::algorithms::prefix_sum
   }
 
   /**
-   * @brief You are given a 0-indexed array nums, and an integer k.
+   * @brief 2090. K-Radius Average Subarrays (Medium)
+   * https://leetcode.com/problems/k-radius-subarray-averages/
+   * 
+   * You are given a 0-indexed array nums, and an integer k.
    * 
    * The k-radius average for a subarray of nums centered at some index i with
    * the radius k is the average of all elements in nums between the indices

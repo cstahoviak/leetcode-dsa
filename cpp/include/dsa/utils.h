@@ -15,8 +15,7 @@
 
 #include <algorithm>
 #include <array>
-// Include to get 'size_t'
-#include <cstddef>
+#include <cstddef>    // size_t
 #include <iostream>
 #include <map>
 #include <tuple>

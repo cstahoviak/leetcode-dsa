@@ -121,7 +121,10 @@ namespace dsa::algorithms::_two_pointers
   }
 
   /**
-   * @brief Write a function that reverses a string. The input string is given
+   * @brief 344. Reverse String (Easy)
+   * https://leetcode.com/problems/reverse-string/
+   * 
+   * Write a function that reverses a string. The input string is given
    * as an array of characters s.
    * 
    * You must do this by modifying the input array in-place with O(1) extra
@@ -144,11 +147,15 @@ namespace dsa::algorithms::_two_pointers
   }
 
   /**
-   * @brief Given an integer array nums sorted in non-decreasing order, return
-   * an array of the squares of each number sorted in non-decreasing order.
+   * @brief 977. Squares of a Sorted Array (Easy)
+   * https://leetcode.com/problems/squares-of-a-sorted-array/
    * 
-   * TODO: Squaring each element and sorting the new array is very trivial, can
-   * we find an O(n) solution using a different approach?
+   * Given an integer array nums sorted in non-decreasing order, return an array
+   * of the squares of each number sorted in non-decreasing order.
+   * 
+   * NOTE: Squaring each element and sorting the new array is very trivial, can
+   * we find an O(n) solution using a different approach? Yes, see approach
+   * below.
    * 
    * @tparam T 
    * @param values 
@@ -171,7 +178,13 @@ namespace dsa::algorithms::_two_pointers
   }
 
   /**
-   * @brief Uses a version of the two-pointers algorithm to improve the runtime
+   * @brief 977. Squares of a Sorted Array (Easy)
+   * https://leetcode.com/problems/squares-of-a-sorted-array/
+   * 
+   * Given an integer array nums sorted in non-decreasing order, return an array
+   * of the squares of each number sorted in non-decreasing order.
+   * 
+   * Uses a version of the two-pointers algorithm to improve the runtime
    * speed of the "sorted squares" algortihm to O(n).
    * 
    * @tparam T 
