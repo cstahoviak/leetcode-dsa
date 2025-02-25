@@ -355,7 +355,7 @@ std::unordered_map<int, std::vector<int>> buildGraph(std::vector<std::vector<int
 ```
 
 #### Input Format 2: Adjacency List
-n an adjacency list, the nodes will be numbered from 0 to n - 1. The input will be a 2D integer array, let's call it graph. graph[i] will be a list of all the outgoing edges from the $i^{th}$ node. The same graph above can be represented by the following adjacency list:
+In an adjacency list, the nodes will be numbered from `0` to `n - 1`. The input will be a 2D integer array, let's call it `graph`. `graph[i]` will be a list of all the outgoing edges from the $i^{th}$ node. The same graph above can be represented by the following adjacency list:
 
 ```
 graph = [[1], [2], [0, 3], []]
