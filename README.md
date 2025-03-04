@@ -1,8 +1,8 @@
 # leetcode-dsa
-Repository for working through Leetcode's Data Structures &amp; Algorithms course.
+Repository for working through Leetcode's Data Structures &amp; Algorithms course. See [docs/README.md](/docs/README.md) for a comprehensive overview of all topics covered by this course.
 
 ## What does this course contain?
-The course is split up into 13 chapters. The bulk of the content is within chapters 2-11, each of which focuses on a data structure or algorithm:
+The course is split up into 13 chapters. The bulk of the content is within chapters 2-11, each of which focuses on a specific data structure or algorithm:
 
 - Arrays and strings
 - Hashmaps and sets
@@ -56,10 +56,3 @@ cd build
 ## Typos & Corrections
 1. (Introduction, Analyzing time complexity) "This for loop iterates 500,000 times, which means each __inner__ for loop iteration costs..."
 2. 
-
-## TODOs
-A list of TODO items.
-
-1. Create Python bindings (via `pybind11`) to C++ source code (see `feature/add-python-bindings`).
-2. Add unit tests for C++ source code. What C++ unit test framework should I use?
-3. Add unit tests for python bindings and compare to python implementations of the same algorithms.
