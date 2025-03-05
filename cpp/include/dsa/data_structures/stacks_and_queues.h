@@ -11,6 +11,7 @@
  */
 #include "dsa/utils.h"
 
+#include <cstddef>
 #include <queue>
 #include <stack>
 #include <sstream>
@@ -316,6 +317,7 @@ namespace dsa::data_structures::stacks_and_queues
   class StockPanner
   {
     public:
+      // ISO standard forbids declaration of template class constructor with no type.
       // StockSpanner() = default;
 
       /**
@@ -326,7 +328,38 @@ namespace dsa::data_structures::stacks_and_queues
        * @return T The span of the stock's price.
        */
       inline T next(T price) {
-        return {};
-      };
+        LOG("current price: " << price);
+
+        // Initialize a current span of 1 day.
+        T span{1};
+
+        // We will update the current day's span until we encounter a day for
+        // which the price exceeds the current price.
+        while ( !stack_.empty() && stack_.top().first <= price ) {
+          // A given stock price's span encodes the number of preceding days
+          // for which the price was less than or equal to that day's price.
+          // Thus for every value on the stack that we encounter that is less
+          // than or equal to the current day's price, we will do two things:
+          // 1. increment the current price's span by that day's span.
+          span += stack_.top().second;
+          LOG("current span: " << span);
+
+          // 2. Remove the lesser-valued price from the stack since we have
+          // just accounted for the information encoded in its span by updating
+          // the current price's span (above). 
+          LOG("Removing (" << stack_.top().first << ", " << 
+            stack_.top().second << ")");
+          stack_.pop();
+        }
+
+        // Push a new pair onto the stack representing today's price and span.
+        LOG("Adding (" << price << ", " << span << ")");
+        stack_.push(std::make_pair(price, span));
+        return span;
+      }
+
+    private:
+      // Our stack will store (price, span) pairs.
+      std::stack<std::pair<T, T>> stack_;
   };
 }

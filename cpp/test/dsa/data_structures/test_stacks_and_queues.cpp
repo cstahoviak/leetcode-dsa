@@ -90,5 +90,4 @@ TEST(TestStacksAndQueues, TestOnlineStockSpan) {
     result.push_back(spanner.next(val));
   }
   EXPECT_EQ(result, expected);
-
 }
