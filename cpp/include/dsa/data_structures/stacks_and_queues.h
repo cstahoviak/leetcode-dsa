@@ -17,8 +17,8 @@
 #include <string>
 #include <string_view>
 
-namespace dsa::data_structures::stacks_and_queues {
-
+namespace dsa::data_structures::stacks_and_queues
+{
   /**
    * @brief 71. Simplify Path (Medium)
    * https://leetcode.com/problems/simplify-path/
@@ -42,6 +42,9 @@ namespace dsa::data_structures::stacks_and_queues {
    * - The path must not end with a slash '/', unless it is the root directory.
    * - The path must not have any single or double periods ('.' and '..') used
    * to denote current or parent directories.
+   * 
+   * Interestingly, this is very similar to what the 'cd' command is doing
+   * under the hood each time it parses a directory path.
    * 
    * @param path 
    * @return std::string 
@@ -72,13 +75,13 @@ namespace dsa::data_structures::stacks_and_queues {
       // Deal with ".." first.
       if ( temp == ".." ) {
         if ( !deque.empty() ) {
-          // If we encounter a ".." AND the stack is not empty, pop the last element.
+          // If we encounter a ".." AND the deque is not empty, pop the last element.
           LOG("Removing '" << deque.back() << "' from back of deque.");
           deque.pop_back();
         }
       }
       else if ( temp != "." ) {
-        // For all other filename components, add it to the stack so long as
+        // For all other filename components, add it to the deque so long as
         // it's not a "." since the "." has no effect.
         LOG("Adding '" << temp << "' to back of deque.");
         deque.push_back(temp);
@@ -125,13 +128,14 @@ namespace dsa::data_structures::stacks_and_queues {
     // use a std::string to build the result without having to populate a deque
     // and then build the result string from the deque.
     std::string result;
+    result.reserve(s.size());
 
     for ( const char& character : s ) {
       // Note: Upper and lower case characters of the same letter have an ASCII
       // offset of exactly 32.
       if ( !result.empty() && std::abs(character - result.back()) == 32 ) {
-        // If the deque is not empty, and we've encountered a sequential upper
-        // and lowercase character of the same leter, remove the previously
+        // If the string is not empty, and we've encountered a sequential upper
+        // and lowercase character of the same letter, remove the previously
         // added letter.
         result.pop_back();
       }
@@ -195,18 +199,134 @@ namespace dsa::data_structures::stacks_and_queues {
    * @brief 496. Next Greater Element I (Easy)
    * https://leetcode.com/problems/next-greater-element-i/
    * 
+   * The "next greater element" of some element x in an array is the first 
+   * greater element that is *to the right* of x in the same array.
    * 
+   * You are given two distinct 0-indexed integer arrays 'nums1' and 'nums2', 
+   * where 'nums1' is a subset of 'nums2'.
+   * 
+   * For each element nums1[i], find the index j such that nums1[i] == nums2[j]
+   * and determine the next greater element of nums2[j] in nums2. If there is no
+   * next greater element, then the answer for this query is -1.
+   * 
+   * Time complexity: Due to the nested for-loop approach, this solution
+   * likely has O(n^2) time complexity - which is really bad. Can we do better?
    * 
    * @tparam T 
-   * @param nums1 
-   * @param nums2 
-   * @return std::vector<T> 
+   * @param nums1 A subset of nums2 where nums1.size() <= nums2.size()
+   * @param nums2 A *unique* set of integers.
+   * @return std::vector<T> A vector of length nums1.size() such that each
+   * element is the "next greater element" as described above.
    */
   template <typename T>
   std::vector<T> next_greater_element(
     const std::vector<T>& nums1,
     const std::vector<T>& nums2)
   {
-    return {};
+    // // Create the result vector (same size as nums1).
+    // std::vector<T> result(nums1.size(), -1);
+
+    // // Time complexity: Due to the nested for-loop approach, this solution
+    // // has O(m *n) time complexity where m and n are the sizes of nums1 and 
+    // // nums2, respectively, i.e. effectively O(n^2). Can we do better?
+    // size_t idx{0};
+    // for ( size_t i = 0; i < nums1.size(); i++ ) {
+    //   LOG("Searching for '" << nums1[i] << "' in nums2");
+    //   for ( size_t j = 0; j < nums2.size(); j++ ) {
+    //     if ( nums1[i] == nums2[j] ) {
+    //       LOG("Found '" << nums2[j] << "' at index " << j);
+    //       for ( size_t k = j+1; k < nums2.size(); k++ ) {
+    //         if (nums2[k] > nums2[j] ) {
+    //           LOG("Found next greatest element '" << nums2[k] << 
+    //             "' at index " << k);
+    //           result[idx] = nums2[k];
+    //           break;
+    //         }
+    //         LOG("No next grrater element found.");
+    //       }
+    //     }
+    //   }
+    //   idx++;
+    // }
+
+    // The time complexity of the solution below is O(m + n), where m and n are
+    // nums1.size() and nums2.size(), respectively. We iterate once over nums2
+    // to create the 'next_largest' map - iteration over nums2 costs O(n), and
+    // each insertion into the map costs O(1). Next, to create the result
+    // vector, we iterate over nums1 exactly once and populate an element of the
+    // result vector at each iteration with a single O(1) lookup into the map.
+
+    // Store a map of (value, next largest value) for each value in nums2.
+    std::unordered_map<T, T> next_largest;
+
+    // Use a stack to pre-process nums2 and create the next_largest map.
+    std::stack<T> stack;
+
+    // Pre-process nums2 to create the next_largest map
+    for ( const T& num : nums2 ) {
+      // Begin by evaluating the current number against the top of the stack.
+      while ( !stack.empty() && num > stack.top() ) {
+        // We've found the next largest element. All current values in the stack
+        // are guaranteed to be less than the current value 'num', so pop all
+        // values from the stack and create an entry in the map for each value.
+        LOG("next_largest[" << stack.top() << "] = " << num);
+        next_largest[stack.top()] = num;
+        stack.pop();
+      }
+
+      // Place the current value onto the stack.
+      LOG("Placing '" << num << "' onto the stack.");
+      stack.push(num);
+    }
+
+    // For any values remaining on the stack, there is no next largest element.
+    while ( !stack.empty() ) {
+      next_largest[stack.top()] = -1;
+      stack.pop();
+    }
+
+    // Create the result vector
+    std::vector<T> result(nums1.size());
+    for (size_t idx = 0; idx < nums1.size(); idx++ ) {
+      result[idx] = next_largest[nums1[idx]];
+    }
+
+    return result;
   }
+
+  /**
+   * @brief 901. Online Stock Span (Medium)
+   * https://leetcode.com/problems/online-stock-span/
+   * 
+   * Design an algorithm that collects daily price quotes for some stock and
+   * returns the "span" of that stock's price for the current day.
+   * 
+   * The span of the stock's price in one day is the maximum number of
+   * consecutive days (starting from that day and going backward) for which the
+   * stock price was less than or equal to the price of that day.
+   * 
+   * For example, if the prices of the stock in the last four days is [7,2,1,2]
+   * and the price of the stock today is 2, then the span of today is 4 because
+   * starting from today, the price of the stock was less than or equal 2 for 4
+   * consecutive days.
+   * 
+   * @tparam T 
+   */
+  template<typename T>
+  class StockPanner
+  {
+    public:
+      // StockSpanner() = default;
+
+      /**
+       * @brief Returns the span of the stock's price given that today's price 
+       * is 'price'.
+       * 
+       * @param price Today's price.
+       * @return T The span of the stock's price.
+       */
+      inline T next(T price) {
+        return {};
+      };
+  };
 }
