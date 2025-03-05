@@ -106,7 +106,7 @@ namespace dsa::data_structures::binary_trees
 
       // The current node contributes 1 to the depth.
       return std::max(ldepth, rdepth) + 1;
-    }
+    };
 
     return max_depth(root->left) + max_depth(root->right);
   }

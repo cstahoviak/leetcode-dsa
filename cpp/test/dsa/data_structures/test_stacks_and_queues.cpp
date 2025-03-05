@@ -15,32 +15,44 @@
 using namespace dsa::data_structures::stacks_and_queues;
 
 TEST(TestStacksAndQueues, TestSimplifyPath) {
-  GTEST_SKIP();
-
-  std::string path1{"/home/"};
+  const std::string path1{"/home/"};
   EXPECT_EQ(simplify_path(path1), "/home");
 
-  std::string path2{"/home//foo/"};
+  const std::string path2{"/home//foo/"};
   EXPECT_EQ(simplify_path(path2), "/home/foo");
 
-  std::string path3{"/home/user/Documents/../Pictures"};
+  const std::string path3{"/home/user/Documents/../Pictures"};
   EXPECT_EQ(simplify_path(path3), "/home/user/Pictures");
 
-  std::string path4{"/../"};
+  const std::string path4{"/../"};
   EXPECT_EQ(simplify_path(path4), "/");
 
-  std::string path5{"/.../a/../b/c/../d/./"};
+  const std::string path5{"/.../a/../b/c/../d/./"};
   EXPECT_EQ(simplify_path(path5), "/.../b/d");
+}
+
+TEST(TestStacksAndQueues, TestMakeStringGreat) {
+  EXPECT_EQ(make_great("leEeetcode"), "leetcode");
+  EXPECT_EQ(make_great("abBAcC"), "");
+  EXPECT_EQ(make_great("s"), "s");
 }
 
 TEST(TestStacksAndQueues, TestMovingAverage) {
   MovingAverage moving_avg(3);
-  std::vector<int> nums {1, 10, 3, 5};
-  std::vector<float> expected {1, 5.5, 4.66666651, 6.0};
+  const std::vector<int> nums {1, 10, 3, 5};
+  const std::vector<float> expected {1, 5.5, 4.66666651, 6.0};
 
   std::vector<float> avgs;
   for ( const int& num : nums ) {
     avgs.push_back(moving_avg.next(num));
   }
   EXPECT_EQ(avgs, expected);
+}
+
+TEST(TestStacksAndQueues, TestNextGreaterElement) {
+  GTEST_SKIP();
+}
+
+TEST(TestStacksAndQueues, TestOnlineStockSpan) {
+  GTEST_SKIP();
 }
